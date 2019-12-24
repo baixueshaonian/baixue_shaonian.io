@@ -8,20 +8,23 @@
   
     <meta name="keywords" content="白雪少年's Blog" />
   
-  <meta name="description" content="一、SSLSSL概述：SSL协议时在Internet基础上提供的一种保证私密性的安全协议。他能使客户端和服务器之间的通信不被攻击者窃听，并且始终对服务器进行认证，还可选择对客户端进行认证。 优点： 1、广泛应用于电子商务、网上银行等领域  有较高的安全性：利用数据加密、身份认证、消息完整性验证机制来保证了数据在网络上传输的安全。 适用范围广：SSL位于应用层和传输层之间，可以为任何基于tcp可靠连">
+  <meta name="description" content="储备知识：一、SSL基本概念原理：SSL概述：SSL协议时在Internet基础上提供的一种保证私密性的安全协议。他能使客户端和服务器之间的通信不被攻击者窃听，并且始终对服务器进行认证，还可选择对客户端进行认证。 优点： 1、广泛应用于电子商务、网上银行等领域  有较高的安全性：利用数据加密、身份认证、消息完整性验证机制来保证了数据在网络上传输的安全。 适用范围广：SSL位于应用层和传输层之间，可">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SSL与PKI">
 <meta property="og:url" content="http://yoursite.com/2019/12/24/SSL%E4%B8%8EPKI/index.html">
 <meta property="og:site_name" content="白雪少年&#39;blog">
-<meta property="og:description" content="一、SSLSSL概述：SSL协议时在Internet基础上提供的一种保证私密性的安全协议。他能使客户端和服务器之间的通信不被攻击者窃听，并且始终对服务器进行认证，还可选择对客户端进行认证。 优点： 1、广泛应用于电子商务、网上银行等领域  有较高的安全性：利用数据加密、身份认证、消息完整性验证机制来保证了数据在网络上传输的安全。 适用范围广：SSL位于应用层和传输层之间，可以为任何基于tcp可靠连">
+<meta property="og:description" content="储备知识：一、SSL基本概念原理：SSL概述：SSL协议时在Internet基础上提供的一种保证私密性的安全协议。他能使客户端和服务器之间的通信不被攻击者窃听，并且始终对服务器进行认证，还可选择对客户端进行认证。 优点： 1、广泛应用于电子商务、网上银行等领域  有较高的安全性：利用数据加密、身份认证、消息完整性验证机制来保证了数据在网络上传输的安全。 适用范围广：SSL位于应用层和传输层之间，可">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://github.com/baixueshaonian/picture/raw/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%801224/1.png">
+<meta property="og:image" content="https://github.com/baixueshaonian/picture/raw/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/6.png">
 <meta property="article:published_time" content="2019-12-24T08:28:34.000Z">
-<meta property="article:modified_time" content="2019-12-24T10:37:48.954Z">
+<meta property="article:modified_time" content="2019-12-24T14:13:46.345Z">
 <meta property="article:author" content="白雪少年">
 <meta property="article:tag" content="网络基础">
 <meta property="article:tag" content="网络协议">
 <meta property="article:tag" content="网络安全">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/baixueshaonian/picture/raw/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%801224/1.png">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -146,7 +149,7 @@
     <div class="article-entry post-content" itemprop="articleBody">
       
             
-            <h1 id="一、SSL"><a href="#一、SSL" class="headerlink" title="一、SSL"></a>一、SSL</h1><h2 id="SSL概述："><a href="#SSL概述：" class="headerlink" title="SSL概述："></a>SSL概述：</h2><p>SSL协议时在Internet基础上提供的一种保证私密性的安全协议。他能使客户端和服务器之间的通信不被攻击者窃听，并且始终对服务器进行认证，还可选择对客户端进行认证。</p>
+            <h1 id="储备知识："><a href="#储备知识：" class="headerlink" title="储备知识："></a>储备知识：</h1><h1 id="一、SSL基本概念原理："><a href="#一、SSL基本概念原理：" class="headerlink" title="一、SSL基本概念原理："></a>一、SSL基本概念原理：</h1><h2 id="SSL概述："><a href="#SSL概述：" class="headerlink" title="SSL概述："></a>SSL概述：</h2><p>SSL协议时在Internet基础上提供的一种保证私密性的安全协议。他能使客户端和服务器之间的通信不被攻击者窃听，并且始终对服务器进行认证，还可选择对客户端进行认证。</p>
 <p><strong>优点：</strong></p>
 <p><strong>1、广泛应用于电子商务、网上银行等领域</strong></p>
 <ul>
@@ -167,11 +170,64 @@
 <p><u>国际上广泛信任的CA称为根CA：根CA可以授权其下级CA。</u></p>
 <p>例如：CA 1 作为根证书，签发下一级CA2证书，CA2又可以给他的下一级CA3签发证书，以此类推，，，，</p>
 <p><strong>验证机制：</strong>如果服务器端的证书是由CA3签发，那么客户端验证证书的过程从服务器端的证书有效性验证开始，先验证CA3是否有效，通过CA2来验证CA3，最后由根证书验证CA2，只有根证书的验证，服务器的证书才有效。</p>
-<p><img src="" alt=""></p>
+<p><img src="https://github.com/baixueshaonian/picture/raw/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%801224/1.png" alt=""></p>
+<ul>
+<li><p>数字证书：</p>
+<p>数字证书实际上是一种存于计算机上的一个记录，是通过CA签发的一个证明，证明证书申请者与证书中包含的公钥的唯一关系。数字证书中包含<strong>证书申请者名称和相关信息、申请者的公钥、签发数字证书的CA数字签名和数字证书的有效期</strong>等内容。</p>
+<p>用户必须事先获得<strong>信息发送者的公钥证书</strong>，来进行对信息的解码认证（使用公钥密码来进行验证，利用私钥加密公钥解密的原理）同时还要将CA发送给发送者的证书，以便于用户验证发送者的身份。</p>
+</li>
+<li><p>证书撤销列表CRL</p>
+<p>CRL是由CA发布的，制定了一套证书发送者认为无效的证书。</p>
+<p>证书的寿命是有限的，但是CA可通过证书撤销过程缩短证书的寿命。<strong>CRL指定的寿命通常比数字证书指定的寿命要短</strong>。由CA撤销数字证书，意味着CA在数字证书正常到期之前撤销允许使用秘钥对的有关声明。在撤销证书到期后，CRL中的有关数据被删除，来减少CRL的大小。</p>
+<p> <strong>任何一个证书被废除之后，证书机构CA就要发布CRL来声明证书无效。并列出所有被废除证书的签发者和序列号、CRL的签发日期，证书的撤销日期，CRL的下次发布时间等信息。</strong></p>
+<p>更多知识请详见大佬的wiki： </p>
+</li>
+</ul>
+<h2 id="协议安全机制："><a href="#协议安全机制：" class="headerlink" title="协议安全机制："></a>协议安全机制：</h2><p>安全机制：</p>
+<ul>
+<li><p>数据加密：</p>
+<p>通过对称加密对传输数据进行加密（速度快），通过秘钥交换算法RSA</p>
+</li>
+</ul>
+<p>  加密传输对称秘钥算法中的秘钥。</p>
+<ul>
+<li><p>身份验证：</p>
+<p>基于证书利用数字签名的方法来对服务器和客户端进行身份认证。SSL服务器和客户端通过公钥基础设施PKI提供的机制从CA获取证书。</p>
+</li>
+<li><p>可靠性：</p>
+<p>使用基于秘钥的消息验证码MAC来检验消息的完整性。MAC算法是将秘钥和任意长度的数据转换为固定长度的一种算法。</p>
+</li>
+</ul>
+<h1 id="二、PKI简介："><a href="#二、PKI简介：" class="headerlink" title="二、PKI简介："></a>二、PKI简介：</h1><h2 id="定义："><a href="#定义：" class="headerlink" title="定义："></a>定义：</h2><p>公钥基础设施PKI，<strong>是一种遵循既定标准的证书管理平台</strong>，它利用公钥技术能够为所有网络应用提供安全服务。PKI技术是信息安全技术的核心。</p>
+<h2 id="目的："><a href="#目的：" class="headerlink" title="目的："></a>目的：</h2><p>为了解决电子商务交易过程中的诸多问题：</p>
+<ul>
+<li>交易双方并不现场交易，无法确定双方的合法身份。</li>
+<li>通过网络传输时信息容易被窃取和篡改，无法保证信息的安全性。</li>
+<li>交易双方发生纠纷无凭证可依</li>
+</ul>
+<p>为了解决诸如此类的问题，PKI利用公钥技术保证在交易过程中能够实现身份认证、保密、数据完整性和不可否认性。</p>
+<h2 id="原理："><a href="#原理：" class="headerlink" title="原理："></a>原理：</h2><h3 id="基本概念：-1"><a href="#基本概念：-1" class="headerlink" title="基本概念："></a>基本概念：</h3><p>PKI的核心技术就围绕着数字证书的申请、颁发和使用等整个生命周期进行展开，而整个生命周期过程中，PKI会使用到对称密钥加密、公钥加密、数字信封和数字签名技术。</p>
+<h3 id="PKI体系架构："><a href="#PKI体系架构：" class="headerlink" title="PKI体系架构："></a>PKI体系架构：</h3><p>一个PKI体系由终端实体、证书认证机构、证书注册机构和证书/CRL存储库四部分组成。</p>
+<p><img src="https://github.com/baixueshaonian/picture/raw/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/6.png" alt=""></p>
+<ul>
+<li><p>终端实体（EE）：终端实体也称为PKI实体，他是PKI产品或者服务的最终使用者，可以是个人、组织、设备或者计算机运行的进程。</p>
+</li>
+<li><p>证书认证机构CA</p>
+<p>CA是PKI的信任基础，是一个用于颁发并管理数字证书的可信实体。它是一种权威性、可信任性和公认性的第三方机构，通常由服务器充当。</p>
+</li>
+<li><p>证书注册机构RA</p>
+<p>RA是数字证书注册审批机构，RA是CA面对用户的窗口，是CA的证书发放、管理功能的延伸，它负责接收用户的证书注册和撤销申请，对用户的身份信息进行审查，并决定是否向CA提交签发或者撤销数字证书的申请。</p>
+<p>RA作为CA功能的一部分，实际应用中，通常RA并不一定独立存在，而是和CA合并在一起。RA也可以独立出来，分担CA的一部分功能，减轻CA的压力，减轻CA的压力，增强CA系统的安全性。</p>
+</li>
+<li><p>证书/CRL存储库</p>
+<p>由于用户名称的改变，私钥泄露或业务终止等原因，需要存在一种方法将现行的证书吊销，即撤销公钥及相关的PKI实体身份绑定信息的绑定关系。在PKI中，所使用的这种方法叫CRL。</p>
+<p> <strong>任何一个证书被撤销后，CA就要发布CRL来声明</strong>。</p>
+</li>
+</ul>
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2019年12月24日 18:37</p>
+        <p>最后更新： 2019年12月24日 22:13</p>
         <p>原始链接： <a class="post-url" href="/2019/12/24/SSL%E4%B8%8EPKI/" title="SSL与PKI">http://yoursite.com/2019/12/24/SSL%E4%B8%8EPKI/</a></p>
         <footer>
             <a href="http://yoursite.com">
@@ -293,7 +349,7 @@
 
     <aside class="post-toc-pos post-toc-top" id="post-toc">
         <nav class="post-toc-wrap">
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#一、SSL"><span class="post-toc-text">一、SSL</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#SSL概述："><span class="post-toc-text">SSL概述：</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#基本概念："><span class="post-toc-text">基本概念：</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#储备知识："><span class="post-toc-text">储备知识：</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#一、SSL基本概念原理："><span class="post-toc-text">一、SSL基本概念原理：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#SSL概述："><span class="post-toc-text">SSL概述：</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#基本概念："><span class="post-toc-text">基本概念：</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#协议安全机制："><span class="post-toc-text">协议安全机制：</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#二、PKI简介："><span class="post-toc-text">二、PKI简介：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#定义："><span class="post-toc-text">定义：</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#目的："><span class="post-toc-text">目的：</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#原理："><span class="post-toc-text">原理：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#基本概念：-1"><span class="post-toc-text">基本概念：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#PKI体系架构："><span class="post-toc-text">PKI体系架构：</span></a></li></ol></li></ol></li></ol>
         </nav>
     </aside>
     
@@ -310,11 +366,6 @@
       </span>
     </a>
   
-  
-    <a href="/2019/12/24/ceshi/" id="article-nav-older" class="article-nav-link-wrap">
-      <span class="article-nav-title">ceshi</span>
-      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
-    </a>
   
 </nav>
 
@@ -377,7 +428,7 @@
             <a class="category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">网络基础</a><a class="category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a>
         </div>
         <div id="sidebar-menu-box-tags">
-            <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 10px;">密码学</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">网络协议</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" style="font-size: 20px;">网络基础</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 20px;">网络安全</a>
+            <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 10px;">密码学</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">网络协议</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">网络基础</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 20px;">网络安全</a>
         </div>
     </div>
     <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
@@ -410,7 +461,7 @@
     <div class="mobile-header-tag-container">
         <span class="title">Tags</span>
         <div id="mobile-header-container-tags">
-            <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 10px;">密码学</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">网络协议</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" style="font-size: 20px;">网络基础</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 20px;">网络安全</a>
+            <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 10px;">密码学</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">网络协议</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">网络基础</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 20px;">网络安全</a>
         </div>
     </div>
 </div>
