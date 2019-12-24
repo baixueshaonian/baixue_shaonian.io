@@ -8,13 +8,15 @@
   
     <meta name="keywords" content="白雪少年's Blog" />
   
-  <meta property="og:type" content="article">
+  <meta name="description" content="一、SSLSSL概述：SSL协议时在Internet基础上提供的一种保证私密性的安全协议。他能使客户端和服务器之间的通信不被攻击者窃听，并且始终对服务器进行认证，还可选择对客户端进行认证。 优点： 1、广泛应用于电子商务、网上银行等领域  有较高的安全性：利用数据加密、身份认证、消息完整性验证机制来保证了数据在网络上传输的安全。 适用范围广：SSL位于应用层和传输层之间，可以为任何基于tcp可靠连">
+<meta property="og:type" content="article">
 <meta property="og:title" content="SSL与PKI">
 <meta property="og:url" content="http://yoursite.com/2019/12/24/SSL%E4%B8%8EPKI/index.html">
 <meta property="og:site_name" content="白雪少年&#39;blog">
+<meta property="og:description" content="一、SSLSSL概述：SSL协议时在Internet基础上提供的一种保证私密性的安全协议。他能使客户端和服务器之间的通信不被攻击者窃听，并且始终对服务器进行认证，还可选择对客户端进行认证。 优点： 1、广泛应用于电子商务、网上银行等领域  有较高的安全性：利用数据加密、身份认证、消息完整性验证机制来保证了数据在网络上传输的安全。 适用范围广：SSL位于应用层和传输层之间，可以为任何基于tcp可靠连">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2019-12-24T08:28:34.000Z">
-<meta property="article:modified_time" content="2019-12-24T08:41:10.025Z">
+<meta property="article:modified_time" content="2019-12-24T10:37:48.954Z">
 <meta property="article:author" content="白雪少年">
 <meta property="article:tag" content="网络基础">
 <meta property="article:tag" content="网络协议">
@@ -144,10 +146,32 @@
     <div class="article-entry post-content" itemprop="articleBody">
       
             
-            
+            <h1 id="一、SSL"><a href="#一、SSL" class="headerlink" title="一、SSL"></a>一、SSL</h1><h2 id="SSL概述："><a href="#SSL概述：" class="headerlink" title="SSL概述："></a>SSL概述：</h2><p>SSL协议时在Internet基础上提供的一种保证私密性的安全协议。他能使客户端和服务器之间的通信不被攻击者窃听，并且始终对服务器进行认证，还可选择对客户端进行认证。</p>
+<p><strong>优点：</strong></p>
+<p><strong>1、广泛应用于电子商务、网上银行等领域</strong></p>
+<ul>
+<li>有较高的安全性：利用<strong>数据加密</strong>、<strong>身份认证</strong>、<strong>消息完整性验证</strong>机制来保证了数据在网络上传输的安全。</li>
+<li>适用范围广：SSL位于应用层和传输层之间，可以为任何基于tcp可靠连接的应用层协议提供安全性保证。</li>
+<li>部署简单：广泛应用于鉴别网站和网页浏览者之间的身份，进行双向鉴别，在浏览器使用者和web服务器之间使用加密。</li>
+</ul>
+<p><strong>2、应用：</strong></p>
+<ul>
+<li>保证合法客户端安全的访问服务器，禁止非法客户端访问。</li>
+<li>客户端与服务器之间进行加密和摘要，确保其<strong>保密性和完整性</strong>。</li>
+<li>为设备指定基于证书属性的访问控制策略，对客户端的访问权限进行控制，避免非法客户端的攻击。</li>
+</ul>
+<h2 id="基本概念："><a href="#基本概念：" class="headerlink" title="基本概念："></a>基本概念：</h2><ol>
+<li><strong>CA：</strong></li>
+</ol>
+<p>ca是发放、管理、废除数字证书的机构。CA的作用是<strong>检查数字证书持有者的身份</strong>的合法性，并<strong>签发数字证书</strong>，防止证书被伪造和篡改，以及<strong>证书的管理</strong>。</p>
+<p><u>国际上广泛信任的CA称为根CA：根CA可以授权其下级CA。</u></p>
+<p>例如：CA 1 作为根证书，签发下一级CA2证书，CA2又可以给他的下一级CA3签发证书，以此类推，，，，</p>
+<p><strong>验证机制：</strong>如果服务器端的证书是由CA3签发，那么客户端验证证书的过程从服务器端的证书有效性验证开始，先验证CA3是否有效，通过CA2来验证CA3，最后由根证书验证CA2，只有根证书的验证，服务器的证书才有效。</p>
+<p><img src="" alt=""></p>
+
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2019年12月24日 16:41</p>
+        <p>最后更新： 2019年12月24日 18:37</p>
         <p>原始链接： <a class="post-url" href="/2019/12/24/SSL%E4%B8%8EPKI/" title="SSL与PKI">http://yoursite.com/2019/12/24/SSL%E4%B8%8EPKI/</a></p>
         <footer>
             <a href="http://yoursite.com">
@@ -267,8 +291,24 @@
 </article>
 
 
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#一、SSL"><span class="post-toc-text">一、SSL</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#SSL概述："><span class="post-toc-text">SSL概述：</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#基本概念："><span class="post-toc-text">基本概念：</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
 
 <nav id="article-nav">
+  
+    <a href="/2019/12/24/%E7%AE%80%E5%8D%95%E5%AF%86%E7%A0%81%E5%AD%A6%E5%8E%9F%E7%90%86/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          简单密码学原理
+        
+      </span>
+    </a>
   
   
     <a href="/2019/12/24/ceshi/" id="article-nav-older" class="article-nav-link-wrap">
@@ -334,10 +374,10 @@
 <div class="sidebar-menu-box" id="sidebar-menu-box">
     <div class="sidebar-menu-box-container">
         <div id="sidebar-menu-box-categories">
-            <a class="category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">网络基础</a>
+            <a class="category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">网络基础</a><a class="category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a>
         </div>
         <div id="sidebar-menu-box-tags">
-            <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">网络协议</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" style="font-size: 20px;">网络基础</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 10px;">网络安全</a>
+            <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 10px;">密码学</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">网络协议</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" style="font-size: 20px;">网络基础</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 20px;">网络安全</a>
         </div>
     </div>
     <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
@@ -370,7 +410,7 @@
     <div class="mobile-header-tag-container">
         <span class="title">Tags</span>
         <div id="mobile-header-container-tags">
-            <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">网络协议</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" style="font-size: 20px;">网络基础</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 10px;">网络安全</a>
+            <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 10px;">密码学</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">网络协议</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" style="font-size: 20px;">网络基础</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 20px;">网络安全</a>
         </div>
     </div>
 </div>
