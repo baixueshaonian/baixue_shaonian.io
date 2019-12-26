@@ -8,19 +8,35 @@
   
     <meta name="keywords" content="白雪少年's Blog" />
   
-  <meta name="description" content="组建OSPF网络一、ospf简介：定义：开放式最短路径优先OPSF是IETF组织开发的一个机遇链路状态的内部网关协议。 目的：在OSPF出现前，网络上广泛使用RIP作为内部网关协议。 由于RIP是基于距离矢量算法的路由协议，存在着收敛慢、路由环路、可扩展性差等问题，所以逐渐被OSPF取代。">
+  <meta name="description" content="组建OSPF网络一、ospf简介：定义：开放式最短路径优先OPSF是IETF组织开发的一个机遇链路状态的内部网关协议。 目的：在OSPF出现前，网络上广泛使用RIP作为内部网关协议。 由于RIP是基于距离矢量算法的路由协议，存在着收敛慢、路由环路、可扩展性差等问题，所以逐渐被OSPF取代。 OSPF作为基于链路状态的协议，能够解决RIP所面临的诸多问题 OPSF优点：OSPF采用组播形式收发报文，">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ospf介绍">
 <meta property="og:url" content="http://yoursite.com/2019/12/25/ospf%E4%BB%8B%E7%BB%8D/index.html">
 <meta property="og:site_name" content="白雪少年&#39;blog">
-<meta property="og:description" content="组建OSPF网络一、ospf简介：定义：开放式最短路径优先OPSF是IETF组织开发的一个机遇链路状态的内部网关协议。 目的：在OSPF出现前，网络上广泛使用RIP作为内部网关协议。 由于RIP是基于距离矢量算法的路由协议，存在着收敛慢、路由环路、可扩展性差等问题，所以逐渐被OSPF取代。">
+<meta property="og:description" content="组建OSPF网络一、ospf简介：定义：开放式最短路径优先OPSF是IETF组织开发的一个机遇链路状态的内部网关协议。 目的：在OSPF出现前，网络上广泛使用RIP作为内部网关协议。 由于RIP是基于距离矢量算法的路由协议，存在着收敛慢、路由环路、可扩展性差等问题，所以逐渐被OSPF取代。 OSPF作为基于链路状态的协议，能够解决RIP所面临的诸多问题 OPSF优点：OSPF采用组播形式收发报文，">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://github.com/baixueshaonian/picture/raw/20191226c/1.png">
+<meta property="og:image" content="https://github.com/baixueshaonian/picture/raw/20191226c/2.png">
+<meta property="og:image" content="https://github.com/baixueshaonian/picture/raw/20191226c/3.png">
+<meta property="og:image" content="https://github.com/baixueshaonian/picture/raw/20191226c/4.png">
+<meta property="og:image" content="https://github.com/baixueshaonian/picture/raw/20191226c/5.png">
+<meta property="og:image" content="https://github.com/baixueshaonian/picture/raw/20191226c/6.png">
+<meta property="og:image" content="https://github.com/baixueshaonian/picture/raw/20191226c/7.png">
+<meta property="og:image" content="https://github.com/baixueshaonian/picture/raw/20191226c/8.png">
+<meta property="og:image" content="https://github.com/baixueshaonian/picture/raw/20191226c/9.png">
+<meta property="og:image" content="https://github.com/baixueshaonian/picture/raw/20191226c/10.png">
+<meta property="og:image" content="https://github.com/baixueshaonian/picture/raw/20191226c/11.png">
+<meta property="og:image" content="https://github.com/baixueshaonian/picture/raw/20191226c/12.png">
+<meta property="og:image" content="https://github.com/baixueshaonian/picture/raw/20191226c/13.png">
+<meta property="og:image" content="https://github.com/baixueshaonian/picture/raw/20191226c/14.png">
+<meta property="og:image" content="https://github.com/baixueshaonian/picture/raw/20191226c/15.png">
 <meta property="article:published_time" content="2019-12-25T02:01:54.000Z">
-<meta property="article:modified_time" content="2019-12-25T02:05:39.459Z">
+<meta property="article:modified_time" content="2019-12-26T14:01:40.328Z">
 <meta property="article:author" content="白雪少年">
 <meta property="article:tag" content="路由配置">
 <meta property="article:tag" content="ospf">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/baixueshaonian/picture/raw/20191226c/1.png">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -148,10 +164,95 @@
             <h1 id="组建OSPF网络"><a href="#组建OSPF网络" class="headerlink" title="组建OSPF网络"></a>组建OSPF网络</h1><h2 id="一、ospf简介："><a href="#一、ospf简介：" class="headerlink" title="一、ospf简介："></a>一、ospf简介：</h2><h3 id="定义："><a href="#定义：" class="headerlink" title="定义："></a>定义：</h3><p>开放式最短路径优先OPSF是IETF组织开发的一个机遇链路状态的内部网关协议。</p>
 <h3 id="目的："><a href="#目的：" class="headerlink" title="目的："></a>目的：</h3><p>在OSPF出现前，网络上广泛使用RIP作为内部网关协议。</p>
 <p>由于RIP是基于距离矢量算法的路由协议，存在着收敛慢、路由环路、可扩展性差等问题，所以逐渐被OSPF取代。</p>
+<p>OSPF作为基于链路状态的协议，能够解决RIP所面临的诸多问题</p>
+<h3 id="OPSF优点："><a href="#OPSF优点：" class="headerlink" title="OPSF优点："></a>OPSF优点：</h3><p>OSPF采用组播形式收发报文，这样可以减少其他不运行OPSF路由器的影响。</p>
+<p>OSPF支持无类型域间选路（CIDR）。</p>
+<p>OSPF支持对等价路由进行负载分担。</p>
+<p>OSPF支持报文加密。</p>
+<p>由于OSPF具有以上优势，使得OSPF作为优秀的内部网关协议被快速接收并广泛使用。</p>
+<h2 id="二、OSPF邻居建立："><a href="#二、OSPF邻居建立：" class="headerlink" title="二、OSPF邻居建立："></a>二、OSPF邻居建立：</h2><p>1、建立邻居关系：</p>
+<p>a.本段设备通过接口向外发送hello报文与对端设备建立邻居关系。</p>
+<p>2、建立邻接关系：</p>
+<p>b.两端设备进行主从关系协商和DD报文的交换。</p>
+<p>c.两端设备通过更新LSA完成链路数据库LSDB的同步。</p>
+<p>3、路由计算：</p>
+<p>OSPF采用SPF算法计算路由，可以达到路由快速收敛的目的。</p>
+<h3 id="在广播网络中建立邻接关系："><a href="#在广播网络中建立邻接关系：" class="headerlink" title="在广播网络中建立邻接关系："></a>在广播网络中建立邻接关系：</h3><p>在上述邻居状态机的变化中，由两处决定是否建立邻接关系；</p>
+<ul>
+<li>当与邻居的双向通信初次建立时。</li>
+<li>当网段中的DR和BDR发生变化时。</li>
+</ul>
+<p>OSPF在不同网络类型中，OSPF邻接关系建立的过程不同，分为广播网络，NBMA网络，点到点/点到多点网络。</p>
+<p>广播链路邻接关系建立过程如图所示：</p>
+<p>在广播网络中，DR、BDR和网段内的每一台路由器都形成邻接关系，但是DR other之间只形成邻居关系。</p>
+<p><img src="https://github.com/baixueshaonian/picture/raw/20191226c/1.png" alt="1577313653338"></p>
+<p>如图所示，在广播网络中建立OSPF邻接关系的过程如下：</p>
+<h4 id="1-建立邻居关系"><a href="#1-建立邻居关系" class="headerlink" title="1.建立邻居关系"></a><strong>1.建立邻居关系</strong></h4><p><img src="https://github.com/baixueshaonian/picture/raw/20191226c/2.png" alt="1577328854047"></p>
+<p>a.RouterA的一个连接到广播类型网路的接口上激活了OSPF协议，并发送了一个Hello报文（使用组播地址224.0.0.5）。此时，RouterA认为自己是DR路由器（DR=1.1.1.1），但是不确定邻居是哪台路由器。（<strong>hello报文每10s发送一次，只有两者之间达到2-way状态才算邻居关系双向建立成功。</strong>）</p>
+<p><code>[Router A-ospf-1]display this</code><br><code>[V200R003C00]</code><br><code>#
+ospf 1 router-id 1.1.1.1</code><br> <code>area 0.0.0.0</code><br>  <code>network 12.1.1.1 0.0.0.0</code><br><code>#</code><br><code>return</code></p>
+<p><u>配置命令：在RouterA将接口GE 0/0/0宣告进ospf后接口会向目标地址224.0.0.5发送hello报文</u>，报文如下：</p>
+<p><img src="https://github.com/baixueshaonian/picture/raw/20191226c/3.png" alt="1577329165277"></p>
+<p>通过抓包可以发现：RouterA每隔10秒向组播地址225.0.0.5发送hello报文：</p>
+<p><img src="https://github.com/baixueshaonian/picture/raw/20191226c/4.png" alt="1577329274763"></p>
+<p>由上图可知RouterA 通过hello报文来发现路由器。</p>
+<p>b.RouterB收到RouterA发送的Hello报文之后，发送一个Hello报文回应给RouterA，并在报文中的Active Neighbors字段中填入RouterA的Router ID，标识已经收到RouterA的hello报文，并且宣告DR路由器是 RouterB（DR = 2.2.2.2），然后RouterB的邻居状态机置为init。</p>
+<p><code>[Router A]</code><br><code>Dec 26 2019 11:03:06-08:00 Router A %%01OSPF/4/NBR_CHANGE_E(l)[0]:Neighbor chang</code><br><code>es event: neighbor status changed. (ProcessId=256, NeighborAddress=2.1.1.12, Nei</code><br><code>ghborEvent=HelloReceived, NeighborPreviousState=Down, NeighborCurrentState=Init)</code></p>
+<p>当RouterB将端口宣告进ospf后同样立刻发送hello，报文当RouterA收到hello报文后，立即回应并且将自身状态置为init状态，如上提示。</p>
+<p><img src="https://github.com/baixueshaonian/picture/raw/20191226c/5.png" alt="1577329542030"></p>
+<p>c.RouterA收到RouterB回应的Hello 报文之后，将邻居状态机置为2-way状态，下一步双方开始发送各自的链路状态数据库。</p>
+<p><img src="https://github.com/baixueshaonian/picture/raw/20191226c/6.png" alt="1577329807337"></p>
+<p><strong>至此邻居关系建立完成双方进入2-way状态。</strong></p>
+<p>说明：邻居表中邻居处于init状态仅代表单向的邻居建立成功，2-way代表双向的邻居已经建立成功。</p>
+<h4 id="2-邻接关系建立：主从关系协商-DD报文交换"><a href="#2-邻接关系建立：主从关系协商-DD报文交换" class="headerlink" title="2.邻接关系建立：主从关系协商/DD报文交换"></a><strong>2.邻接关系建立：主从关系协商/DD报文交换</strong></h4><p><strong>OSPF路由器在双向邻居关系建立完成后，开始建立邻接关系。在广播和非广播（NBMA）网络中，邻接关系发生在DR和BDR选举之后，在其他网络类型中没有DR BDR的选举过程，邻居关系建立完成后直接开始建立邻接关系。</strong></p>
+<p><img src="https://github.com/baixueshaonian/picture/raw/20191226c/7.png" alt="1577343867745"></p>
+<p>​    1.RouterA首先发送一个DD报文，宣称自己是Master(MS = 1),并规定序列号Seq=X。l = 1表示这是第一个DD报文，报文中并不包含LSA的摘要，只是为了协商主从关系。M=1说明这不是最后一个报文。</p>
+<!--为了提高发送的效率，RouterA和RouterB首先了解对端数据库中那些LSA是需要更新的，如果某一条LSA在LSDB中已经存在，就不再需要请求更新了。为了达到这个目的，RouterA和RouterB先发送DD报文，DD报文中包含了对LSDB中LSA的摘要描述（LSA的头部信息），为了保证在传输过程中报文传输的可靠性，在DD报文的发送过程中需要确定双方的主从关系，作为Master的一方定义一个序列号Seq，每发送一个新的DD报文将Seq加一，作为Slave的一方，每次发送DD报文时使用接收到的上一个Master的DD报文中的Seq。-->
+
+<p>​    2.RouterB在收到RouterA的DD报文之后，将RouterA的邻居状态机改为Exstart，并且回应一个DD报文。由于RouterB的RouterID较大，所以在报文中RouterB认为自己是Master，并且重新规定了序列号Seq=Y。</p>
+<p>​    3.RouterA收到报文后，同意了RouterB作为Master，并将RouterB的邻居状态机改为Exchange。RouterA使用RouterB的序列号Seq=Y来发送新的DD报文<strong>，该报文开始正式的传送LSA的摘要</strong>。在报文中RouterA将MS=0，说明自己是Slave。</p>
+<p>​    4.RouterB收到报文后，将RouterA的邻居状态机改为Exchange，<strong>并发送新的DD报文来描述自己的LSA摘要，此时RouterB将报文的序列号改为Seq=Y+1.</strong></p>
+<p>​    上述过程持续执行，RouterA通过重复RouterB的序列号来确认已经收到RouterB的报文。RouterB通过将序列号Seq加1来确认已经收到RouterA的报文。当RouterB发送最后一个DD报文后， 在报文中写上M=0。</p>
+<p><strong>下面是DD交互过程中的四个报文具体情况：</strong></p>
+<p><img src="https://github.com/baixueshaonian/picture/raw/20191226c/8.png" alt="1577361456340"></p>
+<p><img src="https://github.com/baixueshaonian/picture/raw/20191226c/9.png" alt="1577361405752"></p>
+<p><img src="https://github.com/baixueshaonian/picture/raw/20191226c/10.png" alt="1577361570082"></p>
+<p>   <img src="https://github.com/baixueshaonian/picture/raw/20191226c/11.png" alt="1577361677055"></p>
+<p><img src="https://github.com/baixueshaonian/picture/raw/20191226c/12.png" alt="1577362623448"></p>
+<p><strong>说明：再上图中不协商MTU，所以MTU默认为0</u></strong></p>
+<p><strong>总结：</strong></p>
+<p>1、信息交换初始状态：ExStart：本地路由器和邻居路由器间互传空DD报文。</p>
+<ul>
+<li><p>确定主从关系</p>
+</li>
+<li><p>确定DD的初始序列号</p>
+</li>
+<li><p>比较接口MTU（可选）</p>
+<p>在ExStart状态下，路由器互相发送的空DD报文中置I、M和MS位。</p>
+<p>I位初始化位，仅头两份DD报文中置该位，代表同步过程开始。</p>
+<p>M位：如果M位=0，则代表后续DD报文中没有LSA Summary要传。任何一方M位不置0，Master就要继续发送DD报文，<strong>Slave收到之后，不论是否还有LSA Summary要传递，一定要回应DD报文。</strong></p>
+</li>
+</ul>
+<p>2、信息交换状态Exchange：选举出Master后，Slave路由器向Master回送DD报文，其中包含LSDB中的LSA头列表，并使用Master的序列号。Master也把自己的LSA头列表用DD发送，序列号增加1，同时，Slave收到后会<strong>回应相同序列号的DD报文</strong>。任何一侧只要还有为传递完的LSA头，Master就一定要产生DD报文并由Slave回应。Exchange阶段通过这种可靠的DD交互，完成快速交换LSA头。</p>
+<p>3、如果Master没能收到Slaver的回应，那么每隔5s会重传该DD报文，直到收到Slave的DD报文。</p>
+<h4 id="3-LSDB链路状态数据库同步（LSR请求、LSU传输、LSA应答）"><a href="#3-LSDB链路状态数据库同步（LSR请求、LSU传输、LSA应答）" class="headerlink" title="3.LSDB链路状态数据库同步（LSR请求、LSU传输、LSA应答）"></a>3.LSDB链路状态数据库同步（LSR请求、LSU传输、LSA应答）</h4><p><strong>a. RouterA收到最后一个DD报文后，发现RouterB的数据库中由许多LSA是自己没有的，将邻居状态机改为Loading状态。</strong></p>
+<p><strong>b. RouterA发送LSR报文向RouterB请求更新LSA。RouterB用LSU报文来回应RouterA的请求。RouterA收到后，发送LSAck报文确认。</strong></p>
+<p>上述过程持续到RouterA的LSA域RouterB的LSA完全同步为止，此时RouterA将RouterB的邻居状态机改为Full状态。当路由器交换完DD报文并更新所有的LSA后，此时邻接关系建立完成。</p>
+<p><img src="https://github.com/baixueshaonian/picture/raw/20191226c/13.png" alt="1577363089270"></p>
+<h2 id="三、路由计算："><a href="#三、路由计算：" class="headerlink" title="三、路由计算："></a>三、路由计算：</h2><p>OSPF采用SPF算法计算路由，可以达到路由快速收敛的目的。</p>
+<p>OSPF协议使用链路状态通告LSA描述网络拓扑，即有向图。Router LSA描述路由器之间的链路和链路的属性。路由器将LSDB转换成一张带权的有向图，这张图便是对整个网络拓扑结构的真是反应。各个路由器得到的有向图是完全相同的。</p>
+<p><img src="https://github.com/baixueshaonian/picture/raw/20191226c/14.png" alt="1577367019726"></p>
+<p>每台路由器根据有向图，使用SPF算法计算出一颗以自己为根的最短路径树，这颗树给出了到自治系统中各节点的路由。</p>
+<p><img src="https://github.com/baixueshaonian/picture/raw/20191226c/15.png" alt="1577367399612"></p>
+<p>当OSPF的链路状态数据库LSDB发生改变时，需要重新计算最短路径，如果每次改变都立即计算最短路径，将占用大量资源，并会影响路由器的效率，通过调节SPF的计算间隔时间，可以抑制由于网络频繁变化带来的占用过多资源。缺省情况下，SPF时间间隔为5秒。</p>
+<h3 id="具体计算过程："><a href="#具体计算过程：" class="headerlink" title="具体计算过程："></a><strong>具体计算过程：</strong></h3><h4 id="1、计算区域内路由："><a href="#1、计算区域内路由：" class="headerlink" title="1、计算区域内路由："></a>1、计算区域内路由：</h4><p>Router LSA和Network LSA可以精确的描述出整个区域内部的网络拓扑，根据SPF算法，可以计算出到各个路由器的最短路径。根据Router LSA描述的域路由器的网段情况，得到了到达各个网段的具体路径。</p>
+<p>说明：在计算过程中，如果有多条等价路由，SPF算法会将所有等价路径都保留在LSDB中。</p>
+<h4 id="2、计算区域外路由："><a href="#2、计算区域外路由：" class="headerlink" title="2、计算区域外路由："></a>2、计算区域外路由：</h4><p>从一个区域内部看，相邻区域的路由对应的网段好像是直接连接在ABR上，而到ABR的最短路径已经在上一过程中计算完毕，所以直接检查Network Summary LSA，就可以很容易得到这些网段的最短路径。另外，ASBR也可以看成是连接在ABR上，所以ASBR的最短路径也可以在这个阶段计算出来。</p>
+<h4 id="3、计算自制系统外路由。"><a href="#3、计算自制系统外路由。" class="headerlink" title="3、计算自制系统外路由。"></a>3、计算自制系统外路由。</h4><p>由于自治系统外部的路由可以看成是直接连接在ASBR上，而到ASBR上的最短路径在上一过程中已经计算完毕，所以逐条检查AS External LSA就可以得到到达各个外部网络的最短路径。</p>
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2019年12月25日 10:05</p>
+        <p>最后更新： 2019年12月26日 22:01</p>
         <p>原始链接： <a class="post-url" href="/2019/12/25/ospf%E4%BB%8B%E7%BB%8D/" title="ospf介绍">http://yoursite.com/2019/12/25/ospf%E4%BB%8B%E7%BB%8D/</a></p>
         <footer>
             <a href="http://yoursite.com">
@@ -271,7 +372,7 @@
 
     <aside class="post-toc-pos post-toc-top" id="post-toc">
         <nav class="post-toc-wrap">
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#组建OSPF网络"><span class="post-toc-text">组建OSPF网络</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一、ospf简介："><span class="post-toc-text">一、ospf简介：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#定义："><span class="post-toc-text">定义：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#目的："><span class="post-toc-text">目的：</span></a></li></ol></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#组建OSPF网络"><span class="post-toc-text">组建OSPF网络</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一、ospf简介："><span class="post-toc-text">一、ospf简介：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#定义："><span class="post-toc-text">定义：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#目的："><span class="post-toc-text">目的：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#OPSF优点："><span class="post-toc-text">OPSF优点：</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二、OSPF邻居建立："><span class="post-toc-text">二、OSPF邻居建立：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#在广播网络中建立邻接关系："><span class="post-toc-text">在广播网络中建立邻接关系：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-建立邻居关系"><span class="post-toc-text">1.建立邻居关系</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-邻接关系建立：主从关系协商-DD报文交换"><span class="post-toc-text">2.邻接关系建立：主从关系协商&#x2F;DD报文交换</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3-LSDB链路状态数据库同步（LSR请求、LSU传输、LSA应答）"><span class="post-toc-text">3.LSDB链路状态数据库同步（LSR请求、LSU传输、LSA应答）</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#三、路由计算："><span class="post-toc-text">三、路由计算：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#具体计算过程："><span class="post-toc-text">具体计算过程：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1、计算区域内路由："><span class="post-toc-text">1、计算区域内路由：</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2、计算区域外路由："><span class="post-toc-text">2、计算区域外路由：</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3、计算自制系统外路由。"><span class="post-toc-text">3、计算自制系统外路由。</span></a></li></ol></li></ol></li></ol></li></ol>
         </nav>
     </aside>
     
@@ -352,10 +453,10 @@
 <div class="sidebar-menu-box" id="sidebar-menu-box">
     <div class="sidebar-menu-box-container">
         <div id="sidebar-menu-box-categories">
-            <a class="category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">网络基础</a><a class="category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a>
+            <a class="category-link" href="/categories/Redlinux/">Redlinux</a><a class="category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">网络基础</a><a class="category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a>
         </div>
         <div id="sidebar-menu-box-tags">
-            <a href="/tags/ospf/" style="font-size: 10px;">ospf</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 10px;">密码学</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">网络协议</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">网络基础</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 20px;">网络安全</a> <a href="/tags/%E8%B7%AF%E7%94%B1%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">路由配置</a>
+            <a href="/tags/Redlinux/" style="font-size: 10px;">Redlinux</a> <a href="/tags/ospf/" style="font-size: 10px;">ospf</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 10px;">密码学</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">网络协议</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">网络基础</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 20px;">网络安全</a> <a href="/tags/%E8%B7%AF%E7%94%B1%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">路由配置</a>
         </div>
     </div>
     <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
@@ -388,7 +489,7 @@
     <div class="mobile-header-tag-container">
         <span class="title">Tags</span>
         <div id="mobile-header-container-tags">
-            <a href="/tags/ospf/" style="font-size: 10px;">ospf</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 10px;">密码学</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">网络协议</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">网络基础</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 20px;">网络安全</a> <a href="/tags/%E8%B7%AF%E7%94%B1%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">路由配置</a>
+            <a href="/tags/Redlinux/" style="font-size: 10px;">Redlinux</a> <a href="/tags/ospf/" style="font-size: 10px;">ospf</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 10px;">密码学</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">网络协议</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">网络基础</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 20px;">网络安全</a> <a href="/tags/%E8%B7%AF%E7%94%B1%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">路由配置</a>
         </div>
     </div>
 </div>
