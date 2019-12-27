@@ -3,20 +3,26 @@
 <head>
   <meta charset="utf-8">
   
-  <title>搭建远程web客户端登录企业内网 | 白雪少年&#39;blog</title>
+  <title>opsf各类lsa和路由更新 | 白雪少年&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="白雪少年's Blog" />
   
-  <meta property="og:type" content="article">
-<meta property="og:title" content="搭建远程web客户端登录企业内网">
-<meta property="og:url" content="http://yoursite.com/2019/12/25/%E6%90%AD%E5%BB%BA%E8%BF%9C%E7%A8%8Bweb%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%99%BB%E5%BD%95%E4%BC%81%E4%B8%9A%E5%86%85%E7%BD%91/index.html">
+  <meta name="description" content="OSPF之LSA路由更新：OSPF通过LSA的形式发布路由。广播型网络中会通过DD报文携带LSA头部信息来比较双方的LSDB，通过LSA R来请求本地LSDB中不存在的LSA（头部），LSU来传递LSA明细信息，LSACK进行确认，保证其可靠性。 1、LSA类型   LSA类型 LSA作用    Router-LSA（Type1） 每个设备都会产生，描述了设备的链路状态和开销，在所属的区域内传播。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="opsf各类lsa和路由更新">
+<meta property="og:url" content="http://yoursite.com/2019/12/27/opsf%E5%90%84%E7%B1%BBlsa%E5%92%8C%E8%B7%AF%E7%94%B1%E6%9B%B4%E6%96%B0/index.html">
 <meta property="og:site_name" content="白雪少年&#39;blog">
+<meta property="og:description" content="OSPF之LSA路由更新：OSPF通过LSA的形式发布路由。广播型网络中会通过DD报文携带LSA头部信息来比较双方的LSDB，通过LSA R来请求本地LSDB中不存在的LSA（头部），LSU来传递LSA明细信息，LSACK进行确认，保证其可靠性。 1、LSA类型   LSA类型 LSA作用    Router-LSA（Type1） 每个设备都会产生，描述了设备的链路状态和开销，在所属的区域内传播。">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2019-12-25T01:45:31.000Z">
-<meta property="article:modified_time" content="2019-12-25T01:45:31.417Z">
+<meta property="og:image" content="c:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1577400279259.png">
+<meta property="og:image" content="c:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1577400545303.png">
+<meta property="article:published_time" content="2019-12-27T02:29:22.000Z">
+<meta property="article:modified_time" content="2019-12-27T02:30:12.891Z">
 <meta property="article:author" content="白雪少年">
+<meta property="article:tag" content="ospf">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1577400279259.png">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -105,20 +111,27 @@
     </div>
 </header>
       <div class="outer">
-        <section id="main" class="body-wrap"><article id="post-搭建远程web客户端登录企业内网" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main" class="body-wrap"><article id="post-opsf各类lsa和路由更新" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="post-title" itemprop="name">
-      搭建远程web客户端登录企业内网
+      opsf各类lsa和路由更新
     </h1>
     <div class="post-title-bar">
       <ul>
           
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/网络基础/">网络基础</a>
+                  
+              </li>
+          
         <li>
-          <i class="fa fa-calendar"></i>  2019-12-25
+          <i class="fa fa-calendar"></i>  2019-12-27
         </li>
         <li>
           <i class="fa fa-eye"></i>
@@ -134,11 +147,89 @@
     <div class="article-entry post-content" itemprop="articleBody">
       
             
-            
+            <h2 id="OSPF之LSA路由更新："><a href="#OSPF之LSA路由更新：" class="headerlink" title="OSPF之LSA路由更新："></a>OSPF之LSA路由更新：</h2><p>OSPF通过LSA的形式发布路由。广播型网络中会通过DD报文携带LSA头部信息来比较双方的LSDB，通过LSA R来请求本地LSDB中不存在的LSA（头部），LSU来传递LSA明细信息，LSACK进行确认，保证其可靠性。</p>
+<h3 id="1、LSA类型"><a href="#1、LSA类型" class="headerlink" title="1、LSA类型"></a><strong>1、LSA类型</strong></h3><table>
+<thead>
+<tr>
+<th>LSA类型</th>
+<th>LSA作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Router-LSA（Type1）</td>
+<td>每个设备都会产生，描述了设备的链路状态和开销，在所属的区域内传播。</td>
+</tr>
+<tr>
+<td>Network-LSA（Type2）</td>
+<td>由DR（Designated Router）产生，描述本网段的链路状态，在所属的区域内传播。</td>
+</tr>
+<tr>
+<td>Network-summary-LSA（Type3）</td>
+<td>由ABR产生，描述区域内某个网段的路由，并通告给发布或接收此LSA的非Totally STUB或NSSA区域。</td>
+</tr>
+<tr>
+<td>ASBR-summary-LSA（Type4）</td>
+<td>由ABR产生，描述到ASBR的路由，通告给除ASBR所在区域的其他相关区域。</td>
+</tr>
+<tr>
+<td>AS-external-LSA（Type5）</td>
+<td>由ASBR产生，描述到AS外部的路由，通告到所有的区域（除了STUB区域和NSSA区域）。</td>
+</tr>
+<tr>
+<td>NSSA LSA（Type7）</td>
+<td>由ASBR产生，描述到AS外部的路由，仅在NSSA区域内传播。</td>
+</tr>
+<tr>
+<td>Opaque LSA（Type9/Type10/Type11）</td>
+<td>Opaque LSA提供用于OSPF的扩展的通用机制。其中：Type9 LSA仅在接口所在网段范围内传播。用于支持GR的Grace LSA就是Type9 LSA的一种。Type10 LSA在区域内传播。用于支持TE的LSA就是Type10 LSA的一种。Type11 LSA在自治域内传播，目前还没有实际应用的例子。</td>
+</tr>
+</tbody></table>
+<p>LSU报文中携带的明细LSA。</p>
+<p><img src="C:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1577400279259.png" alt="1577400279259"></p>
+<h3 id="2、LSA格式："><a href="#2、LSA格式：" class="headerlink" title="2、LSA格式："></a>2、LSA格式：</h3><p>在AS内的每台路由器，根据路由器的分类产生一种或多种LSA。收到的LSA的集合形成了LSDB。OSPF中对路由信息的描述都是封装在LSA中发布出去的。常用的LSA共有6种，分别为：Router-LSA、Network-LSA、Network-Summary-LSA、ASBR-Summary-LSA、AS-External-LSA以及NSSA-External LSA。LSA头格式如图：</p>
+<p><img src="C:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1577400545303.png" alt="1577400545303"></p>
+<p><strong>说明：</strong></p>
+<p>LS Age： 16位，LSA产生后经过的时间，以s为单位。</p>
+<p>无论LSA是在链路上传输，还是保存在LSDB中，LS age的值都会不停的增长。默认下，泛洪每经过一台路由器其Age增加1.LSA age如果高位置1，代表该LSA在进入LSDB后不再老化，此场景仅发生在DemandCircuit类型的链路上。</p>
+<ul>
+<li>Options：8位，E、MC以及DC位同OSPF头中选项位一致，此处N/P位的含义代表能处理7类 LSA；P通告位，代表置了该位的LSA7 LSA；P通告位，代表置了该位的LSA7可以被7/5转换器翻译成为LSA5.</li>
+<li>LS type：8位，代表不同LSA类型。</li>
+<li>Link State ID：32位，与LSA中的LS Type中的 LS Type 和Advertising Router一起用来在OSPF中唯一标识一个LSA。</li>
+<li>Advertising Router：32位，记录产生此LSA的路由器的Router ID。</li>
+<li>LS sequence number：32位 LSA的序列号。序列号越大代表该LSA越新，其他路由器根据这个值可以判断哪个LSA是最新的。</li>
+<li>LS checksum：16位，除了LS age外其他各域的校验和。可用于校验LSA的内容及用来确定该LSA是否最新。</li>
+<li>Length：16位，LSA的总长度，包括LSA Header，以字节为单位。</li>
+</ul>
+<p>3、LSDB</p>
+<p>LSDB中每份LSA都有唯一的身份证id，由三个参数构成：</p>
+<ul>
+<li>LSA类型</li>
+<li>链路状态ID（link state ID）</li>
+<li>通告路由器的RouterID</li>
+</ul>
+<p><strong>判断相同ID的“新旧方法”：</strong></p>
+<ul>
+<li><p>LSA序列号（越大越新）</p>
+</li>
+<li><p>LSA报文校验和越大越新</p>
+</li>
+<li><p>LSA age：</p>
+<p>若LSA的age为MaxAge，即3600s，则认为该lsa被认定为更“新”</p>
+<p>若LSA间age差额超过15min，则Age小的更新</p>
+<p>若LSA Age差额在15min之内，则认为二者相同，保留先收到的一份。</p>
+</li>
+</ul>
+<p><strong>LSDB中LSA的超时机制：</strong></p>
+<p>如果LSA age超过3600，那么LSA会从LSDB中被清除。</p>
+<p>（1）超过MaxAge被路由器自动清除</p>
+<p>（2）<strong>LSA起源路由器产生的MaxAge的LSA并向区域中泛洪，</strong>收到的路由器用其更新</p>
+<p>自己LSDB中的LSA。泛洪MaxAge的LSA，其作用相当于“毒化”路由。</p>
+<h3 id="3、各类LSA的路由更新和拓扑描述："><a href="#3、各类LSA的路由更新和拓扑描述：" class="headerlink" title="3、各类LSA的路由更新和拓扑描述："></a>3、各类LSA的路由更新和拓扑描述：</h3><h4 id="（一）LSA1："><a href="#（一）LSA1：" class="headerlink" title="（一）LSA1："></a>（一）LSA1：</h4><h5 id="1）LSA报文内容："><a href="#1）LSA报文内容：" class="headerlink" title="1）LSA报文内容："></a>1）LSA报文内容：</h5><p>每台路由器都会为自己所处的每个区域产生一份Router LSA</p>
+
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2019年12月25日 09:45</p>
-        <p>原始链接： <a class="post-url" href="/2019/12/25/%E6%90%AD%E5%BB%BA%E8%BF%9C%E7%A8%8Bweb%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%99%BB%E5%BD%95%E4%BC%81%E4%B8%9A%E5%86%85%E7%BD%91/" title="搭建远程web客户端登录企业内网">http://yoursite.com/2019/12/25/%E6%90%AD%E5%BB%BA%E8%BF%9C%E7%A8%8Bweb%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%99%BB%E5%BD%95%E4%BC%81%E4%B8%9A%E5%86%85%E7%BD%91/</a></p>
+        <p>最后更新： 2019年12月27日 10:30</p>
+        <p>原始链接： <a class="post-url" href="/2019/12/27/opsf%E5%90%84%E7%B1%BBlsa%E5%92%8C%E8%B7%AF%E7%94%B1%E6%9B%B4%E6%96%B0/" title="opsf各类lsa和路由更新">http://yoursite.com/2019/12/27/opsf%E5%90%84%E7%B1%BBlsa%E5%92%8C%E8%B7%AF%E7%94%B1%E6%9B%B4%E6%96%B0/</a></p>
         <footer>
             <a href="http://yoursite.com">
                 <img src="/images/logo.png" alt="白雪少年">
@@ -195,7 +286,7 @@
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/12/25/%E6%90%AD%E5%BB%BA%E8%BF%9C%E7%A8%8Bweb%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%99%BB%E5%BD%95%E4%BC%81%E4%B8%9A%E5%86%85%E7%BD%91/&title=《搭建远程web客户端登录企业内网》 — 白雪少年'blog&pic=http://yoursite.comimages/logo.png" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/12/27/opsf%E5%90%84%E7%B1%BBlsa%E5%92%8C%E8%B7%AF%E7%94%B1%E6%9B%B4%E6%96%B0/&title=《opsf各类lsa和路由更新》 — 白雪少年'blog&pic=http://yoursite.comimages/logo.png" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -205,22 +296,22 @@
             </a>
           </li>
           <li>
-            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/12/25/%E6%90%AD%E5%BB%BA%E8%BF%9C%E7%A8%8Bweb%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%99%BB%E5%BD%95%E4%BC%81%E4%B8%9A%E5%86%85%E7%BD%91/&title=《搭建远程web客户端登录企业内网》 — 白雪少年'blog&source=" data-title="QQ">
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/12/27/opsf%E5%90%84%E7%B1%BBlsa%E5%92%8C%E8%B7%AF%E7%94%B1%E6%9B%B4%E6%96%B0/&title=《opsf各类lsa和路由更新》 — 白雪少年'blog&source=" data-title="QQ">
               <i class="fa fa-qq"></i>
             </a>
           </li>
           <li>
-            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/12/25/%E6%90%AD%E5%BB%BA%E8%BF%9C%E7%A8%8Bweb%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%99%BB%E5%BD%95%E4%BC%81%E4%B8%9A%E5%86%85%E7%BD%91/" data-title="Facebook">
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/12/27/opsf%E5%90%84%E7%B1%BBlsa%E5%92%8C%E8%B7%AF%E7%94%B1%E6%9B%B4%E6%96%B0/" data-title="Facebook">
               <i class="fa fa-facebook"></i>
             </a>
           </li>
           <li>
-            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《搭建远程web客户端登录企业内网》 — 白雪少年'blog&url=http://yoursite.com/2019/12/25/%E6%90%AD%E5%BB%BA%E8%BF%9C%E7%A8%8Bweb%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%99%BB%E5%BD%95%E4%BC%81%E4%B8%9A%E5%86%85%E7%BD%91/&via=http://yoursite.com" data-title="Twitter">
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《opsf各类lsa和路由更新》 — 白雪少年'blog&url=http://yoursite.com/2019/12/27/opsf%E5%90%84%E7%B1%BBlsa%E5%92%8C%E8%B7%AF%E7%94%B1%E6%9B%B4%E6%96%B0/&via=http://yoursite.com" data-title="Twitter">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
           <li>
-            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/12/25/%E6%90%AD%E5%BB%BA%E8%BF%9C%E7%A8%8Bweb%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%99%BB%E5%BD%95%E4%BC%81%E4%B8%9A%E5%86%85%E7%BD%91/" data-title="Google+">
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/12/27/opsf%E5%90%84%E7%B1%BBlsa%E5%92%8C%E8%B7%AF%E7%94%B1%E6%9B%B4%E6%96%B0/" data-title="Google+">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -230,7 +321,7 @@
 <div class="post-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;" id="wxShare-close">×</a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://yoursite.com/2019/12/25/%E6%90%AD%E5%BB%BA%E8%BF%9C%E7%A8%8Bweb%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%99%BB%E5%BD%95%E4%BC%81%E4%B8%9A%E5%86%85%E7%BD%91/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://yoursite.com/2019/12/27/opsf%E5%90%84%E7%B1%BBlsa%E5%92%8C%E8%B7%AF%E7%94%B1%E6%9B%B4%E6%96%B0/" alt="微信分享二维码">
 </div>
 
 <div class="mask"></div>
@@ -239,6 +330,13 @@
         <ul class="article-footer-menu">
             
             
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/ospf/" class="color5">ospf</a>
+      
+  </li>
+
         </ul>
         
     </footer>
@@ -246,22 +344,18 @@
 </article>
 
 
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#OSPF之LSA路由更新："><span class="post-toc-text">OSPF之LSA路由更新：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、LSA类型"><span class="post-toc-text">1、LSA类型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、LSA格式："><span class="post-toc-text">2、LSA格式：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3、各类LSA的路由更新和拓扑描述："><span class="post-toc-text">3、各类LSA的路由更新和拓扑描述：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#（一）LSA1："><span class="post-toc-text">（一）LSA1：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#1）LSA报文内容："><span class="post-toc-text">1）LSA报文内容：</span></a></li></ol></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+    
 
 <nav id="article-nav">
   
-    <a href="/2019/12/25/ospf%E4%BB%8B%E7%BB%8D/" id="article-nav-newer" class="article-nav-link-wrap">
-
-      <span class="article-nav-title">
-        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
-        
-          ospf介绍
-        
-      </span>
-    </a>
   
-  
-    <a href="/2019/12/24/SSL%E4%B8%8EPKI/" id="article-nav-older" class="article-nav-link-wrap">
-      <span class="article-nav-title">SSL与PKI</span>
+    <a href="/2019/12/27/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%B0%8F%E7%9F%A5%E8%AF%86/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">密码学小知识</span>
       <i class="fa fa-hand-o-right" aria-hidden="true"></i>
     </a>
   
