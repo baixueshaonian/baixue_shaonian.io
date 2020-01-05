@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Linux网络管理 | 白雪少年&#39;blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="白雪少年's Blog" />
+  
+  <meta name="description" content="简介：详细描述了如何对RedLinux系统进行网络管理一、查看当前的网络的基本信息：1、通过ifconfig命令查看网卡信息： ifconfig eth0查看指定网卡的信息：  通过ip addr命令查看网卡信息（不是所有系统都可用）  2、通过ip -s link show eno16777736查看网卡流量信息 3、通过route -n查看当前路由表 上图中可看到一条默认路由指向192.168">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux网络管理">
+<meta property="og:url" content="http://yoursite.com/2019/12/27/Linux%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/index.html">
+<meta property="og:site_name" content="白雪少年&#39;blog">
+<meta property="og:description" content="简介：详细描述了如何对RedLinux系统进行网络管理一、查看当前的网络的基本信息：1、通过ifconfig命令查看网卡信息： ifconfig eth0查看指定网卡的信息：  通过ip addr命令查看网卡信息（不是所有系统都可用）  2、通过ip -s link show eno16777736查看网卡流量信息 3、通过route -n查看当前路由表 上图中可看到一条默认路由指向192.168">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="c:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1577434742098.png">
+<meta property="og:image" content="c:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1577434979331.png">
+<meta property="og:image" content="c:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1577434856916.png">
+<meta property="og:image" content="c:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1577435218019.png">
+<meta property="og:image" content="c:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1577435348626.png">
+<meta property="og:image" content="c:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1577496310963.png">
+<meta property="og:image" content="c:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1577496614208.png">
+<meta property="og:image" content="c:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1577496872056.png">
+<meta property="og:image" content="c:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1577496964546.png">
+<meta property="og:image" content="c:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1577497199045.png">
+<meta property="article:published_time" content="2019-12-27T08:09:07.000Z">
+<meta property="article:modified_time" content="2019-12-28T01:44:19.938Z">
+<meta property="article:author" content="白雪少年">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="网络管理">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1577434742098.png">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+  
+
+  
+  
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">白雪少年&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        白雪少年&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个刚出校门的网络工程师，运维工程师，ctf菜鸟。
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="Github" target="_blank" href="//github.com/baixueshaonian">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="Weibo" target="_blank" href="//weibo.com/u/5309113209/home?leftnav=1">
+                            <i class="fa fa-weibo fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-Linux网络管理" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      Linux网络管理
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/RedhatLinux/">RedhatLinux</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2019-12-27
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h2 id="简介：详细描述了如何对RedLinux系统进行网络管理"><a href="#简介：详细描述了如何对RedLinux系统进行网络管理" class="headerlink" title="简介：详细描述了如何对RedLinux系统进行网络管理"></a>简介：详细描述了如何对RedLinux系统进行网络管理</h2><h2 id="一、查看当前的网络的基本信息："><a href="#一、查看当前的网络的基本信息：" class="headerlink" title="一、查看当前的网络的基本信息："></a>一、查看当前的网络的基本信息：</h2><h3 id="1、通过ifconfig命令查看网卡信息："><a href="#1、通过ifconfig命令查看网卡信息：" class="headerlink" title="1、通过ifconfig命令查看网卡信息："></a><strong>1、通过ifconfig命令查看网卡信息：</strong></h3><p><img src="C:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1577434742098.png" alt="1577434742098"></p>
+<p><strong>ifconfig eth0查看指定网卡的信息：</strong></p>
+<p><img src="C:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1577434979331.png" alt="1577434979331"></p>
+<p><strong>通过ip addr命令查看网卡信息（不是所有系统都可用）</strong></p>
+<p><img src="C:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1577434856916.png" alt="1577434856916"></p>
+<h3 id="2、通过ip-s-link-show-eno16777736查看网卡流量信息"><a href="#2、通过ip-s-link-show-eno16777736查看网卡流量信息" class="headerlink" title="2、通过ip -s link show eno16777736查看网卡流量信息"></a><strong>2、通过ip -s link show eno16777736查看网卡流量信息</strong></h3><p><img src="C:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1577435218019.png" alt="1577435218019"></p>
+<h3 id="3、通过route-n查看当前路由表"><a href="#3、通过route-n查看当前路由表" class="headerlink" title="3、通过route -n查看当前路由表"></a>3、通过route -n查看当前路由表</h3><p><img src="C:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1577435348626.png" alt="1577435348626"></p>
+<p>上图中可看到一条默认路由指向192.168.199.2 ，因为我使用的是虚拟机所以该ip地址就是对应我的本地物理机上的虚拟网卡的ip地址，也就是虚拟机的网关。</p>
+<p>一条是指向192.168.199.0网段（本网段）的泛洪地址。</p>
+<h3 id="4、网络测试：ping"><a href="#4、网络测试：ping" class="headerlink" title="4、网络测试：ping"></a>4、网络测试：ping</h3><p>linux与windows的ping区别是无限ping</p>
+<p>ping -c【n】+ IP地址 （通过n来限制其次数）</p>
+<h3 id="5、显示本机到网关到底经过多少跳："><a href="#5、显示本机到网关到底经过多少跳：" class="headerlink" title="5、显示本机到网关到底经过多少跳："></a>5、显示本机到网关到底经过多少跳：</h3><p>traceroute <a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a></p>
+<h3 id="6、netstat-anpt-查看当前所有的连接端口"><a href="#6、netstat-anpt-查看当前所有的连接端口" class="headerlink" title="6、netstat -anpt 查看当前所有的连接端口"></a>6、netstat -anpt 查看当前所有的连接端口</h3><h2 id="二、使用nmcli命令配置网络："><a href="#二、使用nmcli命令配置网络：" class="headerlink" title="二、使用nmcli命令配置网络："></a>二、使用nmcli命令配置网络：</h2><p>使用nmcli命令和NetworkManager管理网络设置和设备</p>
+<p>NetworkManager是一个用来监视和管理网络设置的守护进程</p>
+<p>nmcli是一个用来配置网络设置的命令行工具。</p>
+<p>nmtui提供图形化接口来配置网络。</p>
+<p>还有个GNOME小程序可以显示网络状态和设置。</p>
+<h3 id="1、显示所有连接"><a href="#1、显示所有连接" class="headerlink" title="1、显示所有连接"></a>1、显示所有连接</h3><p>nmcil connection show</p>
+<p><img src="C:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1577496310963.png" alt="1577496310963"></p>
+<p>UUID设备的唯一标识</p>
+<h3 id="2、查看设备状态："><a href="#2、查看设备状态：" class="headerlink" title="2、查看设备状态："></a>2、查看设备状态：</h3><p>nmcil device status</p>
+<h2 id="三、编辑网卡的配置文件："><a href="#三、编辑网卡的配置文件：" class="headerlink" title="三、编辑网卡的配置文件："></a>三、编辑网卡的配置文件：</h2><h3 id="1、网卡配置文件"><a href="#1、网卡配置文件" class="headerlink" title="1、网卡配置文件"></a>1、网卡配置文件</h3><p>cd /etc/sysconfig/network-scripts/</p>
+<p><img src="C:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1577496614208.png" alt="1577496614208"></p>
+<p><img src="C:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1577496872056.png" alt="1577496872056"></p>
+<p>systemctl restart network 重启网络</p>
+<p><strong>查看现象：</strong></p>
+<h3 id="2-dns配置文件"><a href="#2-dns配置文件" class="headerlink" title="2.dns配置文件"></a>2.dns配置文件</h3><p>cat /etc/resolv.conf</p>
+<p>查看当前的dns服务器。</p>
+<p><img src="C:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1577496964546.png" alt="1577496964546"></p>
+<h3 id="3、本地的域名解析"><a href="#3、本地的域名解析" class="headerlink" title="3、本地的域名解析"></a>3、本地的域名解析</h3><p>cat /etc/hosts</p>
+<p><img src="C:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1577497199045.png" alt="1577497199045"></p>
+<h3 id="4、修改当前的主机名："><a href="#4、修改当前的主机名：" class="headerlink" title="4、修改当前的主机名："></a>4、修改当前的主机名：</h3><p>cat etc/sysconfig/network</p>
+<p>hostname 直接进行修改。即时的要想永久生效，必须修改配置文件。</p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2019年12月28日 09:44</p>
+        <p>原始链接： <a class="post-url" href="/2019/12/27/Linux%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/" title="Linux网络管理">http://yoursite.com/2019/12/27/Linux%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/</a></p>
+        <footer>
+            <a href="http://yoursite.com">
+                <img src="/images/logo.png" alt="白雪少年">
+                白雪少年
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;">赏</a>
+</div>
+
+<div id="reward" class="post-modal reward-lay">
+    <a class="close" href="javascript:;" id="reward-close">×</a>
+    <span class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我吃糖~
+        <i class="icon icon-quote-right"></i>
+    </span>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/images/wechat_code.jpg" alt="打赏二维码">
+        </div>
+        <div class="reward-select">
+            
+            <label class="reward-select-item checked" data-id="wechat" data-wechat="/images/wechat_code.jpg">
+                <img class="reward-select-item-wechat" src="/images/wechat.png" alt="微信">
+            </label>
+            
+            
+            <label class="reward-select-item" data-id="alipay" data-alipay="/images/alipay_code.jpg">
+                <img class="reward-select-item-alipay" src="/images/alipay.png" alt="支付宝">
+            </label>
+            
+        </div>
+    </div>
+</div>
+
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/12/27/Linux%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/&title=《Linux网络管理》 — 白雪少年'blog&pic=http://yoursite.comimages/logo.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/12/27/Linux%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/&title=《Linux网络管理》 — 白雪少年'blog&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/12/27/Linux%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Linux网络管理》 — 白雪少年'blog&url=http://yoursite.com/2019/12/27/Linux%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/&via=http://yoursite.com" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/12/27/Linux%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://yoursite.com/2019/12/27/Linux%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Linux/" class="color1">Linux</a>
+      
+    <a href="/tags/网络管理/" class="color5">网络管理</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#简介：详细描述了如何对RedLinux系统进行网络管理"><span class="post-toc-text">简介：详细描述了如何对RedLinux系统进行网络管理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一、查看当前的网络的基本信息："><span class="post-toc-text">一、查看当前的网络的基本信息：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、通过ifconfig命令查看网卡信息："><span class="post-toc-text">1、通过ifconfig命令查看网卡信息：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、通过ip-s-link-show-eno16777736查看网卡流量信息"><span class="post-toc-text">2、通过ip -s link show eno16777736查看网卡流量信息</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3、通过route-n查看当前路由表"><span class="post-toc-text">3、通过route -n查看当前路由表</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4、网络测试：ping"><span class="post-toc-text">4、网络测试：ping</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5、显示本机到网关到底经过多少跳："><span class="post-toc-text">5、显示本机到网关到底经过多少跳：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#6、netstat-anpt-查看当前所有的连接端口"><span class="post-toc-text">6、netstat -anpt 查看当前所有的连接端口</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二、使用nmcli命令配置网络："><span class="post-toc-text">二、使用nmcli命令配置网络：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、显示所有连接"><span class="post-toc-text">1、显示所有连接</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、查看设备状态："><span class="post-toc-text">2、查看设备状态：</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#三、编辑网卡的配置文件："><span class="post-toc-text">三、编辑网卡的配置文件：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、网卡配置文件"><span class="post-toc-text">1、网卡配置文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-dns配置文件"><span class="post-toc-text">2.dns配置文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3、本地的域名解析"><span class="post-toc-text">3、本地的域名解析</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4、修改当前的主机名："><span class="post-toc-text">4、修改当前的主机名：</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2019/12/28/%E5%BD%92%E6%A1%A3%E5%8E%8B%E7%BC%A9/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          归档压缩
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2019/12/27/opsf%E5%90%84%E7%B1%BBlsa%E5%92%8C%E8%B7%AF%E7%94%B1%E6%9B%B4%E6%96%B0/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">opsf各类lsa和路由更新</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2020 白雪少年<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://yoursite.com",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 1
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/RedhatLinux/">RedhatLinux</a><a class="category-link" href="/categories/Redlinux/">Redlinux</a><a class="category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">网络基础</a><a class="category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Redlinux/" style="font-size: 10px;">Redlinux</a> <a href="/tags/ospf/" style="font-size: 20px;">ospf</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 10px;">密码学</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">网络协议</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">网络基础</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 20px;">网络安全</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/" style="font-size: 10px;">网络管理</a> <a href="/tags/%E8%B7%AF%E7%94%B1%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">路由配置</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Redlinux/" style="font-size: 10px;">Redlinux</a> <a href="/tags/ospf/" style="font-size: 20px;">ospf</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 10px;">密码学</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">网络协议</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" style="font-size: 10px;">网络基础</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 20px;">网络安全</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/" style="font-size: 10px;">网络管理</a> <a href="/tags/%E8%B7%AF%E7%94%B1%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">路由配置</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+
+<script src="/js/search.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  
+<script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+
+  
+<link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  
+<script src="/js/animate.js"></script>
+
+
+
+  
+<script src="/js/pop-img.js"></script>
+
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>
