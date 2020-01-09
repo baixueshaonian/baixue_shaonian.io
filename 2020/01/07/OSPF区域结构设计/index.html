@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>OSPF区域结构设计 | 白雪少年&#39;blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="白雪少年's Blog" />
+  
+  <meta name="description" content="区域结构设计：一、简介：  随着网络规模的日益扩大，当一个大型网络中的路由器都运行OSPF路由协议时，路由器数量的过多会导致LSDB非常庞大，占用大量的存储空间，并使得SPF计算的复杂度和开销增加，导致路由器负担很重。尤其是在网络规模增大之后，拓扑结构发生变化的概率也增大，网络会经常处于“动荡”之中，变化的网络会导致有大量的OSPF LSA泛洪在网络中传递，增加了网络的负担。   OSPF把整个路">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OSPF区域结构设计">
+<meta property="og:url" content="http://yoursite.com/2020/01/07/OSPF%E5%8C%BA%E5%9F%9F%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1/index.html">
+<meta property="og:site_name" content="白雪少年&#39;blog">
+<meta property="og:description" content="区域结构设计：一、简介：  随着网络规模的日益扩大，当一个大型网络中的路由器都运行OSPF路由协议时，路由器数量的过多会导致LSDB非常庞大，占用大量的存储空间，并使得SPF计算的复杂度和开销增加，导致路由器负担很重。尤其是在网络规模增大之后，拓扑结构发生变化的概率也增大，网络会经常处于“动荡”之中，变化的网络会导致有大量的OSPF LSA泛洪在网络中传递，增加了网络的负担。   OSPF把整个路">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="c:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1578365690162.png">
+<meta property="og:image" content="c:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1578366478032.png">
+<meta property="og:image" content="c:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1578366620691.png">
+<meta property="og:image" content="c:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1578367187459.png">
+<meta property="og:image" content="c:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1578379139396.png">
+<meta property="article:published_time" content="2020-01-07T02:40:01.000Z">
+<meta property="article:modified_time" content="2020-01-08T01:16:55.352Z">
+<meta property="article:author" content="白雪少年">
+<meta property="article:tag" content="网络基础">
+<meta property="article:tag" content="OSPF">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1578365690162.png">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+  
+
+  
+  
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">白雪少年&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        白雪少年&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个刚出校门的网络工程师，运维工程师，ctf菜鸟。
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="Github" target="_blank" href="//github.com/baixueshaonian">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="Weibo" target="_blank" href="//weibo.com/u/5309113209/home?leftnav=1">
+                            <i class="fa fa-weibo fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-OSPF区域结构设计" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      OSPF区域结构设计
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/网络基础/">网络基础</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2020-01-07
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h1 id="区域结构设计："><a href="#区域结构设计：" class="headerlink" title="区域结构设计："></a>区域结构设计：</h1><h2 id="一、简介："><a href="#一、简介：" class="headerlink" title="一、简介："></a>一、简介：</h2><p>  随着网络规模的日益扩大，当一个大型网络中的路由器都运行OSPF路由协议时，路由器数量的过多会导致LSDB非常庞大，占用大量的存储空间，并使得SPF计算的复杂度和开销增加，导致路由器负担很重。尤其是在网络规模增大之后，拓扑结构发生变化的概率也增大，网络会经常处于“动荡”之中，变化的网络会导致有大量的OSPF LSA泛洪在网络中传递，增加了网络的负担。</p>
+<p>  OSPF把整个路由域划分为多个区域以减少区域泛洪的影响，继而减少LSDB的大小及计算开销。每个区域包含多台OSPF路由器，不同区域使用不同区域ID来标识。任何区域都使用区域ID标识，区域ID是32位数。</p>
+<p>采用点分十进制。</p>
+<p>区域0是骨干区域，OSPF划分区域是以<strong>路由器为边界</strong>的，每条链路只能属于一个区域。</p>
+<p>  OSPF网络中每区域OSPF路由器可以有40~50台，理论上每个区域内最多能部署的路由器数量没有限制，但是不要超过100台。</p>
+<h2 id="二、OSPF区域结构以及防环设计："><a href="#二、OSPF区域结构以及防环设计：" class="headerlink" title="二、OSPF区域结构以及防环设计："></a>二、OSPF区域结构以及防环设计：</h2><p>OSPF定义区域类型为四类：骨干区域（area0）、普通区域、Stub区域以及nssa区域。</p>
+<p>骨干区域只有一个，所有其他区域必须与骨干区域直接相连，如果没有连接到骨干区域，将不会学习到其他区域的路由，OSPF中所有区域间路由必须经过骨干区域传递。其他区域若没有连接到骨干区域，要使用Vlink连接到骨干区域。</p>
+<p>骨干区域不能被分割，一旦被分割，必须使用Vlink连接分割的骨干区域使之连续。也可以使用GRE隧道链接被分割的区域，OSPF这种特殊的分层的设计结构用来避免区域间的路由所致的环路。</p>
+<p>如果没有其他区域围着Area0的这一个设计要求，为使每个区域在图中的区域结构中可以互相学习到路由，必然要求LSA3路由可以在各个区域间流动，这样就会出现离开一个区域的LSA3路由，经过其他区域再流回来的可能性。</p>
+<p><img src="C:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1578365690162.png" alt="1578365690162"></p>
+<p>为了避免以上环路的出现，限定LSA3的流动规则：</p>
+<ul>
+<li>不允许非ABR产生LSA3.。。</li>
+</ul>
+<p>OSPF的这种区域结构设计用于避免区域间环路。</p>
+<h2 id="三、LSA3及区域间路由通告"><a href="#三、LSA3及区域间路由通告" class="headerlink" title="三、LSA3及区域间路由通告"></a>三、LSA3及区域间路由通告</h2><h3 id="1、LSA3是用来区域间的路由通告的。"><a href="#1、LSA3是用来区域间的路由通告的。" class="headerlink" title="1、LSA3是用来区域间的路由通告的。"></a>1、LSA3是用来区域间的路由通告的。</h3><p>特性：</p>
+<ul>
+<li>边界路由器ABR为区域内的每条OSPF路由产生一份LSA3并向其他区域通告。</li>
+<li>边界若有多个ABR，则每个ABR都产生LSA3来通告区域间路由。这两个LSA通过Advertising Router来进行区分。</li>
+<li>区域间路由传递的是路由，LSA3是每个区域的ABR产生的，并仅在该区域内泛洪的一类LSA。路由进入其他区域后，再由该区域的ABR产生LSA3继续泛洪。</li>
+<li>OSPF在区域边界上具有矢量特性，只有出现在ABR路由表里的路由才会被通告给邻居区域。</li>
+<li>计算路由时，路由器计算自己区域内到ABR的成本加上LSA3传递的区域间成本，得到的是当前路由器到目标网络端到端的成本。</li>
+<li>如果ABR路由器上路由表中的某条OSPF路由不再可达，则ABR会立即产生一份Age为3600s的LSA3向区域内泛洪，用于在区域内撤销该网络。</li>
+</ul>
+<h3 id="2、LSA3的结构"><a href="#2、LSA3的结构" class="headerlink" title="2、LSA3的结构"></a>2、LSA3的结构</h3><p>Type3 LSA：由ABR产生，在区域内泛洪，携带的信息是到其他区域的网络信息，不携带任何拓扑信息。</p>
+<p><img src="C:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1578366478032.png" alt="1578366478032"></p>
+<p>Ls id：网络号。</p>
+<p>Adv rtr：产生LSA3的路由器。</p>
+<p>Net Mask：子网掩码</p>
+<h3 id="3、ABR定义及其路由通告"><a href="#3、ABR定义及其路由通告" class="headerlink" title="3、ABR定义及其路由通告"></a>3、ABR定义及其路由通告</h3><p><img src="C:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1578366620691.png" alt="1578366620691"></p>
+<p>区域间路由器可以分为三类：</p>
+<ul>
+<li>区域间路由器——处在Area1和Area2间的路由器，如R5.</li>
+<li>区域间路由器——处在Area0中有接口但是没有邻居路由器，如R3</li>
+<li>区域间路由器——处在Area0中有邻居的路由器如R4，R4可以成为ABR</li>
+</ul>
+<p><strong>ABR的定义及作用：</strong></p>
+<p>定义：ABR处于区域边界间，限制LSA泛洪的范围。</p>
+<p>作用：为本区域通告描述其他区域的网络，即执行区域间路由通告、过滤、聚合等。</p>
+<p><strong>ABR上有如下规则：</strong></p>
+<ol>
+<li>通过ABR1进入非骨干区域的LSA3路由，若ABR2在骨干区域由OSPF邻居，则该LSA3路由不此AB进入此R2的路由表。此处ABR1和ABR2是处于骨干区域0和非骨干区域1间的两台边界路由器。</li>
+<li>若ABR2在骨干区域没有邻居，仅有一个网络出现在骨干区域，则ABR1所通告的LSA2路由可以进入其路由表。</li>
+<li>没有出现在ABR路由表的路由是不会通告到其他区域的，这是边界上的矢量特性。</li>
+</ol>
+<p>区域间上述规则，是为了避免区域间的环路（避免经过一个ABR进入普通区域的路由在经过其他ABR进入其他区域），这就是区域间的水平分割规则。</p>
+<p>上述规则同样适用于LSA4，但是不适用与LSA5</p>
+<p><img src="C:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1578367187459.png" alt="1578367187459"></p>
+<h2 id="四、Area类型及特殊类型区域："><a href="#四、Area类型及特殊类型区域：" class="headerlink" title="四、Area类型及特殊类型区域："></a>四、Area类型及特殊类型区域：</h2><h3 id="1、Area分类："><a href="#1、Area分类：" class="headerlink" title="1、Area分类："></a>1、Area分类：</h3><p>四种：普通区域，骨干区域，stub区域和NSSA区域。</p>
+<p>stub区域：不能接收LSA4/5，访问OSPF外部网络仅能通过ABR，所有的流量及路由通过ABR进入Stub区域。</p>
+<p>Totally Stub：添加了对区域间LSA3的过滤仅仅可以通过ABR访问区域外任何目的地，不支持Vlink</p>
+<p>NSSA区域可以有LSA7，可以有ASBR，访问任何外部OSPF区域可以通过本区域ASBR，也可以通过ABR访问。</p>
+<p>Totally NSSA在上述机制的基础上，在ABR上过滤了LSA3</p>
+<h3 id="2、区域分割："><a href="#2、区域分割：" class="headerlink" title="2、区域分割："></a>2、区域分割：</h3><ol>
+<li><p>普通区域分割：</p>
+<p>普通区域如果出现分割或者割裂而成为两个独立的区域，这种场景下，路由是可以</p>
+</li>
+</ol>
+<p>正常在区域间传递且全网可达的。如图所示为相同Area号的多个区域互联的示意图。</p>
+<p><img src="C:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1578379139396.png" alt="1578379139396"></p>
+<p>Area1间可以互相学到对方的路由。如R3上100.1.1.0/24出现在Area1 R4的路由表，R4经过R2访问R3；原因是Area0在区域间传递路由，且携带100.1.1.0/24的LSA3的没有起源区域好的标识，经过Area0进入Area1符合区域结构设计。</p>
+<p>​        尽管此种设计可以工作，但实际中不要设计多个相同ID的普通区域，即使要配置，也要通过GRE等方案把相同ID的普通区域连接起来，使其看起来是一个完整的区域。</p>
+<hr>
+<p>说明：</p>
+<ul>
+<li>Vlink是用于连接分割骨干区域的，不能用于普通区域分割的场景；</li>
+<li>GRE隧道方案可以适用于任何场景，但设计不善，易出现环路及次优路径，且GRE隧道具备承载数据的能力，使区域设计复杂。同时，GRE因封装解封装会导致开销较大，加重边界路由器负荷。</li>
+</ul>
+<p>2.骨干区域分割：</p>
+<p>​    如果是骨干区域断开，仍可以使用GRE隧道来连通断开的骨干区域，以下是Vlink解决方案。</p>
+<h4 id="Vlink原理："><a href="#Vlink原理：" class="headerlink" title="Vlink原理："></a>Vlink原理：</h4><p>Vlink是用来修复骨干区域分割的一种临时的解决方案。在企业环境中，Vlink往往能解决因区域结构设计不合理而导致骨干区域断开的场景。</p>
+<p><strong>VLINK</strong></p>
+<p>如果骨干区域被分割，修复被分割的骨干区域，要在非骨干区域上创建Vlink来维持骨干区域的连通性。</p>
+<ul>
+<li>Vlink被看作骨干区域的点到点的链路，其配置在两个ABR间</li>
+<li>Vlink在两个ABR间创建属于骨干区域的邻居关系。这个邻居关系是单播的，穿过区域1，其单播地址是根据区域1中的R2和R3的Router LSA计算出来的。Router LSA中用于描述拓扑的Link中，Link Data是路由器自身的接口IP，这个IP地址就是Vlink使用的单播地址。</li>
+<li>承载Vlink的这个Area1称为Transit Area，当Vlink创建好后，该区域也像骨干区域一样，在途中，R1访问R4的流量经过Area1传递。Transit Area不能是Stub或NSSA区域。</li>
+</ul>
+<p><strong>Vlink的应用场景：</strong></p>
+<p>1、连接断开的Area0</p>
+<p>场景一，Area0分割，其需要Vlink链接两个断开的Area0，在Area1上创建连接Area0的逻辑链路Vlink。</p>
+<p>2、修复Area2未连接到Area0</p>
+<p>在图中，Area2没有直接连接到Area0，在Area1中创建Area0的逻辑链路Vlink。</p>
+<p>3、解决次优路径问题及增加骨干区域的可靠性。</p>
+<p><strong>Vlink特性：</strong></p>
+<ul>
+<li>Vlink上可传递LSA1/2/3/4类型的LSA，其他类型不传递。LSA5是在整个OSPF路由域中泛洪的LSA，它可以直接在区域间泛洪，Vlink不传递LSA5.图中，若Area0中有LSA5，其可以直接经Area1泛洪到R4，没必要在经过Vlink泛洪一次。</li>
+</ul>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2020年01月08日 09:16</p>
+        <p>原始链接： <a class="post-url" href="/2020/01/07/OSPF%E5%8C%BA%E5%9F%9F%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1/" title="OSPF区域结构设计">http://yoursite.com/2020/01/07/OSPF%E5%8C%BA%E5%9F%9F%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1/</a></p>
+        <footer>
+            <a href="http://yoursite.com">
+                <img src="/images/logo.png" alt="白雪少年">
+                白雪少年
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;">赏</a>
+</div>
+
+<div id="reward" class="post-modal reward-lay">
+    <a class="close" href="javascript:;" id="reward-close">×</a>
+    <span class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我吃糖~
+        <i class="icon icon-quote-right"></i>
+    </span>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/images/wechat_code.jpg" alt="打赏二维码">
+        </div>
+        <div class="reward-select">
+            
+            <label class="reward-select-item checked" data-id="wechat" data-wechat="/images/wechat_code.jpg">
+                <img class="reward-select-item-wechat" src="/images/wechat.png" alt="微信">
+            </label>
+            
+            
+            <label class="reward-select-item" data-id="alipay" data-alipay="/images/alipay_code.jpg">
+                <img class="reward-select-item-alipay" src="/images/alipay.png" alt="支付宝">
+            </label>
+            
+        </div>
+    </div>
+</div>
+
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/01/07/OSPF%E5%8C%BA%E5%9F%9F%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1/&title=《OSPF区域结构设计》 — 白雪少年'blog&pic=http://yoursite.comimages/logo.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/01/07/OSPF%E5%8C%BA%E5%9F%9F%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1/&title=《OSPF区域结构设计》 — 白雪少年'blog&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2020/01/07/OSPF%E5%8C%BA%E5%9F%9F%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《OSPF区域结构设计》 — 白雪少年'blog&url=http://yoursite.com/2020/01/07/OSPF%E5%8C%BA%E5%9F%9F%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1/&via=http://yoursite.com" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2020/01/07/OSPF%E5%8C%BA%E5%9F%9F%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://yoursite.com/2020/01/07/OSPF%E5%8C%BA%E5%9F%9F%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/网络基础/" class="color5">网络基础</a>
+      
+    <a href="/tags/OSPF/" class="color5">OSPF</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#区域结构设计："><span class="post-toc-text">区域结构设计：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一、简介："><span class="post-toc-text">一、简介：</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二、OSPF区域结构以及防环设计："><span class="post-toc-text">二、OSPF区域结构以及防环设计：</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#三、LSA3及区域间路由通告"><span class="post-toc-text">三、LSA3及区域间路由通告</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、LSA3是用来区域间的路由通告的。"><span class="post-toc-text">1、LSA3是用来区域间的路由通告的。</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、LSA3的结构"><span class="post-toc-text">2、LSA3的结构</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3、ABR定义及其路由通告"><span class="post-toc-text">3、ABR定义及其路由通告</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#四、Area类型及特殊类型区域："><span class="post-toc-text">四、Area类型及特殊类型区域：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、Area分类："><span class="post-toc-text">1、Area分类：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、区域分割："><span class="post-toc-text">2、区域分割：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Vlink原理："><span class="post-toc-text">Vlink原理：</span></a></li></ol></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2020/01/08/%E5%8D%81%E4%BA%94python%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          十五python数据持久化
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2020/01/07/OSPFv3%E5%8E%9F%E7%90%86%E6%8F%8F%E8%BF%B0/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">OSPFv3原理描述</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2020 白雪少年<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://yoursite.com",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 1
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/RedhatLinux/">RedhatLinux</a><a class="category-link" href="/categories/Redlinux/">Redlinux</a><a class="category-link" href="/categories/python%E5%9F%BA%E7%A1%80/">python基础</a><a class="category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">网络基础</a><a class="category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/OSPF/" style="font-size: 13.33px;">OSPF</a> <a href="/tags/Redlinux/" style="font-size: 10px;">Redlinux</a> <a href="/tags/ospf/" style="font-size: 13.33px;">ospf</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/python%E5%9F%BA%E7%A1%80/" style="font-size: 20px;">python基础</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 10px;">密码学</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">网络协议</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" style="font-size: 16.67px;">网络基础</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 13.33px;">网络安全</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/" style="font-size: 10px;">网络管理</a> <a href="/tags/%E8%B7%AF%E7%94%B1%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">路由配置</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/OSPF/" style="font-size: 13.33px;">OSPF</a> <a href="/tags/Redlinux/" style="font-size: 10px;">Redlinux</a> <a href="/tags/ospf/" style="font-size: 13.33px;">ospf</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/python%E5%9F%BA%E7%A1%80/" style="font-size: 20px;">python基础</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 10px;">密码学</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">网络协议</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" style="font-size: 16.67px;">网络基础</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 13.33px;">网络安全</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/" style="font-size: 10px;">网络管理</a> <a href="/tags/%E8%B7%AF%E7%94%B1%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">路由配置</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+
+<script src="/js/search.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  
+<script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+
+  
+<link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  
+<script src="/js/animate.js"></script>
+
+
+
+  
+<script src="/js/pop-img.js"></script>
+
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>十五python数据持久化 | 白雪少年&#39;blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="白雪少年's Blog" />
+  
+  <meta name="description" content="十五、数据持久化一、Pickle技术介绍：pickle模块将内存中的Python对象转化成序列化的字节流，这是一种可以写入任何类似文件对象的字节串。Pickle模块也可以根据序列化的字节流重新构建原来内存中的对象：转换成原来那个对象。可以说pockle模块取代了专有的数据格式。他的序列化格式具有普遍性，对所有程序都足够高效。使用pickle，就不需要在持久化存储对象的时候手动地把对象转换为数据，也">
+<meta property="og:type" content="article">
+<meta property="og:title" content="十五python数据持久化">
+<meta property="og:url" content="http://yoursite.com/2020/01/08/%E5%8D%81%E4%BA%94python%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/index.html">
+<meta property="og:site_name" content="白雪少年&#39;blog">
+<meta property="og:description" content="十五、数据持久化一、Pickle技术介绍：pickle模块将内存中的Python对象转化成序列化的字节流，这是一种可以写入任何类似文件对象的字节串。Pickle模块也可以根据序列化的字节流重新构建原来内存中的对象：转换成原来那个对象。可以说pockle模块取代了专有的数据格式。他的序列化格式具有普遍性，对所有程序都足够高效。使用pickle，就不需要在持久化存储对象的时候手动地把对象转换为数据，也">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-01-08T01:27:13.000Z">
+<meta property="article:modified_time" content="2020-01-09T11:22:44.191Z">
+<meta property="article:author" content="白雪少年">
+<meta property="article:tag" content="python基础">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+  
+
+  
+  
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">白雪少年&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        白雪少年&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个刚出校门的网络工程师，运维工程师，ctf菜鸟。
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="Github" target="_blank" href="//github.com/baixueshaonian">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="Weibo" target="_blank" href="//weibo.com/u/5309113209/home?leftnav=1">
+                            <i class="fa fa-weibo fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-十五python数据持久化" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      十五python数据持久化
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/python基础/">python基础</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2020-01-08
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h1 id="十五、数据持久化"><a href="#十五、数据持久化" class="headerlink" title="十五、数据持久化"></a>十五、数据持久化</h1><h2 id="一、Pickle技术介绍："><a href="#一、Pickle技术介绍：" class="headerlink" title="一、Pickle技术介绍："></a>一、Pickle技术介绍：</h2><p><strong>pickle模块将内存中的Python对象转化成序列化的字节流</strong>，这是一种可以写入任何类似文件对象的字节串。Pickle模块也可以根据序列化的字节流重新构建原来内存中的对象：转换成原来那个对象。可以说pockle模块取代了专有的数据格式。他的序列化格式具有普遍性，对所有程序都足够高效。<strong>使用pickle，就不需要在持久化存储对象的时候手动地把对象转换为数据，也不需要在数据转化回对象时手动地解析复杂的数据格式。</strong>Pickle感觉上比较像XML的表示方法，但是，<strong>他是Python专用的方式</strong>并且比较容易编写代码。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># data.py</span></span><br><span class="line"><span class="comment"># 要将下列的数据源通过picke进行转化</span></span><br><span class="line"></span><br><span class="line">baixue = &#123;<span class="string">'name'</span>:<span class="string">'bai xue'</span>, <span class="string">'age'</span>:<span class="number">33</span>, <span class="string">'pay'</span>:<span class="number">10000</span>, <span class="string">'job'</span>:<span class="string">'Security'</span>&#125;</span><br><span class="line">tina = &#123;<span class="string">'name'</span>:<span class="string">'Ting zhang'</span>, <span class="string">'age'</span>:<span class="number">35</span>, <span class="string">'pay'</span>:<span class="number">10000</span>, <span class="string">'job'</span>:<span class="string">'Sales'</span>&#125;</span><br><span class="line">ender = &#123;<span class="string">'name'</span>:<span class="string">'ya Jun zhou'</span>,<span class="string">'age'</span>:<span class="number">24</span>, <span class="string">'pay'</span>:<span class="number">10000</span>, <span class="string">'job'</span>:<span class="string">'RS'</span>&#125;</span><br><span class="line"></span><br><span class="line">db = &#123;&#125;</span><br><span class="line">db[<span class="string">'baixue'</span>] = baixue</span><br><span class="line">db[<span class="string">'tina'</span>] = tina</span><br><span class="line">db[<span class="string">'ender'</span>] = ender</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># picke1.py</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> data <span class="keyword">import</span> db </span><br><span class="line"><span class="comment"># print(db)</span></span><br><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line">dbfile = open(<span class="string">'people.pl'</span>, <span class="string">'wb'</span>) <span class="comment"># 二进制往里面写</span></span><br><span class="line">pickle.dump(db, dbfile) <span class="comment">#通过dump将python对象的文件转换成二进制文件</span></span><br><span class="line">dbfile.close()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># pickle2.py</span></span><br><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line">dbfile = open(<span class="string">'people.pl'</span>, <span class="string">'rb'</span>)<span class="comment">#二进制读的方式打开people.pl</span></span><br><span class="line">db = pickle.load(dbfile)</span><br><span class="line">print(db)</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、更新Pickle文件中的对象"><a href="#2、更新Pickle文件中的对象" class="headerlink" title="2、更新Pickle文件中的对象"></a>2、更新Pickle文件中的对象</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># pickle3.py</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line">dbfile = open(<span class="string">'people.pl'</span>, <span class="string">'rb'</span>)</span><br><span class="line">db = pickle.load(dbfile)</span><br><span class="line">dbfile.close()</span><br><span class="line">db[<span class="string">'tina'</span>][<span class="string">'pay'</span>] *= <span class="number">1.6</span></span><br><span class="line">dbfile = open(<span class="string">'people.pl'</span>, <span class="string">'wb'</span>)</span><br><span class="line">pickle.dump(db, dbfile)</span><br><span class="line">dbfile.close()</span><br></pre></td></tr></table></figure>
+
+<p>使用pickle更新数据有一个潜在的缺点，当处理非常大的数据库时会变得很慢。因为跟新一条记录需要读出和重新写入这个数据库，这比较浪费时间。</p>
+<h2 id="二、使用shelves"><a href="#二、使用shelves" class="headerlink" title="二、使用shelves"></a>二、使用shelves</h2><p>shelves<strong>自动将pickle进和pickle出</strong>，一个<strong>基于键访问的文件系统</strong>。他们很像必须打开者的字典，在程序员退出时进行持久化。<strong>因为它使用键访问被存储记录</strong>，所以不需要手动地为每一条记录管理一个普通文件，shelve系统自动分隔存储记录，并且只获取和更新被访问和修改的记录。通过这种方式，shelves使用起来就像一堆只存储一条记录的pickle文件，但是更容易编写代码。</p>
+<h4 id="1、制造shelves数据库"><a href="#1、制造shelves数据库" class="headerlink" title="1、制造shelves数据库"></a>1、制造shelves数据库</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> data <span class="keyword">import</span> baixue， tina， ender</span><br><span class="line"><span class="keyword">import</span> shelves</span><br><span class="line">db = shelve.open(<span class="string">'people-shelve'</span>)</span><br><span class="line">db[<span class="string">'baixue'</span>] = baixue</span><br><span class="line">db[<span class="string">'tina'</span>] = tina</span><br><span class="line">db[<span class="string">'ender'</span>] = ender</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、读取shelves数据库中的内容："><a href="#2、读取shelves数据库中的内容：" class="headerlink" title="2、读取shelves数据库中的内容："></a>2、读取shelves数据库中的内容：</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> shelve</span><br><span class="line">db = shelve.open(<span class="string">'people-shelve'</span>)</span><br><span class="line"><span class="keyword">for</span> key <span class="keyword">in</span> db:</span><br><span class="line">    print(key, <span class="string">'==&gt;'</span>, db[key])</span><br><span class="line"></span><br><span class="line">db.close()</span><br></pre></td></tr></table></figure>
+
+<h4 id="3、更新shelves数据库："><a href="#3、更新shelves数据库：" class="headerlink" title="3、更新shelves数据库："></a>3、更新shelves数据库：</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> shelves</span><br><span class="line">db = shelve.open(<span class="string">'people-shelve'</span>)</span><br><span class="line">baixue = db[<span class="string">'baixue'</span>] <span class="comment">#读取数据库键’白雪‘中的字典</span></span><br><span class="line">baixue[<span class="string">'pay'</span>] *= <span class="number">1.6</span><span class="comment"># 更新字典</span></span><br><span class="line">db[<span class="string">'baizue'</span>] = baixue <span class="comment"># 把更新后的字典重新写回数据库键中</span></span><br><span class="line">db.close()</span><br></pre></td></tr></table></figure>
+
+<h2 id="三、数据库："><a href="#三、数据库：" class="headerlink" title="三、数据库："></a>三、数据库：</h2><h4 id="1、SQlite"><a href="#1、SQlite" class="headerlink" title="1、SQlite"></a>1、SQlite</h4><p>SQlite是一个软件库，实现了自给自足的、<strong>无服务器的</strong>、零配置的、事务性的SQL数据库引擎。SQlite是世界上最广泛部署的SQL数据库引擎。SQLite源代码不受版权限制。</p>
+<h4 id="2、交互界面测试sqlite"><a href="#2、交互界面测试sqlite" class="headerlink" title="2、交互界面测试sqlite"></a>2、交互界面测试sqlite</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="keyword">import</span> sqlite3</span><br><span class="line">&gt;&gt;&gt;conn = sqlite3.connect(<span class="string">'baixuedb.sqlite'</span>)</span><br><span class="line">&gt;&gt;&gt;cursor = conn.cursor()</span><br><span class="line">&gt;&gt;&gt;cursor.execute(<span class="string">"create table test1(t1 int, t2 varchar(40))"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>3、</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sqlite3</span><br><span class="line">conn = sqlite3.connect(<span class="string">'baixuedb.sqlite'</span>)</span><br><span class="line">cursor = conn.cursor()</span><br><span class="line">cursor.execute(<span class="string">"create table test1(t1 int,t2 varchar(40))"</span>)</span><br><span class="line">&lt;sqlite3.Cursor object at <span class="number">0x08A038A0</span>&gt;</span><br><span class="line">cursor.execute(<span class="string">"insert into test1(t1,t2) value (11,'welcome to my blog')"</span>)</span><br><span class="line">cursor.execute(<span class="string">"insert into test1 (t1, t2) values (11,'welcome to my blog')"</span>)</span><br><span class="line">&lt;sqlite3.Cursor object at <span class="number">0x08A038A0</span>&gt;</span><br><span class="line">cursor.execute(<span class="string">"insert into test1 (t1, t2) values (11,'welcome to python')"</span>)</span><br><span class="line">&lt;sqlite3.Cursor object at <span class="number">0x08A038A0</span>&gt;</span><br><span class="line">cursor.execute(<span class="string">"select * from test1"</span>)</span><br><span class="line">&lt;sqlite3.Cursor object at <span class="number">0x08A038A0</span>&gt;</span><br><span class="line">yourresults = cursor.fetchall()</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> yourresults:</span><br><span class="line">     print(i)</span><br><span class="line">     </span><br><span class="line">(<span class="number">11</span>, <span class="string">'welcome to my blog'</span>)</span><br><span class="line">(<span class="number">11</span>, <span class="string">'welcome to python'</span>)</span><br><span class="line">conn.commit()</span><br></pre></td></tr></table></figure>
+
+<h2 id="四、XML可扩展标记语言简介："><a href="#四、XML可扩展标记语言简介：" class="headerlink" title="四、XML可扩展标记语言简介："></a>四、XML可扩展标记语言简介：</h2><p>XML是一种可按应用目标进行扩展的通用标记语言（可自定义标签）。旨在通过使用XML，使互联网数据共享变得更容易。</p>
+<p>XML和HTML都是从标准通用标记语言SGML简化而成。与HTML相比，它对数据的记录方式做了特殊处理。</p>
+<p>XML是用来存数据的，共享数据的，通用性比较好。</p>
+<p>HTML关注呈现给用户的页面，XML关注内容包含的内容。</p>
+<p>当前网络设备的导出配置大都是XML的格式。</p>
+<h2 id="五、JSON"><a href="#五、JSON" class="headerlink" title="五、JSON"></a>五、JSON</h2><p>1、JSON简介：</p>
+<p>支持的类型：</p>
+<p>string是0个或者多个字符的序列，用双引号括起来，支持转移</p>
+<p>number支持证书负数正数小数</p>
+<p>object：一个name/value pair，以{开始，以}结尾，name和value之间以：分割，每一个name/value pair以逗号分割。（与python字典类似）</p>
+<p>array：是有序的value的集合，以[开始，以]结束，value之间用逗号分割。（类似列表）</p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2020年01月09日 19:22</p>
+        <p>原始链接： <a class="post-url" href="/2020/01/08/%E5%8D%81%E4%BA%94python%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/" title="十五python数据持久化">http://yoursite.com/2020/01/08/%E5%8D%81%E4%BA%94python%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/</a></p>
+        <footer>
+            <a href="http://yoursite.com">
+                <img src="/images/logo.png" alt="白雪少年">
+                白雪少年
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;">赏</a>
+</div>
+
+<div id="reward" class="post-modal reward-lay">
+    <a class="close" href="javascript:;" id="reward-close">×</a>
+    <span class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我吃糖~
+        <i class="icon icon-quote-right"></i>
+    </span>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/images/wechat_code.jpg" alt="打赏二维码">
+        </div>
+        <div class="reward-select">
+            
+            <label class="reward-select-item checked" data-id="wechat" data-wechat="/images/wechat_code.jpg">
+                <img class="reward-select-item-wechat" src="/images/wechat.png" alt="微信">
+            </label>
+            
+            
+            <label class="reward-select-item" data-id="alipay" data-alipay="/images/alipay_code.jpg">
+                <img class="reward-select-item-alipay" src="/images/alipay.png" alt="支付宝">
+            </label>
+            
+        </div>
+    </div>
+</div>
+
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/01/08/%E5%8D%81%E4%BA%94python%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/&title=《十五python数据持久化》 — 白雪少年'blog&pic=http://yoursite.comimages/logo.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/01/08/%E5%8D%81%E4%BA%94python%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/&title=《十五python数据持久化》 — 白雪少年'blog&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2020/01/08/%E5%8D%81%E4%BA%94python%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《十五python数据持久化》 — 白雪少年'blog&url=http://yoursite.com/2020/01/08/%E5%8D%81%E4%BA%94python%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/&via=http://yoursite.com" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2020/01/08/%E5%8D%81%E4%BA%94python%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://yoursite.com/2020/01/08/%E5%8D%81%E4%BA%94python%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/python基础/" class="color4">python基础</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#十五、数据持久化"><span class="post-toc-text">十五、数据持久化</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一、Pickle技术介绍："><span class="post-toc-text">一、Pickle技术介绍：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、更新Pickle文件中的对象"><span class="post-toc-text">2、更新Pickle文件中的对象</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二、使用shelves"><span class="post-toc-text">二、使用shelves</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1、制造shelves数据库"><span class="post-toc-text">1、制造shelves数据库</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2、读取shelves数据库中的内容："><span class="post-toc-text">2、读取shelves数据库中的内容：</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3、更新shelves数据库："><span class="post-toc-text">3、更新shelves数据库：</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#三、数据库："><span class="post-toc-text">三、数据库：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1、SQlite"><span class="post-toc-text">1、SQlite</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2、交互界面测试sqlite"><span class="post-toc-text">2、交互界面测试sqlite</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#四、XML可扩展标记语言简介："><span class="post-toc-text">四、XML可扩展标记语言简介：</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#五、JSON"><span class="post-toc-text">五、JSON</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2020/01/09/web%E5%AE%89%E5%85%A8001%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          web安全001基础概念
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2020/01/07/OSPF%E5%8C%BA%E5%9F%9F%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">OSPF区域结构设计</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2020 白雪少年<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://yoursite.com",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 1
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/RedhatLinux/">RedhatLinux</a><a class="category-link" href="/categories/Redlinux/">Redlinux</a><a class="category-link" href="/categories/python%E5%9F%BA%E7%A1%80/">python基础</a><a class="category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">网络基础</a><a class="category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/OSPF/" style="font-size: 13.33px;">OSPF</a> <a href="/tags/Redlinux/" style="font-size: 10px;">Redlinux</a> <a href="/tags/ospf/" style="font-size: 13.33px;">ospf</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/python%E5%9F%BA%E7%A1%80/" style="font-size: 20px;">python基础</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 10px;">密码学</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">网络协议</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" style="font-size: 16.67px;">网络基础</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 13.33px;">网络安全</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/" style="font-size: 10px;">网络管理</a> <a href="/tags/%E8%B7%AF%E7%94%B1%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">路由配置</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/OSPF/" style="font-size: 13.33px;">OSPF</a> <a href="/tags/Redlinux/" style="font-size: 10px;">Redlinux</a> <a href="/tags/ospf/" style="font-size: 13.33px;">ospf</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/python%E5%9F%BA%E7%A1%80/" style="font-size: 20px;">python基础</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 10px;">密码学</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">网络协议</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" style="font-size: 16.67px;">网络基础</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 13.33px;">网络安全</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/" style="font-size: 10px;">网络管理</a> <a href="/tags/%E8%B7%AF%E7%94%B1%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">路由配置</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+
+<script src="/js/search.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  
+<script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+
+  
+<link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  
+<script src="/js/animate.js"></script>
+
+
+
+  
+<script src="/js/pop-img.js"></script>
+
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>

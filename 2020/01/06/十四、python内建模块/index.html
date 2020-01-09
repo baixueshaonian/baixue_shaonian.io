@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>十四、python内建模块 | 白雪少年&#39;blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="白雪少年's Blog" />
+  
+  <meta name="description" content="十四、Python内建模块Python中大多数系统级接口都集中在sys和os这两个模块，这样说过于简单化了，还有一些其他的标准模块也属于这个领域，他们包括：    glob 用于文件名扩展    socket 用于网络连接和进程间通信（IPC）   threading，thread，queue 用于运行和同步化并发线程   time，timeit 用于获取系统时间相关细节   subprocess">
+<meta property="og:type" content="article">
+<meta property="og:title" content="十四、python内建模块">
+<meta property="og:url" content="http://yoursite.com/2020/01/06/%E5%8D%81%E5%9B%9B%E3%80%81python%E5%86%85%E5%BB%BA%E6%A8%A1%E5%9D%97/index.html">
+<meta property="og:site_name" content="白雪少年&#39;blog">
+<meta property="og:description" content="十四、Python内建模块Python中大多数系统级接口都集中在sys和os这两个模块，这样说过于简单化了，还有一些其他的标准模块也属于这个领域，他们包括：    glob 用于文件名扩展    socket 用于网络连接和进程间通信（IPC）   threading，thread，queue 用于运行和同步化并发线程   time，timeit 用于获取系统时间相关细节   subprocess">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-01-06T06:39:05.000Z">
+<meta property="article:modified_time" content="2020-01-07T13:00:53.921Z">
+<meta property="article:author" content="白雪少年">
+<meta property="article:tag" content="python基础">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+  
+
+  
+  
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">白雪少年&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        白雪少年&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个刚出校门的网络工程师，运维工程师，ctf菜鸟。
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="Github" target="_blank" href="//github.com/baixueshaonian">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="Weibo" target="_blank" href="//weibo.com/u/5309113209/home?leftnav=1">
+                            <i class="fa fa-weibo fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-十四、python内建模块" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      十四、python内建模块
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/python基础/">python基础</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2020-01-06
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h1 id="十四、Python内建模块"><a href="#十四、Python内建模块" class="headerlink" title="十四、Python内建模块"></a>十四、Python内建模块</h1><p>Python中<strong>大多数系统级接口</strong>都集中在<strong>sys和os</strong>这两个模块，这样说过于简单化了，还有一些其他的标准模块也属于这个领域，他们包括：</p>
+<table>
+<thead>
+<tr>
+<th><strong>glob</strong></th>
+<th><strong>用于文件名扩展</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>socket</strong></td>
+<td><strong>用于网络连接和进程间通信（IPC）</strong></td>
+</tr>
+<tr>
+<td><strong>threading，thread，queue</strong></td>
+<td><strong>用于运行和同步化并发线程</strong></td>
+</tr>
+<tr>
+<td><strong>time，timeit</strong></td>
+<td><strong>用于获取系统时间相关细节</strong></td>
+</tr>
+<tr>
+<td><strong>subprocess，multiprocessing</strong></td>
+<td><strong>用于启动和控制并行进程</strong></td>
+</tr>
+<tr>
+<td><strong>signal，select，shutil，tempfile</strong></td>
+<td><strong>用于多种系统相关任务</strong></td>
+</tr>
+</tbody></table>
+<h2 id="一、sys和os"><a href="#一、sys和os" class="headerlink" title="一、sys和os"></a>一、sys和os</h2><p>原则上来说，sys负责导出与<strong>Python解释器本身相关</strong>的组件（如模块搜索路径），os则包含与<strong>Python所在底层操作系统</strong>相对应的变量和函数。</p>
+<p>1、sys基本操作：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="keyword">import</span> sys</span><br><span class="line">c</span><br><span class="line">&gt;&gt;&gt;sys.platform   <span class="comment">#提取系统平台信息</span></span><br><span class="line"><span class="string">'win32'</span></span><br><span class="line">&gt;&gt;&gt;sys.version  <span class="comment">#提取系统版本信息</span></span><br><span class="line">&gt;&gt;&gt;sys.path <span class="comment">#模块的搜索路径</span></span><br><span class="line">添加搜索路径：</span><br><span class="line">&gt;&gt;&gt;sys.path.insert(<span class="number">1</span>,<span class="string">'c:\\'</span>)</span><br><span class="line">&gt;&gt;&gt;sys.mudule <span class="comment">#返回模块名，和具体路径的字典</span></span><br><span class="line">&gt;&gt;&gt;sys.modules.get(<span class="string">'datetime'</span>)<span class="comment">#没有返回值表示没有加载这个模块。</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>2、提取命令行参数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test_arg</span><span class="params">(x, y)</span>:</span></span><br><span class="line">    print(int(x)+int(y))</span><br><span class="line">    </span><br><span class="line"><span class="keyword">if</span> _name_ == <span class="string">'_main_'</span>:</span><br><span class="line">    <span class="keyword">import</span> sys</span><br><span class="line">    test_arg(sys.argv[<span class="number">1</span>],sys.argv[<span class="number">2</span>])</span><br><span class="line">    print(sys.argv[<span class="number">0</span>])</span><br></pre></td></tr></table></figure>
+
+<p>3、sys其他模块工具：</p>
+<ul>
+<li>标准流，包括sys.stdin, sys.stdout和sys.stderr 。</li>
+<li>程序可通过调用sys.exit强行退出。</li>
+</ul>
+<p><strong>os._exit()</strong>会直接将python程序终止，之后的所有代码都不会继续执行。没有异常</p>
+<p>sys.exit()会引发一个异常：SystemExit，如果这个异常没有被捕获，那么python解释器将会退出。如果有捕获此异常的代码，那么这些代码还是会执行。</p>
+<p><strong>一般情况下使用sys.exit（）即可，一般在fork出来的子进程中使用os.exit（）</strong></p>
+<h3 id="（二）os模块"><a href="#（二）os模块" class="headerlink" title="（二）os模块"></a>（二）os模块</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="keyword">import</span> os</span><br><span class="line">&gt;&gt;&gt;os.getpid() <span class="comment">#得到当前的进程号</span></span><br><span class="line">&gt;&gt;&gt;os.getcwd() <span class="comment">#得到当前目录</span></span><br><span class="line">&gt;&gt;&gt;os.chdir(<span class="string">r''</span>)<span class="comment">#修改目录</span></span><br><span class="line">&gt;&gt;&gt;os.sep <span class="comment">#得到当前系统分割符。</span></span><br><span class="line">&gt;&gt;&gt;os.linesep <span class="comment">#表示换行符</span></span><br><span class="line">&gt;&gt;&gt;os.pardir,os.curdir</span><br><span class="line">&gt;&gt;&gt;os.path.isfile()</span><br><span class="line">os.path.isdir</span><br><span class="line">&gt;&gt;&gt;os.path.exits()</span><br><span class="line">&gt;&gt;&gt;os.path.getsize()</span><br><span class="line">&gt;&gt;&gt;os.path.split()通过系统分割符分开返回一个元组。</span><br><span class="line">os.path.join</span><br><span class="line">&gt;&gt;&gt;os.path.dirname(name),os.path.basename(name)</span><br></pre></td></tr></table></figure>
+
+<h3 id="三-datetime模块简介："><a href="#三-datetime模块简介：" class="headerlink" title="(三)datetime模块简介："></a>(三)datetime模块简介：</h3><p>datetime模块以简单和复杂的方式提供操作日期和时间的类。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> datetime</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>now = datetime.datetime.now()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(now)</span><br></pre></td></tr></table></figure>
+
+<h2 id="（四）argparse"><a href="#（四）argparse" class="headerlink" title="（四）argparse"></a>（四）argparse</h2><p>用于处理命令行参数。</p>
+<p>第一步：创建</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">argparse</span><span class="params">(host, filename, iface)</span>:</span></span><br><span class="line">    </span><br><span class="line">    print(host)</span><br><span class="line">    print(filename)</span><br><span class="line">    print(iface)</span><br></pre></td></tr></table></figure>
+
+<p>帮助文件的建设：</p>
+<p>from argarse import argumentParser</p>
+<p> usage = ‘usage： get ftp file， python， textarg ipaddress ’</p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2020年01月07日 21:00</p>
+        <p>原始链接： <a class="post-url" href="/2020/01/06/%E5%8D%81%E5%9B%9B%E3%80%81python%E5%86%85%E5%BB%BA%E6%A8%A1%E5%9D%97/" title="十四、python内建模块">http://yoursite.com/2020/01/06/%E5%8D%81%E5%9B%9B%E3%80%81python%E5%86%85%E5%BB%BA%E6%A8%A1%E5%9D%97/</a></p>
+        <footer>
+            <a href="http://yoursite.com">
+                <img src="/images/logo.png" alt="白雪少年">
+                白雪少年
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;">赏</a>
+</div>
+
+<div id="reward" class="post-modal reward-lay">
+    <a class="close" href="javascript:;" id="reward-close">×</a>
+    <span class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我吃糖~
+        <i class="icon icon-quote-right"></i>
+    </span>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/images/wechat_code.jpg" alt="打赏二维码">
+        </div>
+        <div class="reward-select">
+            
+            <label class="reward-select-item checked" data-id="wechat" data-wechat="/images/wechat_code.jpg">
+                <img class="reward-select-item-wechat" src="/images/wechat.png" alt="微信">
+            </label>
+            
+            
+            <label class="reward-select-item" data-id="alipay" data-alipay="/images/alipay_code.jpg">
+                <img class="reward-select-item-alipay" src="/images/alipay.png" alt="支付宝">
+            </label>
+            
+        </div>
+    </div>
+</div>
+
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/01/06/%E5%8D%81%E5%9B%9B%E3%80%81python%E5%86%85%E5%BB%BA%E6%A8%A1%E5%9D%97/&title=《十四、python内建模块》 — 白雪少年'blog&pic=http://yoursite.comimages/logo.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/01/06/%E5%8D%81%E5%9B%9B%E3%80%81python%E5%86%85%E5%BB%BA%E6%A8%A1%E5%9D%97/&title=《十四、python内建模块》 — 白雪少年'blog&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2020/01/06/%E5%8D%81%E5%9B%9B%E3%80%81python%E5%86%85%E5%BB%BA%E6%A8%A1%E5%9D%97/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《十四、python内建模块》 — 白雪少年'blog&url=http://yoursite.com/2020/01/06/%E5%8D%81%E5%9B%9B%E3%80%81python%E5%86%85%E5%BB%BA%E6%A8%A1%E5%9D%97/&via=http://yoursite.com" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2020/01/06/%E5%8D%81%E5%9B%9B%E3%80%81python%E5%86%85%E5%BB%BA%E6%A8%A1%E5%9D%97/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://yoursite.com/2020/01/06/%E5%8D%81%E5%9B%9B%E3%80%81python%E5%86%85%E5%BB%BA%E6%A8%A1%E5%9D%97/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/python基础/" class="color4">python基础</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#十四、Python内建模块"><span class="post-toc-text">十四、Python内建模块</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一、sys和os"><span class="post-toc-text">一、sys和os</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#（二）os模块"><span class="post-toc-text">（二）os模块</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#三-datetime模块简介："><span class="post-toc-text">(三)datetime模块简介：</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#（四）argparse"><span class="post-toc-text">（四）argparse</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+    <a href="/2020/01/07/OSPFv3%E5%8E%9F%E7%90%86%E6%8F%8F%E8%BF%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          OSPFv3原理描述
+        
+      </span>
+    </a>
+  
+  
+    <a href="/2020/01/06/python%E7%B1%BB/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">python类</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2020 白雪少年<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://yoursite.com",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 1
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/RedhatLinux/">RedhatLinux</a><a class="category-link" href="/categories/Redlinux/">Redlinux</a><a class="category-link" href="/categories/python%E5%9F%BA%E7%A1%80/">python基础</a><a class="category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">网络基础</a><a class="category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/OSPF/" style="font-size: 13.33px;">OSPF</a> <a href="/tags/Redlinux/" style="font-size: 10px;">Redlinux</a> <a href="/tags/ospf/" style="font-size: 13.33px;">ospf</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/python%E5%9F%BA%E7%A1%80/" style="font-size: 20px;">python基础</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 10px;">密码学</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">网络协议</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" style="font-size: 16.67px;">网络基础</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 13.33px;">网络安全</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/" style="font-size: 10px;">网络管理</a> <a href="/tags/%E8%B7%AF%E7%94%B1%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">路由配置</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/OSPF/" style="font-size: 13.33px;">OSPF</a> <a href="/tags/Redlinux/" style="font-size: 10px;">Redlinux</a> <a href="/tags/ospf/" style="font-size: 13.33px;">ospf</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/python%E5%9F%BA%E7%A1%80/" style="font-size: 20px;">python基础</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 10px;">密码学</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">网络协议</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" style="font-size: 16.67px;">网络基础</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 13.33px;">网络安全</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/" style="font-size: 10px;">网络管理</a> <a href="/tags/%E8%B7%AF%E7%94%B1%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">路由配置</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+
+<script src="/js/search.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  
+<script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+
+  
+<link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  
+<script src="/js/animate.js"></script>
+
+
+
+  
+<script src="/js/pop-img.js"></script>
+
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>
