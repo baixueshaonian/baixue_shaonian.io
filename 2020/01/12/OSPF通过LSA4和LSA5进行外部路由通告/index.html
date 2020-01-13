@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>OSPF通过LSA4和LSA5进行外部路由通告 | 白雪少年&#39;blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="白雪少年's Blog" />
+  
+  <meta name="description" content="OSPF通过LSA4和LSA5进行外部路由通告一、LSA4LSA4（ABR summary）像LSA3一样都是由ABR产生的、并在Area内泛洪的一类LSA。LSA4和LSA3使用相同的报文格式，区别是Type字域是4，LinkState ID字域是ASBR路由器的RouterID，LSA4的内容是ASBR到ABR的成本。 报文内容：   ​    图中，在Area1中，R1是ASBR，R2和R3">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OSPF通过LSA4和LSA5进行外部路由通告">
+<meta property="og:url" content="http://yoursite.com/2020/01/12/OSPF%E9%80%9A%E8%BF%87LSA4%E5%92%8CLSA5%E8%BF%9B%E8%A1%8C%E5%A4%96%E9%83%A8%E8%B7%AF%E7%94%B1%E9%80%9A%E5%91%8A/index.html">
+<meta property="og:site_name" content="白雪少年&#39;blog">
+<meta property="og:description" content="OSPF通过LSA4和LSA5进行外部路由通告一、LSA4LSA4（ABR summary）像LSA3一样都是由ABR产生的、并在Area内泛洪的一类LSA。LSA4和LSA3使用相同的报文格式，区别是Type字域是4，LinkState ID字域是ASBR路由器的RouterID，LSA4的内容是ASBR到ABR的成本。 报文内容：   ​    图中，在Area1中，R1是ASBR，R2和R3">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://github.com/baixueshaonian/picture/raw/20200112/1.png">
+<meta property="og:image" content="https://github.com/baixueshaonian/picture/raw/20200112/2.png">
+<meta property="og:image" content="https://github.com/baixueshaonian/picture/raw/20200112/3.png">
+<meta property="og:image" content="https://github.com/baixueshaonian/picture/raw/20200112/4.png">
+<meta property="og:image" content="https://github.com/baixueshaonian/picture/raw/20200112/5.png">
+<meta property="og:image" content="https://github.com/baixueshaonian/picture/raw/20200112/6.png">
+<meta property="og:image" content="https://github.com/baixueshaonian/picture/raw/20200112/7.png">
+<meta property="og:image" content="https://github.com/baixueshaonian/picture/raw/20200112/8.png">
+<meta property="article:published_time" content="2020-01-12T08:50:23.000Z">
+<meta property="article:modified_time" content="2020-01-13T02:51:56.147Z">
+<meta property="article:author" content="白雪少年">
+<meta property="article:tag" content="网络基础">
+<meta property="article:tag" content="OSPF">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/baixueshaonian/picture/raw/20200112/1.png">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+  
+
+  
+  
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">白雪少年&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        白雪少年&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个刚出校门的网络工程师，运维工程师，ctf菜鸟。
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="Github" target="_blank" href="//github.com/baixueshaonian">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="Weibo" target="_blank" href="//weibo.com/u/5309113209/home?leftnav=1">
+                            <i class="fa fa-weibo fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-OSPF通过LSA4和LSA5进行外部路由通告" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      OSPF通过LSA4和LSA5进行外部路由通告
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/网络基础/">网络基础</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2020-01-12
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <h1 id="OSPF通过LSA4和LSA5进行外部路由通告"><a href="#OSPF通过LSA4和LSA5进行外部路由通告" class="headerlink" title="OSPF通过LSA4和LSA5进行外部路由通告"></a>OSPF通过LSA4和LSA5进行外部路由通告</h1><h2 id="一、LSA4"><a href="#一、LSA4" class="headerlink" title="一、LSA4"></a>一、LSA4</h2><p>LSA4（ABR summary）像LSA3一样都是由ABR产生的、并在Area内泛洪的一类LSA。LSA4和LSA3使用相同的报文格式，区别是Type字域是4，LinkState ID字域是ASBR路由器的RouterID，<strong>LSA4的内容是ASBR到ABR的成本。</strong></p>
+<p><strong>报文内容：</strong></p>
+<p><img src="https://github.com/baixueshaonian/picture/raw/20200112/1.png" alt=""></p>
+<p><img src="https://github.com/baixueshaonian/picture/raw/20200112/2.png" alt="1578820168428"></p>
+<p>​    图中，在Area1中，<strong>R1是ASBR</strong>，R2和R3为ABR，产生LSA4，通告各自到ASBR的最小成本。R4和R5为ABR，产生LSA4，向Area2通告到ASBR的最小成本。</p>
+<p>​    R4和R5为ABR，产生LSA4，向Area2通告到ASBR的最小成本。LSA4仅当网络中由ASBR时，才在区域间由ABR产生并泛洪，每个区域可通过LSA4计算出到ASBR的距离。</p>
+<p>​    LSA4的作用是在区域间计算到ASBR产生的外部路由的距离。</p>
+<hr>
+<p><strong>总结：</strong>    </p>
+<p>LSA4是明确ASBR的位置。所以其<strong>内容是ABR到ASBR的距离。</strong></p>
+<hr>
+<h2 id="二、LSA5"><a href="#二、LSA5" class="headerlink" title="二、LSA5"></a>二、LSA5</h2><h4 id="1、LSA5报文"><a href="#1、LSA5报文" class="headerlink" title="1、LSA5报文"></a><strong>1、LSA5报文</strong></h4><p><img src="https://github.com/baixueshaonian/picture/raw/20200112/3.png" alt="1578821126430"></p>
+<p>Ls id：引入的<strong>外部路由的网络号</strong>。</p>
+<p>Adv rtr：Advertising Router，产生的LSA5的路由器RouterID。</p>
+<p>Net mask：引入的外部路由的掩码。</p>
+<p>Forwarding Address：可以是0.0.0.0，也可以是非0；如果是0.0.0.0，访问外部网络的报文转发给ASBR，<strong>如果是非0，报文转发给该非0地址</strong>。</p>
+<p>Tag:用于标记外部路由的标签，在路由引入时配置给外部路由，默认值是1.</p>
+<p>Metric：ASBR到外部网络的成本。</p>
+<p>Etype：Metric-type可以是1，也可以是2，默认是2.Type1和Type2的区别在路由表中可以看出来，Type2路由仅考虑外部成本，Type1路由考虑的是端到端的成本（内外成本之和）。Type1和Type2的另外一个区别是在外部路由的选路上的差别。</p>
+<h4 id="2、LSA5的作用："><a href="#2、LSA5的作用：" class="headerlink" title="2、LSA5的作用："></a>2、LSA5的作用：</h4><p>​    LSA5区别于LSA3/LSA4，LSA5仅负责<strong>通告OSPF路由域外其他协议的路由</strong>，如RIP,BGP等。引入到OSPF后，这些外部路由<strong>靠LSA5将其泛洪到OSPF路由域。</strong></p>
+<p>​    LSA5具有其他LSA所没有的泛洪范围，LSA5能够泛洪到所有Area，除了特殊类型区域（Stub及NSSA）。图中，LSA5由R1产生，在区域间泛洪至Area2，<strong>泛洪期间仅Age会增加，其他都没有变化。</strong></p>
+<p>​    LSA5的作用是除了向路由域中路由器通告外部路由外，还告知其他路由器如何访问该外部网络。<strong>根据LSA5中的FA地址决定访问外部网络是经过ASBR还是经过拥有FA地址的路由器。</strong></p>
+<h4 id="3、Forwarding-Address作用"><a href="#3、Forwarding-Address作用" class="headerlink" title="3、Forwarding-Address作用"></a>3、Forwarding-Address作用</h4><p>​    Forwarding-Address，简称FA，仅出现在LSA5或LSA7中，它是数据包访问外部网络时，在数据报文离开OSPF路由域时必须经过的设备地址。</p>
+<p>​    本小节仅介绍LSA5中的FA，LSA7中的FA放到其他章节介绍。LSA5携带外部路由，该外部路由由一定要出现在路由表中，数据包才能访问到该外部目的地。而外部路由能否出现在路由表中，则要依赖于LSA5的FA的可达性，如果FA不可达，则LSA5所通告的外部路由不进路由表（FA不可达，LSA5路由进路由表没有意义）。FA地址可以是全0，也可以是非0.</p>
+<p>​    若FA=0，数据包要经过ASBR访问外部网络。如果FA！=0，数据包要转发至拥有FA地址的路由设备，再由其转发到外部网络。</p>
+<p>​    华为设备中，如果FA=0，<strong>LSA5要判断如何到ASBR，</strong>继而决定该外部路由能否进IP路由表。<strong>如果该ASBR在其他区域，则依赖于LSA4来决定如何到达ASBR</strong>。<strong>如果ASBR在当前区域，则依赖于LSA1/2来计算到ASBR的路径。</strong></p>
+<p>​    <strong>场景一：FA是非0地址的场景：</strong></p>
+<p>R1和R3处在两个AS中，R1和R3都运行BGP协议，AS200向AS100通告100.1.1.0/24的BGP路由。</p>
+<p><img src="https://github.com/baixueshaonian/picture/raw/20200112/4.png" alt="1578880792657"></p>
+<p>​    </p>
+<p>R1收到该BGP路由，并把它放到路由表中，为使OSPF路由域中其他路由器能访问该外部网络，把这条BGP路由引入到OSPF中。</p>
+<hr>
+<p><strong>结论：</strong></p>
+<p>ASBR上的接口如果满足一下四个规则，则ASBR上外部路由的下一跳地址就是该外部路由LSA5的FA，否则该外部路由LSA5中的FA为0.</p>
+<ul>
+<li>该外部路由的下一跳地址所在的网段接口要发布到OSPF中。</li>
+<li>该外部路由的下一跳地址所在网段的接口没有被设置成silent接口。</li>
+<li>下一跳地址所在网段的接口OSPF网络类型不是Point-to-point网络类型。</li>
+<li>下一条地址所在网段的接口OSPF网络类型不是Point-to-Multipoint网络类型。</li>
+</ul>
+<hr>
+<p>​    根据上述规则，图中，R1上BGP路由是100.1.1.0/24，其下一跳为10.1.13.3，<strong>该下一跳地址所在网段的ASBR的接口是图中的G0/0/1接口，该接口已被发布到OSPF中；</strong>该接口没有被Silent掉，默认的OSPF网络类型为Broadcast类型，满足FA非0的条件，所以R1产生LSA5时把该BGP路由的下一跳地址作为FA地址。</p>
+<p><img src="https://github.com/baixueshaonian/picture/raw/20200112/5.png" alt="1578880606462"></p>
+<p>​    路由被引入到OSPF后，R2和R4收到该LSA5,根据其中的FA，查各自的OSPF路由表，来判断LSA5的FA是否可达。</p>
+<p>​    只要Display OSPF Routing中能看到FA地址所对应的路由，则：</p>
+<ul>
+<li>该外部路由能进入路由器</li>
+<li>访问该外部网络的数据将根据FA路由来转发；</li>
+<li>当前路由器在OSPF路由域中的成本是根据该FA路由计算出来的；</li>
+<li>FA地址所对应的路由一定要是OSPF区域内（Intra-Area）或区域间（Inter-Area）路由，FA路由不能是其他外部路由，LSA5不会靠OSPF外部路由和非OSPF协议路由决定FA地址可达性。</li>
+</ul>
+<p><strong>场景二：ForwardingAddress=0.0.0.0场景</strong></p>
+<p>​    根据图中，R1上BGP路由是100.1.1.0/24，其下一跳为10.1.13.3，该下一跳地址所对应的ASBR接口为图中G0/0/1接口。</p>
+<p><img src="https://github.com/baixueshaonian/picture/raw/20200112/6.png" alt="1578879163236"></p>
+<p>​    OSPF不会把LSA5中FA地址置为路由不可达的10.1.13.3,所以，此场景无法满足FA！=0的规则。一下输出是当10.1.13.0/24没有发布到OSPF时的命令输出，可看到FA=0。</p>
+<p><img src="https://github.com/baixueshaonian/picture/raw/20200112/7.png" alt=""></p>
+<p>​    在FA为0的场景下，外部路由是否进路由表要依赖于产生LSA5的通告路由器（ASBR）是否可达。上述FA！=0的4条规则中，只要有任何一条不满足，<strong>则FA地址就是0.0.0.0；</strong>这时数据包要经过ASBR访问外部目标网络，<strong>如何到ASBR则依赖于LSA1/2或LSA4。</strong></p>
+<hr>
+<p><strong>总结：</strong></p>
+<p><strong>FA为0，访问外部路由的数据包转发给ASBR。如果FA不为0，则访问该外部路由的数据包将被转发给该FA地址。</strong></p>
+<ul>
+<li>LSA5中的FA决定外部路由能否进路由表，及转发路径</li>
+<li>LSA5中的FA的内容。<ul>
+<li>如果FA = 0，区域内根据LSA1/2计算路由，区域间根据LSA4计算路由。</li>
+<li>如果FA！=0，区域内根据LSA1/2计算路由，区域间根据LSA3计算路由。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="4、LSA5泛洪："><a href="#4、LSA5泛洪：" class="headerlink" title="4、LSA5泛洪："></a>4、LSA5泛洪：</h4><ul>
+<li>LSA5可以在<strong>区域间</strong>泛洪，这与LSA3和LSA4不同。</li>
+<li>在<strong>骨干区域分割</strong>或普通区域不连接骨干区域的场景下，LSA5依然可以不经过Virtual Link，直接经Transit区域流入其他区域。这与LSA1/2/3/4需要经Vlink传递到其他区域不同，这是因为LSA5和其他类型LSA的泛洪范围不一致，<strong>LSA5没有必要在Vlink和TransitArea1中重复泛洪</strong>。图中，<strong>LSA5不在Vlink上传递</strong>。</li>
+<li>图中，LSA5在<strong>没有Vlink的情况下</strong>，R5引入的外部路由依然可以进入Area2，但却无法进入路由表。</li>
+</ul>
+<p><img src="https://github.com/baixueshaonian/picture/raw/20200112/8.png" alt="1578841403334"></p>
+<hr>
+<p>图中，R1和R2如果没有Vlink，Area3中ASBR R5产生的LSA5可以流入Area2，在R3的LSDB中可以看到LSA5.<strong>但是在R3的路由表中看不到这条外部路由</strong>。</p>
+<p><strong>为什么LSA5所通告的路由不出现在R3的路由表中？</strong></p>
+<p><strong>LSA5虽可以直接流入Area2，但LSA5所通告路由能否进入路由表则依赖于LSA5中FA地址的可达性。</strong>如果FA=0.0.0.0，则LSA5依赖于LSA4；如果FA！=0，则依赖于FA地址路由（使用LSA3通告），由于区域分割，LSA3/LSA4都不能流入Area2，所以LSA5的路由无法进入路由表。</p>
+<hr>
+<p><strong>结论：</strong></p>
+<p><strong>LSA5依赖于LSA4或LSA3来计算OSPF路由域内的访问路径。</strong>LSA3/LSA4在区域间有水平分割规则能避免区域间路由所致的环路，LSA3/LSA4无环，则依赖LSA3/4的LSA5也无环。这就解释了为什么LSA5没有像LSA3一样对区域结构有要求，还可以经ABR泛洪到任何区域，却不易出现环路的原因。</p>
+<hr>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2020年01月13日 10:51</p>
+        <p>原始链接： <a class="post-url" href="/2020/01/12/OSPF%E9%80%9A%E8%BF%87LSA4%E5%92%8CLSA5%E8%BF%9B%E8%A1%8C%E5%A4%96%E9%83%A8%E8%B7%AF%E7%94%B1%E9%80%9A%E5%91%8A/" title="OSPF通过LSA4和LSA5进行外部路由通告">http://yoursite.com/2020/01/12/OSPF%E9%80%9A%E8%BF%87LSA4%E5%92%8CLSA5%E8%BF%9B%E8%A1%8C%E5%A4%96%E9%83%A8%E8%B7%AF%E7%94%B1%E9%80%9A%E5%91%8A/</a></p>
+        <footer>
+            <a href="http://yoursite.com">
+                <img src="/images/logo.png" alt="白雪少年">
+                白雪少年
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;">赏</a>
+</div>
+
+<div id="reward" class="post-modal reward-lay">
+    <a class="close" href="javascript:;" id="reward-close">×</a>
+    <span class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我吃糖~
+        <i class="icon icon-quote-right"></i>
+    </span>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/images/wechat_code.jpg" alt="打赏二维码">
+        </div>
+        <div class="reward-select">
+            
+            <label class="reward-select-item checked" data-id="wechat" data-wechat="/images/wechat_code.jpg">
+                <img class="reward-select-item-wechat" src="/images/wechat.png" alt="微信">
+            </label>
+            
+            
+            <label class="reward-select-item" data-id="alipay" data-alipay="/images/alipay_code.jpg">
+                <img class="reward-select-item-alipay" src="/images/alipay.png" alt="支付宝">
+            </label>
+            
+        </div>
+    </div>
+</div>
+
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/01/12/OSPF%E9%80%9A%E8%BF%87LSA4%E5%92%8CLSA5%E8%BF%9B%E8%A1%8C%E5%A4%96%E9%83%A8%E8%B7%AF%E7%94%B1%E9%80%9A%E5%91%8A/&title=《OSPF通过LSA4和LSA5进行外部路由通告》 — 白雪少年'blog&pic=https://github.com/baixueshaonian/picture/raw/cover/network.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/01/12/OSPF%E9%80%9A%E8%BF%87LSA4%E5%92%8CLSA5%E8%BF%9B%E8%A1%8C%E5%A4%96%E9%83%A8%E8%B7%AF%E7%94%B1%E9%80%9A%E5%91%8A/&title=《OSPF通过LSA4和LSA5进行外部路由通告》 — 白雪少年'blog&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2020/01/12/OSPF%E9%80%9A%E8%BF%87LSA4%E5%92%8CLSA5%E8%BF%9B%E8%A1%8C%E5%A4%96%E9%83%A8%E8%B7%AF%E7%94%B1%E9%80%9A%E5%91%8A/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《OSPF通过LSA4和LSA5进行外部路由通告》 — 白雪少年'blog&url=http://yoursite.com/2020/01/12/OSPF%E9%80%9A%E8%BF%87LSA4%E5%92%8CLSA5%E8%BF%9B%E8%A1%8C%E5%A4%96%E9%83%A8%E8%B7%AF%E7%94%B1%E9%80%9A%E5%91%8A/&via=http://yoursite.com" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2020/01/12/OSPF%E9%80%9A%E8%BF%87LSA4%E5%92%8CLSA5%E8%BF%9B%E8%A1%8C%E5%A4%96%E9%83%A8%E8%B7%AF%E7%94%B1%E9%80%9A%E5%91%8A/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://yoursite.com/2020/01/12/OSPF%E9%80%9A%E8%BF%87LSA4%E5%92%8CLSA5%E8%BF%9B%E8%A1%8C%E5%A4%96%E9%83%A8%E8%B7%AF%E7%94%B1%E9%80%9A%E5%91%8A/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/网络基础/" class="color5">网络基础</a>
+      
+    <a href="/tags/OSPF/" class="color5">OSPF</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#OSPF通过LSA4和LSA5进行外部路由通告"><span class="post-toc-text">OSPF通过LSA4和LSA5进行外部路由通告</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一、LSA4"><span class="post-toc-text">一、LSA4</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二、LSA5"><span class="post-toc-text">二、LSA5</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1、LSA5报文"><span class="post-toc-text">1、LSA5报文</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2、LSA5的作用："><span class="post-toc-text">2、LSA5的作用：</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3、Forwarding-Address作用"><span class="post-toc-text">3、Forwarding-Address作用</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#4、LSA5泛洪："><span class="post-toc-text">4、LSA5泛洪：</span></a></li></ol></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+  
+    <a href="/2020/01/11/%E7%BD%91%E7%BB%9C%E8%A7%84%E5%88%92%E5%B8%88-1-%E7%94%B5%E5%AD%90%E5%95%86%E5%8A%A1%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AEssl%E4%B8%8Eset/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">网络规划师_1_电子商务安全协议ssl与set</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2020 白雪少年<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://yoursite.com",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 1
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Linux/">Linux</a><a class="category-link" href="/categories/python/">python</a><a class="category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">网络基础</a><a class="category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/Linux/" style="font-size: 13.33px;">Linux</a> <a href="/tags/OSPF/" style="font-size: 16.67px;">OSPF</a> <a href="/tags/python/" style="font-size: 16.67px;">python</a> <a href="/tags/web%E6%B8%97%E9%80%8F/" style="font-size: 10px;">web渗透</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 10px;">密码学</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">网络协议</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" style="font-size: 20px;">网络基础</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 13.33px;">网络安全</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E8%A7%84%E5%88%92%E5%B8%88/" style="font-size: 10px;">网络规划师</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/Linux/" style="font-size: 13.33px;">Linux</a> <a href="/tags/OSPF/" style="font-size: 16.67px;">OSPF</a> <a href="/tags/python/" style="font-size: 16.67px;">python</a> <a href="/tags/web%E6%B8%97%E9%80%8F/" style="font-size: 10px;">web渗透</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 10px;">密码学</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">网络协议</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" style="font-size: 20px;">网络基础</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 13.33px;">网络安全</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E8%A7%84%E5%88%92%E5%B8%88/" style="font-size: 10px;">网络规划师</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+
+<script src="/js/search.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  
+<script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+
+  
+<link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  
+<script src="/js/animate.js"></script>
+
+
+
+  
+<script src="/js/pop-img.js"></script>
+
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>

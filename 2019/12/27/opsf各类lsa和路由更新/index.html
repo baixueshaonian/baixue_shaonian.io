@@ -15,16 +15,17 @@
 <meta property="og:site_name" content="白雪少年&#39;blog">
 <meta property="og:description" content="OSPF之LSA路由更新：OSPF通过LSA的形式发布路由。广播型网络中会通过DD报文携带LSA头部信息来比较双方的LSDB，通过LSA R来请求本地LSDB中不存在的LSA（头部），LSU来传递LSA明细信息，LSACK进行确认，保证其可靠性。 1、LSA类型   LSA类型 LSA作用    Router-LSA（Type1） 每个设备都会产生，描述了设备的链路状态和开销，在所属的区域内传播。">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="c:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1577400279259.png">
-<meta property="og:image" content="c:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1577400545303.png">
-<meta property="og:image" content="c:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1577417600509.png">
-<meta property="og:image" content="c:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1577434031579.png">
+<meta property="og:image" content="https://github.com/baixueshaonian/picture/raw/20191227/1.png">
+<meta property="og:image" content="https://github.com/baixueshaonian/picture/raw/20191227/2.png">
+<meta property="og:image" content="https://github.com/baixueshaonian/picture/raw/20191227/3.png">
+<meta property="og:image" content="https://github.com/baixueshaonian/picture/raw/20191227/4.png">
 <meta property="article:published_time" content="2019-12-27T02:29:22.000Z">
-<meta property="article:modified_time" content="2019-12-30T10:51:07.745Z">
+<meta property="article:modified_time" content="2020-01-13T03:06:55.792Z">
 <meta property="article:author" content="白雪少年">
-<meta property="article:tag" content="ospf">
+<meta property="article:tag" content="网络基础">
+<meta property="article:tag" content="OSPF">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="c:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1577400279259.png">
+<meta name="twitter:image" content="https://github.com/baixueshaonian/picture/raw/20191227/1.png">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -187,9 +188,9 @@
 </tr>
 </tbody></table>
 <p>LSU报文中携带的明细LSA。</p>
-<p><img src="C:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1577400279259.png" alt="1577400279259"></p>
+<p><img src="https://github.com/baixueshaonian/picture/raw/20191227/1.png" alt="1577400279259"></p>
 <h3 id="2、LSA格式："><a href="#2、LSA格式：" class="headerlink" title="2、LSA格式："></a>2、LSA格式：</h3><p>在AS内的每台路由器，根据路由器的分类产生一种或多种LSA。收到的LSA的集合形成了LSDB。OSPF中对路由信息的描述都是封装在LSA中发布出去的。常用的LSA共有6种，分别为：Router-LSA、Network-LSA、Network-Summary-LSA、ASBR-Summary-LSA、AS-External-LSA以及NSSA-External LSA。LSA头格式如图：</p>
-<p><img src="C:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1577400545303.png" alt="1577400545303"></p>
+<p><img src="https://github.com/baixueshaonian/picture/raw/20191227/2.png" alt="1577400545303"></p>
 <p><strong>说明：</strong></p>
 <p>LS Age： 16位，LSA产生后经过的时间，以s为单位。</p>
 <p>无论LSA是在链路上传输，还是保存在LSDB中，LS age的值都会不停的增长。默认下，泛洪每经过一台路由器其Age增加1.LSA age如果高位置1，代表该LSA在进入LSDB后不再老化，此场景仅发生在DemandCircuit类型的链路上。</p>
@@ -228,7 +229,7 @@
 <p>自己LSDB中的LSA。泛洪MaxAge的LSA，其作用相当于“毒化”路由。</p>
 <h3 id="3、各类LSA的路由更新和拓扑描述："><a href="#3、各类LSA的路由更新和拓扑描述：" class="headerlink" title="3、各类LSA的路由更新和拓扑描述："></a>3、各类LSA的路由更新和拓扑描述：</h3><h4 id="（一）LSA1："><a href="#（一）LSA1：" class="headerlink" title="（一）LSA1："></a>（一）LSA1：</h4><h5 id="1）LSA报文内容："><a href="#1）LSA报文内容：" class="headerlink" title="1）LSA报文内容："></a>1）LSA报文内容：</h5><p>每台路由器都会为自己所处的每个区域产生一份Router LSA，Router LSA 包含该区域的所以链路的链路状态信息。</p>
 <p>Router-LSA报文格式：</p>
-<p><img src="C:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1577417600509.png" alt="1577417600509"></p>
+<p><img src="https://github.com/baixueshaonian/picture/raw/20191227/3.png" alt="1577417600509"></p>
 <p>说明：</p>
 <p>LS Age：后15位数用来标识age，LSA产生时为0。后免得DoNotAge如果只为，那么立即老化。</p>
 <p>LS Type：LSA的类型，Type = 1.</p>
@@ -237,11 +238,11 @@
 <p>Sequence Number：线性的序列号，初始值从0x80000001开始递增。新的LSA序列号会增加。</p>
 <p>Checksum：对整个LSA做CheckSum（除了Age字段）</p>
 <p>Flags：V若置位，代表是Vlink endpoint；B若置位代表ABR；E若置位代表ASBR。</p>
-<h5 id="2）Link类型以及描述："><a href="#2）Link类型以及描述：" class="headerlink" title="2）Link类型以及描述："></a><strong>2）Link类型以及描述：</strong></h5><p><img src="C:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1577434031579.png" alt="1577434031579"></p>
+<h5 id="2）Link类型以及描述："><a href="#2）Link类型以及描述：" class="headerlink" title="2）Link类型以及描述："></a><strong>2）Link类型以及描述：</strong></h5><p><img src="https://github.com/baixueshaonian/picture/raw/20191227/4.png" alt="1577434031579"></p>
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2019年12月30日 18:51</p>
+        <p>最后更新： 2020年01月13日 11:06</p>
         <p>原始链接： <a class="post-url" href="/2019/12/27/opsf%E5%90%84%E7%B1%BBlsa%E5%92%8C%E8%B7%AF%E7%94%B1%E6%9B%B4%E6%96%B0/" title="opsf各类lsa和路由更新">http://yoursite.com/2019/12/27/opsf%E5%90%84%E7%B1%BBlsa%E5%92%8C%E8%B7%AF%E7%94%B1%E6%9B%B4%E6%96%B0/</a></p>
         <footer>
             <a href="http://yoursite.com">
@@ -299,7 +300,7 @@
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/12/27/opsf%E5%90%84%E7%B1%BBlsa%E5%92%8C%E8%B7%AF%E7%94%B1%E6%9B%B4%E6%96%B0/&title=《opsf各类lsa和路由更新》 — 白雪少年'blog&pic=http://yoursite.comimages/logo.png" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/12/27/opsf%E5%90%84%E7%B1%BBlsa%E5%92%8C%E8%B7%AF%E7%94%B1%E6%9B%B4%E6%96%B0/&title=《opsf各类lsa和路由更新》 — 白雪少年'blog&pic=https://github.com/baixueshaonian/picture/raw/cover/network.jpg" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -346,7 +347,9 @@
   <li class="article-footer-tags">
     <i class="fa fa-tags"></i>
       
-    <a href="/tags/ospf/" class="color5">ospf</a>
+    <a href="/tags/网络基础/" class="color5">网络基础</a>
+      
+    <a href="/tags/OSPF/" class="color5">OSPF</a>
       
   </li>
 
@@ -440,10 +443,10 @@
 <div class="sidebar-menu-box" id="sidebar-menu-box">
     <div class="sidebar-menu-box-container">
         <div id="sidebar-menu-box-categories">
-            <a class="category-link" href="/categories/RedhatLinux/">RedhatLinux</a><a class="category-link" href="/categories/Redlinux/">Redlinux</a><a class="category-link" href="/categories/python%E5%9F%BA%E7%A1%80/">python基础</a><a class="category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">网络基础</a><a class="category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a>
+            <a class="category-link" href="/categories/Linux/">Linux</a><a class="category-link" href="/categories/python/">python</a><a class="category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">网络基础</a><a class="category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a>
         </div>
         <div id="sidebar-menu-box-tags">
-            <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/OSPF/" style="font-size: 13.33px;">OSPF</a> <a href="/tags/Redlinux/" style="font-size: 10px;">Redlinux</a> <a href="/tags/ospf/" style="font-size: 13.33px;">ospf</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/python%E5%9F%BA%E7%A1%80/" style="font-size: 20px;">python基础</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 10px;">密码学</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">网络协议</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" style="font-size: 16.67px;">网络基础</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 13.33px;">网络安全</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/" style="font-size: 10px;">网络管理</a> <a href="/tags/%E8%B7%AF%E7%94%B1%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">路由配置</a>
+            <a href="/tags/Linux/" style="font-size: 13.33px;">Linux</a> <a href="/tags/OSPF/" style="font-size: 16.67px;">OSPF</a> <a href="/tags/python/" style="font-size: 16.67px;">python</a> <a href="/tags/web%E6%B8%97%E9%80%8F/" style="font-size: 10px;">web渗透</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 10px;">密码学</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">网络协议</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" style="font-size: 20px;">网络基础</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 13.33px;">网络安全</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E8%A7%84%E5%88%92%E5%B8%88/" style="font-size: 10px;">网络规划师</a>
         </div>
     </div>
     <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
@@ -476,7 +479,7 @@
     <div class="mobile-header-tag-container">
         <span class="title">Tags</span>
         <div id="mobile-header-container-tags">
-            <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/OSPF/" style="font-size: 13.33px;">OSPF</a> <a href="/tags/Redlinux/" style="font-size: 10px;">Redlinux</a> <a href="/tags/ospf/" style="font-size: 13.33px;">ospf</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/python%E5%9F%BA%E7%A1%80/" style="font-size: 20px;">python基础</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 10px;">密码学</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">网络协议</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" style="font-size: 16.67px;">网络基础</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 13.33px;">网络安全</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/" style="font-size: 10px;">网络管理</a> <a href="/tags/%E8%B7%AF%E7%94%B1%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">路由配置</a>
+            <a href="/tags/Linux/" style="font-size: 13.33px;">Linux</a> <a href="/tags/OSPF/" style="font-size: 16.67px;">OSPF</a> <a href="/tags/python/" style="font-size: 16.67px;">python</a> <a href="/tags/web%E6%B8%97%E9%80%8F/" style="font-size: 10px;">web渗透</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 10px;">密码学</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">网络协议</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" style="font-size: 20px;">网络基础</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 13.33px;">网络安全</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E8%A7%84%E5%88%92%E5%B8%88/" style="font-size: 10px;">网络规划师</a>
         </div>
     </div>
 </div>

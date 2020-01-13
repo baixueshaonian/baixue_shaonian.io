@@ -8,15 +8,21 @@
   
     <meta name="keywords" content="白雪少年's Blog" />
   
-  <meta property="og:type" content="article">
+  <meta name="description" content="一、常见术语介绍：1、脚本：（asp、php、jsp） 2、html：（css、js、html）超文本标记语言 3、HTTP协议 4、CMS（B&#x2F;S） 企业的网站： 学校：织梦 博客：WordPress 5、MD5 6、肉鸡、抓鸡、跳板 7、一句话、小马、大马 webshell、提权、后门 8、源码打包、脱裤 9、嗅探、rootkit（系统级隐藏后门） 二、渗透测试流程讲解：OWASP top10">
+<meta property="og:type" content="article">
 <meta property="og:title" content="web安全001基础概念">
 <meta property="og:url" content="http://yoursite.com/2020/01/09/web%E5%AE%89%E5%85%A8001%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/index.html">
 <meta property="og:site_name" content="白雪少年&#39;blog">
+<meta property="og:description" content="一、常见术语介绍：1、脚本：（asp、php、jsp） 2、html：（css、js、html）超文本标记语言 3、HTTP协议 4、CMS（B&#x2F;S） 企业的网站： 学校：织梦 博客：WordPress 5、MD5 6、肉鸡、抓鸡、跳板 7、一句话、小马、大马 webshell、提权、后门 8、源码打包、脱裤 9、嗅探、rootkit（系统级隐藏后门） 二、渗透测试流程讲解：OWASP top10">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="c:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1578615705334.png">
 <meta property="article:published_time" content="2020-01-09T11:46:25.000Z">
-<meta property="article:modified_time" content="2020-01-09T11:46:25.304Z">
+<meta property="article:modified_time" content="2020-01-11T00:44:19.516Z">
 <meta property="article:author" content="白雪少年">
+<meta property="article:tag" content="网络安全">
+<meta property="article:tag" content="web渗透">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1578615705334.png">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -117,6 +123,13 @@
     <div class="post-title-bar">
       <ul>
           
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/网络安全/">网络安全</a>
+                  
+              </li>
+          
         <li>
           <i class="fa fa-calendar"></i>  2020-01-09
         </li>
@@ -134,10 +147,64 @@
     <div class="article-entry post-content" itemprop="articleBody">
       
             
-            
+            <h1 id="一、常见术语介绍："><a href="#一、常见术语介绍：" class="headerlink" title="一、常见术语介绍："></a>一、常见术语介绍：</h1><p>1、脚本：（asp、php、jsp）</p>
+<p>2、html：（css、js、html）超文本标记语言</p>
+<p>3、HTTP协议</p>
+<p>4、CMS（B/S）</p>
+<p>企业的网站：</p>
+<p>学校：织梦</p>
+<p>博客：WordPress</p>
+<p>5、MD5</p>
+<p>6、肉鸡、抓鸡、跳板</p>
+<p>7、一句话、小马、大马</p>
+<p>webshell、提权、后门</p>
+<p>8、源码打包、脱裤</p>
+<p>9、嗅探、rootkit（系统级隐藏后门）</p>
+<h2 id="二、渗透测试流程讲解："><a href="#二、渗透测试流程讲解：" class="headerlink" title="二、渗透测试流程讲解："></a>二、渗透测试流程讲解：</h2><p>OWASP top10</p>
+<p>渗透测试并没有一个标准的定义国外组织达成共识的通用说法是：渗透测试是通过模拟恶意黑客的方法，来评估计算机网络系统安全的一种评估方法。对系统的任何弱点、技术缺陷或漏洞的主动分析。</p>
+<p><strong>流程：</strong></p>
+<p>明确目标 信息收集 漏洞探测 漏洞验证 编写报告  信息整理  获取所需  信息分析。</p>
+<p>poc漏洞验证</p>
+<p>exp漏洞利用</p>
+<p><strong>HTTP协议：</strong></p>
+<p><img src="C:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1578615705334.png" alt="1578615705334"></p>
+<ul>
+<li>超文本传输协议</li>
+<li>即超文本传输协议，是一种详细规定了浏览器和万维网服务器之间互相通信，万维网交换信息的基础，它允许HTML文档重web服务器传送到web浏览器。</li>
+</ul>
+<p><strong>http响应码：</strong></p>
+<p>200：客户端请求成功，是最常见的状态。</p>
+<p>302：重定向</p>
+<p>404：请求资源不存在，是最常见的状态。</p>
+<p>401：请求未经授权</p>
+<p>403：服务器收到请求，但是拒绝提供服务。</p>
+<p>500：服务器内部错误，是最常见的状态。</p>
+<p>503：服务器当前不能处理客户端的请求。</p>
+<p><strong>http url：</strong></p>
+<p>统一资源定位符，访问一个网站的ip地址。</p>
+<p>可以通过Linux大小写敏感来判断对方的服务器的系统。</p>
+<p><strong>http头讲解：</strong></p>
+<p>200响应码</p>
+<p>data：日期</p>
+<p>content-type：类型</p>
+<p>Accept-Charset：浏览器可接受的字符集</p>
+<p>Content-Length：标识请求消息正文的长度</p>
+<p>Cookie：这是最重要的请求头信息之一</p>
+<p>get与post：</p>
+<p>get是通过url来传递参数，post则不会通过url而是通过包的内容进行传递。</p>
+<p><strong>http请求方法：</strong></p>
+<p>GET 、POST、put、option、move、delete、trace</p>
+<p><strong>错误配置HTTP方法导致的安全事件：</strong></p>
+<p>服务器中存在允许put和move方式，这时我们可以通过put方式传一个webshell.txt然后通过move方式结合解析漏洞这样就可以很快的拿到网站的webshell。</p>
+<p>在PHP中通常会使用$_SERVER[“HTTP_CLIETN_IP”]或者$_SERVER[“HTTP_X_FORWARDED_FOR”]来获取IP地址。</p>
+<p>因此，我们就可以通过修改http头中的X-forwarded来进行攻击。</p>
+<p>例如：</p>
+<p>1、突破服务器访问限制ip</p>
+<p>2、http头注入攻击等。</p>
+
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2020年01月09日 19:46</p>
+        <p>最后更新： 2020年01月11日 08:44</p>
         <p>原始链接： <a class="post-url" href="/2020/01/09/web%E5%AE%89%E5%85%A8001%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/" title="web安全001基础概念">http://yoursite.com/2020/01/09/web%E5%AE%89%E5%85%A8001%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/</a></p>
         <footer>
             <a href="http://yoursite.com">
@@ -239,6 +306,15 @@
         <ul class="article-footer-menu">
             
             
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/网络安全/" class="color5">网络安全</a>
+      
+    <a href="/tags/web渗透/" class="color1">web渗透</a>
+      
+  </li>
+
         </ul>
         
     </footer>
@@ -246,8 +322,24 @@
 </article>
 
 
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#一、常见术语介绍："><span class="post-toc-text">一、常见术语介绍：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二、渗透测试流程讲解："><span class="post-toc-text">二、渗透测试流程讲解：</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
 
 <nav id="article-nav">
+  
+    <a href="/2020/01/11/OSPF%E9%80%9A%E8%BF%87lsa%E8%BF%9B%E8%A1%8C%E6%8B%93%E6%89%91%E6%8F%8F%E8%BF%B0%E5%92%8C%E8%B7%AF%E7%94%B1%E8%AE%A1%E7%AE%97/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          OSPF通过lsa进行拓扑描述和路由计算
+        
+      </span>
+    </a>
   
   
     <a href="/2020/01/08/%E5%8D%81%E4%BA%94python%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/" id="article-nav-older" class="article-nav-link-wrap">
@@ -313,10 +405,10 @@
 <div class="sidebar-menu-box" id="sidebar-menu-box">
     <div class="sidebar-menu-box-container">
         <div id="sidebar-menu-box-categories">
-            <a class="category-link" href="/categories/RedhatLinux/">RedhatLinux</a><a class="category-link" href="/categories/Redlinux/">Redlinux</a><a class="category-link" href="/categories/python%E5%9F%BA%E7%A1%80/">python基础</a><a class="category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">网络基础</a><a class="category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a>
+            <a class="category-link" href="/categories/Linux/">Linux</a><a class="category-link" href="/categories/python/">python</a><a class="category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">网络基础</a><a class="category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a>
         </div>
         <div id="sidebar-menu-box-tags">
-            <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/OSPF/" style="font-size: 13.33px;">OSPF</a> <a href="/tags/Redlinux/" style="font-size: 10px;">Redlinux</a> <a href="/tags/ospf/" style="font-size: 13.33px;">ospf</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/python%E5%9F%BA%E7%A1%80/" style="font-size: 20px;">python基础</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 10px;">密码学</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">网络协议</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" style="font-size: 16.67px;">网络基础</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 13.33px;">网络安全</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/" style="font-size: 10px;">网络管理</a> <a href="/tags/%E8%B7%AF%E7%94%B1%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">路由配置</a>
+            <a href="/tags/Linux/" style="font-size: 13.33px;">Linux</a> <a href="/tags/OSPF/" style="font-size: 16.67px;">OSPF</a> <a href="/tags/python/" style="font-size: 16.67px;">python</a> <a href="/tags/web%E6%B8%97%E9%80%8F/" style="font-size: 10px;">web渗透</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 10px;">密码学</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">网络协议</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" style="font-size: 20px;">网络基础</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 13.33px;">网络安全</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E8%A7%84%E5%88%92%E5%B8%88/" style="font-size: 10px;">网络规划师</a>
         </div>
     </div>
     <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
@@ -349,7 +441,7 @@
     <div class="mobile-header-tag-container">
         <span class="title">Tags</span>
         <div id="mobile-header-container-tags">
-            <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/OSPF/" style="font-size: 13.33px;">OSPF</a> <a href="/tags/Redlinux/" style="font-size: 10px;">Redlinux</a> <a href="/tags/ospf/" style="font-size: 13.33px;">ospf</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/python%E5%9F%BA%E7%A1%80/" style="font-size: 20px;">python基础</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 10px;">密码学</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">网络协议</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" style="font-size: 16.67px;">网络基础</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 13.33px;">网络安全</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86/" style="font-size: 10px;">网络管理</a> <a href="/tags/%E8%B7%AF%E7%94%B1%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">路由配置</a>
+            <a href="/tags/Linux/" style="font-size: 13.33px;">Linux</a> <a href="/tags/OSPF/" style="font-size: 16.67px;">OSPF</a> <a href="/tags/python/" style="font-size: 16.67px;">python</a> <a href="/tags/web%E6%B8%97%E9%80%8F/" style="font-size: 10px;">web渗透</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 10px;">密码学</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">网络协议</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" style="font-size: 20px;">网络基础</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 13.33px;">网络安全</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E8%A7%84%E5%88%92%E5%B8%88/" style="font-size: 10px;">网络规划师</a>
         </div>
     </div>
 </div>
