@@ -3,23 +3,27 @@
 <head>
   <meta charset="utf-8">
   
-  <title>python扫描探测1 | 白雪少年&#39;blog</title>
+  <title>OSPF场景分析 | 白雪少年&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="白雪少年's Blog" />
   
-  <meta name="description" content="python 扫描探测前言：什么是黑客？a hacker is any highly skilled computer expert. 第一部分：scapy介绍">
+  <meta name="description" content="场景分析一：外部路由的访问路径1、场景描述：​    R9、R11、和R12处在IS-IS 路由域中，R9及其他路由器处在OSPF路由域中。R9和R11有 IS-IS邻居关系，同时和R8有OSPF邻居关系。R8、R9和R11接在同一个以太网络上。接口IP地址分别为10.1.123.8、10.1.123.9及10.1.123.11.  ​    IS-IS路由域中R12通告路由100.1.1.0&#x2F;2">
 <meta property="og:type" content="article">
-<meta property="og:title" content="python扫描探测1">
-<meta property="og:url" content="http://yoursite.com/2020/01/02/python%E6%89%AB%E6%8F%8F%E6%8E%A2%E6%B5%8B1/index.html">
+<meta property="og:title" content="OSPF场景分析">
+<meta property="og:url" content="http://yoursite.com/2020/01/14/OSPF%E5%9C%BA%E6%99%AF%E5%88%86%E6%9E%90/index.html">
 <meta property="og:site_name" content="白雪少年&#39;blog">
-<meta property="og:description" content="python 扫描探测前言：什么是黑客？a hacker is any highly skilled computer expert. 第一部分：scapy介绍">
+<meta property="og:description" content="场景分析一：外部路由的访问路径1、场景描述：​    R9、R11、和R12处在IS-IS 路由域中，R9及其他路由器处在OSPF路由域中。R9和R11有 IS-IS邻居关系，同时和R8有OSPF邻居关系。R8、R9和R11接在同一个以太网络上。接口IP地址分别为10.1.123.8、10.1.123.9及10.1.123.11.  ​    IS-IS路由域中R12通告路由100.1.1.0&#x2F;2">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-01-02T15:28:24.000Z">
-<meta property="article:modified_time" content="2020-01-13T04:01:39.613Z">
+<meta property="og:image" content="https://github.com/baixueshaonian/picture/raw/20200114/1.png">
+<meta property="og:image" content="https://github.com/baixueshaonian/picture/raw/20200114/2.png">
+<meta property="article:published_time" content="2020-01-14T02:08:48.000Z">
+<meta property="article:modified_time" content="2020-01-14T08:27:03.566Z">
 <meta property="article:author" content="白雪少年">
-<meta property="article:tag" content="python">
+<meta property="article:tag" content="网络基础">
+<meta property="article:tag" content="OSPF">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/baixueshaonian/picture/raw/20200114/1.png">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -108,14 +112,14 @@
     </div>
 </header>
       <div class="outer">
-        <section id="main" class="body-wrap"><article id="post-python扫描探测1" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main" class="body-wrap"><article id="post-OSPF场景分析" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="post-title" itemprop="name">
-      python扫描探测1
+      OSPF场景分析
     </h1>
     <div class="post-title-bar">
       <ul>
@@ -123,12 +127,12 @@
               <li>
                   <i class="fa fa-book"></i>
                   
-                      <a href="/categories/python/">python</a>
+                      <a href="/categories/网络基础/">网络基础</a>
                   
               </li>
           
         <li>
-          <i class="fa fa-calendar"></i>  2020-01-02
+          <i class="fa fa-calendar"></i>  2020-01-14
         </li>
         <li>
           <i class="fa fa-eye"></i>
@@ -144,12 +148,57 @@
     <div class="article-entry post-content" itemprop="articleBody">
       
             
-            <h1 id="python-扫描探测"><a href="#python-扫描探测" class="headerlink" title="python 扫描探测"></a>python 扫描探测</h1><h2 id="前言：什么是黑客？"><a href="#前言：什么是黑客？" class="headerlink" title="前言：什么是黑客？"></a>前言：什么是黑客？</h2><p>a hacker is any highly skilled computer expert.</p>
-<h2 id="第一部分：scapy介绍"><a href="#第一部分：scapy介绍" class="headerlink" title="第一部分：scapy介绍"></a>第一部分：scapy介绍</h2>
+            <h1 id="场景分析一：外部路由的访问路径"><a href="#场景分析一：外部路由的访问路径" class="headerlink" title="场景分析一：外部路由的访问路径"></a>场景分析一：外部路由的访问路径</h1><h3 id="1、场景描述："><a href="#1、场景描述：" class="headerlink" title="1、场景描述："></a>1、场景描述：</h3><p>​    R9、R11、和R12处在IS-IS 路由域中，R9及其他路由器处在OSPF路由域中。R9和R11有</p>
+<p>IS-IS邻居关系，同时和R8有OSPF邻居关系。R8、R9和R11接在同一个以太网络上。接口IP地址分别为10.1.123.8、10.1.123.9及10.1.123.11.</p>
+<p><img src="https://github.com/baixueshaonian/picture/raw/20200114/1.png" alt="1578984690491"></p>
+<p>​    IS-IS路由域中R12通告路由100.1.1.0/24。</p>
+<p>​    R9上运行IS-IS和OSPF，在R9 IP路由表中有IS-IS路由100.1.1.0/24，其Next-Hop是10.1.123.11。R9上引入IS-IS路由到OSPF，并设置metric-type为type1。</p>
+<p>​    图中，以太网链路成本为1，串行链路成本为48.</p>
+<p><strong>问题：R8和R5的选路结果是什么？</strong></p>
+<p><strong>分析过程</strong></p>
+<p><strong>1）R8选路分析：</strong></p>
+<p>​    R9是ASBR，引入IS-IS路由后，产生<strong>LSA5（100.1.1.0/24）</strong>。根据FA非0的规则：<strong>路由表中外部路由下一跳地址10.1.123.11</strong>，<strong>ASBR所在接口G0/0/0已发布到OSPF中</strong>，接口G0/0/0网络类型为Broadcast类型，且没有被配置为silent接口，所以LSA5中<strong>FA地址</strong>是外部路由的下一跳<strong>地址10.1.123.11。</strong>（FA地址不为0的典型情况）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;R9&gt;dis ospf lsdb </span><br><span class="line"></span><br><span class="line">	 OSPF Process 1 with Router ID 10.1.123.9</span><br><span class="line">		 Link State Database </span><br><span class="line"></span><br><span class="line">		         Area: 0.0.0.200</span><br><span class="line"> Type      LinkState ID    AdvRouter          Age  Len   Sequence   Metric</span><br><span class="line"> Router    10.1.68.6       10.1.68.6          277  48    8000000B      48</span><br><span class="line"> Router    10.1.123.9      10.1.123.9        1522  36    8000000D       1</span><br><span class="line">……</span><br><span class="line"></span><br><span class="line">		 AS External Database</span><br><span class="line"> Type      LinkState ID    AdvRouter          Age  Len   Sequence   Metric</span><br><span class="line"> External  10.1.123.0      10.1.123.9        1522  36    80000009       1</span><br><span class="line">……</span><br></pre></td></tr></table></figure>
+
+<p>​    <strong>R8路由器收到LSA5后，FA为10.1.123.11，该地址对R8而言是直连网段上可达地址</strong>。所以R8把外部路由100.1.1.0/24路由加到路由表，设置其下一跳地址为10.1.123.11，此处需要说明的是，下一跳地址并不是通告LSA5的ASBR，而是10.1.123.11，是图中的R11.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;R8&gt;dis ospf routing  </span><br><span class="line"></span><br><span class="line"> Routing for ASEs</span><br><span class="line"> Destination        Cost      Type       Tag         NextHop         AdvRouter</span><br><span class="line"> 10.1.121.0&#x2F;24      2         Type1      1           10.1.123.11     10.1.123.9</span><br><span class="line"> 100.1.1.0&#x2F;24       2         Type1      1           10.1.123.11     10.1.123.9</span><br><span class="line"></span><br><span class="line"> Total Nets: 11 </span><br><span class="line"> Intra Area: 3  Inter Area: 6  ASE: 2  NSSA: 0</span><br></pre></td></tr></table></figure>
+
+<p>​    此处的下一跳行为可使OSPF在最后一跳网段上避免次优路径，减少额外不必要的一跳。另外，通过本例也可得出：如果FA！=0，<strong>该FA地址一定不在ASBR上。</strong></p>
+<p><strong>2）R5选路分析：</strong></p>
+<p>​    图中，Area 200和Area 0 是双ABR相连，R6和R7是ABR，R5上FA地址所对应的路由应该是10.1.123.0/24，R5上Display OSPF routing中，10.1.123.0/24的下一跳地址是10.1.1.7。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;R5&gt;dis ip routing-table  10.1.123.0</span><br><span class="line">Route Flags: R - relay, D - download to fib</span><br><span class="line">------------------------------------------------------------------------------</span><br><span class="line">Routing Table : Public</span><br><span class="line">Summary Count : 1</span><br><span class="line">Destination&#x2F;Mask    Proto   Pre  Cost      Flags NextHop         Interface</span><br><span class="line"></span><br><span class="line">     10.1.123.0&#x2F;24  OSPF    10   3           D   10.1.1.7      GigabitEthernet</span><br><span class="line">0&#x2F;0&#x2F;0</span><br></pre></td></tr></table></figure>
+
+<p>R5路由表中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Routing for ASEs</span><br><span class="line"> Destination        Cost      Type       Tag         NextHop         AdvRouter</span><br><span class="line"> 10.1.121.0&#x2F;24      4         Type1      1           10.1.1.7        10.1.123.9</span><br><span class="line"> 100.1.1.0&#x2F;24       4         Type1      1           10.1.1.7        10.1.123.9</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>10.1.123.0/24  ，此处成本是3是外部路由在OSPF内部的成本。</p>
+</li>
+<li><p>100.1.1.0/24 若metric-type=2，路由表显示：</p>
+<p>100.1.1.0   ，next-hop 10.1.56.7</p>
+<p>metric = 1是外部成本。</p>
+</li>
+<li><p>100.1.1.0/24若metric-type = 1，路由表显示：</p>
+<p>100.1.1.0 ，next-hop 10.1.56.7</p>
+<p>metric = 4</p>
+<p>端到端成本是内部成本3+外部成本1.</p>
+</li>
+</ul>
+<hr>
+<p>  <strong>注释：Type1、2外部路由的开销值分别是：</strong></p>
+<ul>
+<li><strong>Type 1外部路由开销＝本设备到相应的ASBR的开销＋ASBR到该路由目的地址的开销。</strong></li>
+<li><strong>Type 2外部路由开销＝ASBR到该路由目的地址的开销。</strong></li>
+</ul>
+<hr>
+<p><strong>说明：</strong></p>
+<p>不论LSA5是以metric-type = 1或2的方式导入路由，其出现在路由表中的下一跳使用10.1.123.0/24路由的下一跳。OSPF路由域内部的成本使用的是10.1.123.0/24的成本。</p>
+<p><img src="https://github.com/baixueshaonian/picture/raw/20200114/2.png" alt="1578989843744"></p>
+
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2020年01月13日 12:01</p>
-        <p>原始链接： <a class="post-url" href="/2020/01/02/python%E6%89%AB%E6%8F%8F%E6%8E%A2%E6%B5%8B1/" title="python扫描探测1">http://yoursite.com/2020/01/02/python%E6%89%AB%E6%8F%8F%E6%8E%A2%E6%B5%8B1/</a></p>
+        <p>最后更新： 2020年01月14日 16:27</p>
+        <p>原始链接： <a class="post-url" href="/2020/01/14/OSPF%E5%9C%BA%E6%99%AF%E5%88%86%E6%9E%90/" title="OSPF场景分析">http://yoursite.com/2020/01/14/OSPF%E5%9C%BA%E6%99%AF%E5%88%86%E6%9E%90/</a></p>
         <footer>
             <a href="http://yoursite.com">
                 <img src="/images/logo.png" alt="白雪少年">
@@ -206,7 +255,7 @@
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/01/02/python%E6%89%AB%E6%8F%8F%E6%8E%A2%E6%B5%8B1/&title=《python扫描探测1》 — 白雪少年'blog&pic=https://github.com/baixueshaonian/picture/raw/cover/python.jpg" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/01/14/OSPF%E5%9C%BA%E6%99%AF%E5%88%86%E6%9E%90/&title=《OSPF场景分析》 — 白雪少年'blog&pic=http://yoursite.comimages/logo.png" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -216,22 +265,22 @@
             </a>
           </li>
           <li>
-            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/01/02/python%E6%89%AB%E6%8F%8F%E6%8E%A2%E6%B5%8B1/&title=《python扫描探测1》 — 白雪少年'blog&source=" data-title="QQ">
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/01/14/OSPF%E5%9C%BA%E6%99%AF%E5%88%86%E6%9E%90/&title=《OSPF场景分析》 — 白雪少年'blog&source=" data-title="QQ">
               <i class="fa fa-qq"></i>
             </a>
           </li>
           <li>
-            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2020/01/02/python%E6%89%AB%E6%8F%8F%E6%8E%A2%E6%B5%8B1/" data-title="Facebook">
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2020/01/14/OSPF%E5%9C%BA%E6%99%AF%E5%88%86%E6%9E%90/" data-title="Facebook">
               <i class="fa fa-facebook"></i>
             </a>
           </li>
           <li>
-            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《python扫描探测1》 — 白雪少年'blog&url=http://yoursite.com/2020/01/02/python%E6%89%AB%E6%8F%8F%E6%8E%A2%E6%B5%8B1/&via=http://yoursite.com" data-title="Twitter">
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《OSPF场景分析》 — 白雪少年'blog&url=http://yoursite.com/2020/01/14/OSPF%E5%9C%BA%E6%99%AF%E5%88%86%E6%9E%90/&via=http://yoursite.com" data-title="Twitter">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
           <li>
-            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2020/01/02/python%E6%89%AB%E6%8F%8F%E6%8E%A2%E6%B5%8B1/" data-title="Google+">
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2020/01/14/OSPF%E5%9C%BA%E6%99%AF%E5%88%86%E6%9E%90/" data-title="Google+">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -241,7 +290,7 @@
 <div class="post-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;" id="wxShare-close">×</a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://yoursite.com/2020/01/02/python%E6%89%AB%E6%8F%8F%E6%8E%A2%E6%B5%8B1/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://yoursite.com/2020/01/14/OSPF%E5%9C%BA%E6%99%AF%E5%88%86%E6%9E%90/" alt="微信分享二维码">
 </div>
 
 <div class="mask"></div>
@@ -253,7 +302,9 @@
   <li class="article-footer-tags">
     <i class="fa fa-tags"></i>
       
-    <a href="/tags/python/" class="color2">python</a>
+    <a href="/tags/网络基础/" class="color5">网络基础</a>
+      
+    <a href="/tags/OSPF/" class="color5">OSPF</a>
       
   </li>
 
@@ -266,26 +317,16 @@
 
     <aside class="post-toc-pos post-toc-top" id="post-toc">
         <nav class="post-toc-wrap">
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#python-扫描探测"><span class="post-toc-text">python 扫描探测</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言：什么是黑客？"><span class="post-toc-text">前言：什么是黑客？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#第一部分：scapy介绍"><span class="post-toc-text">第一部分：scapy介绍</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#场景分析一：外部路由的访问路径"><span class="post-toc-text">场景分析一：外部路由的访问路径</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、场景描述："><span class="post-toc-text">1、场景描述：</span></a></li></ol></li></ol></li></ol>
         </nav>
     </aside>
     
 
 <nav id="article-nav">
   
-    <a href="/2020/01/03/%E8%AF%AD%E9%9F%B3%E6%B5%81%E9%87%8F%E9%85%8D%E7%BD%AE/" id="article-nav-newer" class="article-nav-link-wrap">
-
-      <span class="article-nav-title">
-        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
-        
-          语音流量配置
-        
-      </span>
-    </a>
   
-  
-    <a href="/2019/12/28/%E5%BD%92%E6%A1%A3%E5%8E%8B%E7%BC%A9/" id="article-nav-older" class="article-nav-link-wrap">
-      <span class="article-nav-title">归档压缩</span>
+    <a href="/2020/01/13/%E8%BF%9C%E7%A8%8B%E6%8B%B7%E8%B4%9D%E6%96%87%E4%BB%B6/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">远程拷贝文件</span>
       <i class="fa fa-hand-o-right" aria-hidden="true"></i>
     </a>
   

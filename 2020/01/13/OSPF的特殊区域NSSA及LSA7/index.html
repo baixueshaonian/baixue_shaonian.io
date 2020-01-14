@@ -3,23 +3,25 @@
 <head>
   <meta charset="utf-8">
   
-  <title>python扫描探测1 | 白雪少年&#39;blog</title>
+  <title>OSPF的特殊区域NSSA及LSA7 | 白雪少年&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="白雪少年's Blog" />
   
-  <meta name="description" content="python 扫描探测前言：什么是黑客？a hacker is any highly skilled computer expert. 第一部分：scapy介绍">
+  <meta name="description" content="NSSA及LSA7一、NSSA区域：NSSA是一类特殊的区域，区别于Stub区域，可以在NSSA中部署ASBR，并引入外部路由，不需要经过Area0访问外部目标网络，NSSA区域如图所示。 1、NSSA区域：NSSA是一类特殊的区域，区别于Stub区域，可以在NSSA中部署ASBR，并引入外部路由，不需要经过Area0访问外部目标网络，NSSA区域如图所示： NSSA区域： “OSPF规定Stub">
 <meta property="og:type" content="article">
-<meta property="og:title" content="python扫描探测1">
-<meta property="og:url" content="http://yoursite.com/2020/01/02/python%E6%89%AB%E6%8F%8F%E6%8E%A2%E6%B5%8B1/index.html">
+<meta property="og:title" content="OSPF的特殊区域NSSA及LSA7">
+<meta property="og:url" content="http://yoursite.com/2020/01/13/OSPF%E7%9A%84%E7%89%B9%E6%AE%8A%E5%8C%BA%E5%9F%9FNSSA%E5%8F%8ALSA7/index.html">
 <meta property="og:site_name" content="白雪少年&#39;blog">
-<meta property="og:description" content="python 扫描探测前言：什么是黑客？a hacker is any highly skilled computer expert. 第一部分：scapy介绍">
+<meta property="og:description" content="NSSA及LSA7一、NSSA区域：NSSA是一类特殊的区域，区别于Stub区域，可以在NSSA中部署ASBR，并引入外部路由，不需要经过Area0访问外部目标网络，NSSA区域如图所示。 1、NSSA区域：NSSA是一类特殊的区域，区别于Stub区域，可以在NSSA中部署ASBR，并引入外部路由，不需要经过Area0访问外部目标网络，NSSA区域如图所示： NSSA区域： “OSPF规定Stub">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-01-02T15:28:24.000Z">
-<meta property="article:modified_time" content="2020-01-13T04:01:39.613Z">
+<meta property="og:image" content="c:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1578901257561.png">
+<meta property="article:published_time" content="2020-01-13T07:34:38.000Z">
+<meta property="article:modified_time" content="2020-01-13T11:54:32.450Z">
 <meta property="article:author" content="白雪少年">
-<meta property="article:tag" content="python">
+<meta property="article:tag" content="OPSF">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1578901257561.png">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -108,14 +110,14 @@
     </div>
 </header>
       <div class="outer">
-        <section id="main" class="body-wrap"><article id="post-python扫描探测1" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main" class="body-wrap"><article id="post-OSPF的特殊区域NSSA及LSA7" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="post-title" itemprop="name">
-      python扫描探测1
+      OSPF的特殊区域NSSA及LSA7
     </h1>
     <div class="post-title-bar">
       <ul>
@@ -123,12 +125,12 @@
               <li>
                   <i class="fa fa-book"></i>
                   
-                      <a href="/categories/python/">python</a>
+                      <a href="/categories/OSPF/">OSPF</a>
                   
               </li>
           
         <li>
-          <i class="fa fa-calendar"></i>  2020-01-02
+          <i class="fa fa-calendar"></i>  2020-01-13
         </li>
         <li>
           <i class="fa fa-eye"></i>
@@ -144,12 +146,33 @@
     <div class="article-entry post-content" itemprop="articleBody">
       
             
-            <h1 id="python-扫描探测"><a href="#python-扫描探测" class="headerlink" title="python 扫描探测"></a>python 扫描探测</h1><h2 id="前言：什么是黑客？"><a href="#前言：什么是黑客？" class="headerlink" title="前言：什么是黑客？"></a>前言：什么是黑客？</h2><p>a hacker is any highly skilled computer expert.</p>
-<h2 id="第一部分：scapy介绍"><a href="#第一部分：scapy介绍" class="headerlink" title="第一部分：scapy介绍"></a>第一部分：scapy介绍</h2>
+            <h1 id="NSSA及LSA7"><a href="#NSSA及LSA7" class="headerlink" title="NSSA及LSA7"></a>NSSA及LSA7</h1><h2 id="一、NSSA区域："><a href="#一、NSSA区域：" class="headerlink" title="一、NSSA区域："></a>一、NSSA区域：</h2><p>NSSA是一类特殊的区域，区别于Stub区域，可以在NSSA中部署ASBR，并引入外部路由，不需要经过Area0访问外部目标网络，NSSA区域如图所示。</p>
+<h4 id="1、NSSA区域："><a href="#1、NSSA区域：" class="headerlink" title="1、NSSA区域："></a><strong>1、NSSA区域：</strong></h4><p>NSSA是一类特殊的区域，区别于Stub区域，可以在NSSA中部署ASBR，并引入外部路由，不需要经过Area0访问外部目标网络，NSSA区域如图所示：</p>
+<p><strong>NSSA区域：</strong></p>
+<p>“OSPF规定Stub区域是不能引入外部路由的，这样可以避免大量外部路由对Stub区域路由器带宽和存储资源的消耗。对于既需要引入外部路由又要避免外部路由带来的资源消耗场景，Stub区域就不再满足需求了，因此产生了NSSA区域。”</p>
+<p><img src="C:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1578901257561.png" alt="1578901257561"></p>
+<p>OSPF NSSA区域是OSPF新增的一类特殊的区域类型。</p>
+<p>NSSA区域和Stub区域由许多相似的地方。两者的差别在于，NSSA区域能够将外部路由引入并传播到整个OSPF路由域中，同时又不会学习来自OSPF网络其他区域的外部路由。</p>
+<h4 id="2、NSSA-ABR-ASBR"><a href="#2、NSSA-ABR-ASBR" class="headerlink" title="2、NSSA ABR==ASBR"></a>2、NSSA ABR==ASBR</h4><p>NSSA区域连接骨干区域，其区域边界路由器是ABR，同时也是ASBR。华为的NSSA区域边界路由器默认项NSSA区域内泛洪LSA7默认路由。</p>
+<p>1、NSSA区域边界路由器ABR的特性：</p>
+<ul>
+<li>ABR在Area1和Area0间传递区域间路由。</li>
+<li>LSA7（置P位）经ABR7/5翻译后，产生LSA5泛洪到Area0及其他区域。</li>
+<li>默认情况下，向NSSA区域通告LSA7默认路由。</li>
+<li>如果区域类型为Totally NSSA，ABR也可以先NSSA区域产生LSA3的默认路由。</li>
+</ul>
+<p>2、LSA7的作用：</p>
+<ul>
+<li>Type7 LSA是为了支持NSSA区域而新增的一种LSA类型，用于通告引入的外部路由信息。</li>
+<li>Type7 LSA由NSSA区域的自治域边界路由器（ASBR）产生，其扩散范围仅限于ASBR所在的NSSA区域。</li>
+<li>NSSA区域的区域边界路由器(ABR)收到Type7 LSA时，会有选择地将其转化为Type5 LSA，以便将外部路由信息通告到OSPF网络的其他区域。</li>
+<li>LSA5/LSA4不会流入NSSA区域，所以Area1的ABR会各自注入LSA7的默认路由到Area1，这样区域内路由器可以通过默认路由访问外部网络，ABR同时也是ASBR。</li>
+</ul>
+
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2020年01月13日 12:01</p>
-        <p>原始链接： <a class="post-url" href="/2020/01/02/python%E6%89%AB%E6%8F%8F%E6%8E%A2%E6%B5%8B1/" title="python扫描探测1">http://yoursite.com/2020/01/02/python%E6%89%AB%E6%8F%8F%E6%8E%A2%E6%B5%8B1/</a></p>
+        <p>最后更新： 2020年01月13日 19:54</p>
+        <p>原始链接： <a class="post-url" href="/2020/01/13/OSPF%E7%9A%84%E7%89%B9%E6%AE%8A%E5%8C%BA%E5%9F%9FNSSA%E5%8F%8ALSA7/" title="OSPF的特殊区域NSSA及LSA7">http://yoursite.com/2020/01/13/OSPF%E7%9A%84%E7%89%B9%E6%AE%8A%E5%8C%BA%E5%9F%9FNSSA%E5%8F%8ALSA7/</a></p>
         <footer>
             <a href="http://yoursite.com">
                 <img src="/images/logo.png" alt="白雪少年">
@@ -206,7 +229,7 @@
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/01/02/python%E6%89%AB%E6%8F%8F%E6%8E%A2%E6%B5%8B1/&title=《python扫描探测1》 — 白雪少年'blog&pic=https://github.com/baixueshaonian/picture/raw/cover/python.jpg" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/01/13/OSPF%E7%9A%84%E7%89%B9%E6%AE%8A%E5%8C%BA%E5%9F%9FNSSA%E5%8F%8ALSA7/&title=《OSPF的特殊区域NSSA及LSA7》 — 白雪少年'blog&pic=http://yoursite.comimages/logo.png" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -216,22 +239,22 @@
             </a>
           </li>
           <li>
-            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/01/02/python%E6%89%AB%E6%8F%8F%E6%8E%A2%E6%B5%8B1/&title=《python扫描探测1》 — 白雪少年'blog&source=" data-title="QQ">
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/01/13/OSPF%E7%9A%84%E7%89%B9%E6%AE%8A%E5%8C%BA%E5%9F%9FNSSA%E5%8F%8ALSA7/&title=《OSPF的特殊区域NSSA及LSA7》 — 白雪少年'blog&source=" data-title="QQ">
               <i class="fa fa-qq"></i>
             </a>
           </li>
           <li>
-            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2020/01/02/python%E6%89%AB%E6%8F%8F%E6%8E%A2%E6%B5%8B1/" data-title="Facebook">
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2020/01/13/OSPF%E7%9A%84%E7%89%B9%E6%AE%8A%E5%8C%BA%E5%9F%9FNSSA%E5%8F%8ALSA7/" data-title="Facebook">
               <i class="fa fa-facebook"></i>
             </a>
           </li>
           <li>
-            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《python扫描探测1》 — 白雪少年'blog&url=http://yoursite.com/2020/01/02/python%E6%89%AB%E6%8F%8F%E6%8E%A2%E6%B5%8B1/&via=http://yoursite.com" data-title="Twitter">
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《OSPF的特殊区域NSSA及LSA7》 — 白雪少年'blog&url=http://yoursite.com/2020/01/13/OSPF%E7%9A%84%E7%89%B9%E6%AE%8A%E5%8C%BA%E5%9F%9FNSSA%E5%8F%8ALSA7/&via=http://yoursite.com" data-title="Twitter">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
           <li>
-            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2020/01/02/python%E6%89%AB%E6%8F%8F%E6%8E%A2%E6%B5%8B1/" data-title="Google+">
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2020/01/13/OSPF%E7%9A%84%E7%89%B9%E6%AE%8A%E5%8C%BA%E5%9F%9FNSSA%E5%8F%8ALSA7/" data-title="Google+">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -241,7 +264,7 @@
 <div class="post-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;" id="wxShare-close">×</a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://yoursite.com/2020/01/02/python%E6%89%AB%E6%8F%8F%E6%8E%A2%E6%B5%8B1/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://yoursite.com/2020/01/13/OSPF%E7%9A%84%E7%89%B9%E6%AE%8A%E5%8C%BA%E5%9F%9FNSSA%E5%8F%8ALSA7/" alt="微信分享二维码">
 </div>
 
 <div class="mask"></div>
@@ -253,7 +276,7 @@
   <li class="article-footer-tags">
     <i class="fa fa-tags"></i>
       
-    <a href="/tags/python/" class="color2">python</a>
+    <a href="/tags/OPSF/" class="color5">OPSF</a>
       
   </li>
 
@@ -266,26 +289,26 @@
 
     <aside class="post-toc-pos post-toc-top" id="post-toc">
         <nav class="post-toc-wrap">
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#python-扫描探测"><span class="post-toc-text">python 扫描探测</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言：什么是黑客？"><span class="post-toc-text">前言：什么是黑客？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#第一部分：scapy介绍"><span class="post-toc-text">第一部分：scapy介绍</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#NSSA及LSA7"><span class="post-toc-text">NSSA及LSA7</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一、NSSA区域："><span class="post-toc-text">一、NSSA区域：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1、NSSA区域："><span class="post-toc-text">1、NSSA区域：</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2、NSSA-ABR-ASBR"><span class="post-toc-text">2、NSSA ABR&#x3D;&#x3D;ASBR</span></a></li></ol></li></ol></li></ol></li></ol>
         </nav>
     </aside>
     
 
 <nav id="article-nav">
   
-    <a href="/2020/01/03/%E8%AF%AD%E9%9F%B3%E6%B5%81%E9%87%8F%E9%85%8D%E7%BD%AE/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/01/13/%E8%BF%9C%E7%A8%8B%E6%8B%B7%E8%B4%9D%E6%96%87%E4%BB%B6/" id="article-nav-newer" class="article-nav-link-wrap">
 
       <span class="article-nav-title">
         <i class="fa fa-hand-o-left" aria-hidden="true"></i>
         
-          语音流量配置
+          远程拷贝文件
         
       </span>
     </a>
   
   
-    <a href="/2019/12/28/%E5%BD%92%E6%A1%A3%E5%8E%8B%E7%BC%A9/" id="article-nav-older" class="article-nav-link-wrap">
-      <span class="article-nav-title">归档压缩</span>
+    <a href="/2020/01/12/OSPF%E9%80%9A%E8%BF%87LSA4%E5%92%8CLSA5%E8%BF%9B%E8%A1%8C%E5%A4%96%E9%83%A8%E8%B7%AF%E7%94%B1%E9%80%9A%E5%91%8A/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">OSPF通过LSA4和LSA5进行外部路由通告</span>
       <i class="fa fa-hand-o-right" aria-hidden="true"></i>
     </a>
   
