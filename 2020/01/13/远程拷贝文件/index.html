@@ -8,14 +8,17 @@
   
     <meta name="keywords" content="白雪少年's Blog" />
   
-  <meta property="og:type" content="article">
+  <meta name="description" content="八、远程拷贝文件&amp;同步文件一、简介：SSH端口22 OpenSSH 集成了3个命令：（1）ssh （2）scp （3）sftp（不同于ftp）  使用scp和sftp命令。 安全的把文件复制到一个运行有sshd服务的远程系统。 或安全的把一个在运行有sshd服务的远程系统上的文本复制到本地。  scp：远程拷贝文件（ssh登录）—ssh协议 sftp：远程上传下载文件（ssh登录）—ssh">
+<meta property="og:type" content="article">
 <meta property="og:title" content="远程拷贝文件">
 <meta property="og:url" content="http://yoursite.com/2020/01/13/%E8%BF%9C%E7%A8%8B%E6%8B%B7%E8%B4%9D%E6%96%87%E4%BB%B6/index.html">
 <meta property="og:site_name" content="白雪少年&#39;blog">
+<meta property="og:description" content="八、远程拷贝文件&amp;同步文件一、简介：SSH端口22 OpenSSH 集成了3个命令：（1）ssh （2）scp （3）sftp（不同于ftp）  使用scp和sftp命令。 安全的把文件复制到一个运行有sshd服务的远程系统。 或安全的把一个在运行有sshd服务的远程系统上的文本复制到本地。  scp：远程拷贝文件（ssh登录）—ssh协议 sftp：远程上传下载文件（ssh登录）—ssh">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-01-13T11:53:40.000Z">
-<meta property="article:modified_time" content="2020-01-13T11:53:40.643Z">
+<meta property="article:modified_time" content="2020-01-14T08:29:28.027Z">
 <meta property="article:author" content="白雪少年">
+<meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
   
   
@@ -117,6 +120,13 @@
     <div class="post-title-bar">
       <ul>
           
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/Linux/">Linux</a>
+                  
+              </li>
+          
         <li>
           <i class="fa fa-calendar"></i>  2020-01-13
         </li>
@@ -134,10 +144,57 @@
     <div class="article-entry post-content" itemprop="articleBody">
       
             
-            
+            <h1 id="八、远程拷贝文件-amp-同步文件"><a href="#八、远程拷贝文件-amp-同步文件" class="headerlink" title="八、远程拷贝文件&amp;同步文件"></a>八、远程拷贝文件&amp;同步文件</h1><h2 id="一、简介："><a href="#一、简介：" class="headerlink" title="一、简介："></a>一、简介：</h2><p>SSH端口22 OpenSSH</p>
+<p>集成了3个命令：（1）ssh （2）scp （3）sftp（不同于ftp）</p>
+<ul>
+<li>使用scp和sftp命令。</li>
+<li>安全的把文件复制到一个运行有sshd服务的远程系统。</li>
+<li>或安全的把一个在运行有sshd服务的远程系统上的文本复制到本地。</li>
+</ul>
+<p>scp：远程拷贝文件（ssh登录）—ssh协议</p>
+<p>sftp：远程上传下载文件（ssh登录）—ssh协议</p>
+<h3 id="二、简单实验："><a href="#二、简单实验：" class="headerlink" title="二、简单实验："></a><strong>二、简单实验：</strong></h3><p>1、ssh：远程登录访问系统：</p>
+<p>​            <strong>ssh <a href="mailto:root@192.168.1.8">root@192.168.1.8</a></strong>    ssh+用户名+@IP地址</p>
+<p><strong>2、scp远程拷贝文件：</strong></p>
+<p><strong>192.168.1.1                                       192.168.1.2</strong></p>
+<p>​                            <strong>server —-》 client</strong></p>
+<p>​        <strong>/etc/ssh                                     /home/student1/serverbackup</strong></p>
+<ul>
+<li><strong>1.server 本地—》远程</strong></li>
+</ul>
+<p>scp -r /etc/ssh  <a href="mailto:root@192.168.1.2">root@192.168.1.2</a>：<strong>/etc/ssh                                     /home/student1/serverbackup</strong></p>
+<ul>
+<li><strong>2.client   远程—》本地</strong></li>
+</ul>
+<p>scp  (如果拷贝的目录中含有子目录一定要加-r) <a href="mailto:root@192.168.1.1">root@192.168.1.1</a>:/etc/ssh    /home/student1/serverbackup</p>
+<p>3、sftp远程上传或下载文件。</p>
+<p>sftp root @192.168.1.2</p>
+<p>get 下载 put上传  当前俄工作路径就是sftp登录之前的工作路径。</p>
+<h2 id="三、远程同步文件"><a href="#三、远程同步文件" class="headerlink" title="三、远程同步文件"></a>三、远程同步文件</h2><p><strong>远程拷贝文件&amp;远程同步文件：</strong></p>
+<p>远程拷贝文件：全部拷贝并且覆盖。</p>
+<p>远程同步文件：只同步变化的文件和目录。</p>
+<p><strong>使用到的命令：rsync命令。</strong></p>
+<p><strong>基本用法：</strong></p>
+<ul>
+<li>​    基本格式：rsync[选项] 原始位置 目标位置。</li>
+<li>常用选项：<ul>
+<li>-a：归档模式，递归保留对象属性</li>
+<li>-v：显示同步过程的详细信息</li>
+<li>-z：在传输文件时进行压缩</li>
+<li>-H：保留影连接文件</li>
+<li>-A：保留ACL属性信息</li>
+<li>–delete：删除目标位置有而原始位置没有的文件。</li>
+<li>–checksum：根据对象的校验和来决定是否跳过文件。</li>
+</ul>
+</li>
+</ul>
+<p><strong>练习：</strong></p>
+<p>①创建目录 ：mkdir /serverlogs</p>
+<p>②进行同步：rsync -av <a href="mailto:root@192.168.199">root@192.168.199</a>.</p>
+
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2020年01月13日 19:53</p>
+        <p>最后更新： 2020年01月14日 16:29</p>
         <p>原始链接： <a class="post-url" href="/2020/01/13/%E8%BF%9C%E7%A8%8B%E6%8B%B7%E8%B4%9D%E6%96%87%E4%BB%B6/" title="远程拷贝文件">http://yoursite.com/2020/01/13/%E8%BF%9C%E7%A8%8B%E6%8B%B7%E8%B4%9D%E6%96%87%E4%BB%B6/</a></p>
         <footer>
             <a href="http://yoursite.com">
@@ -195,7 +252,7 @@
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/01/13/%E8%BF%9C%E7%A8%8B%E6%8B%B7%E8%B4%9D%E6%96%87%E4%BB%B6/&title=《远程拷贝文件》 — 白雪少年'blog&pic=http://yoursite.comimages/logo.png" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/01/13/%E8%BF%9C%E7%A8%8B%E6%8B%B7%E8%B4%9D%E6%96%87%E4%BB%B6/&title=《远程拷贝文件》 — 白雪少年'blog&pic=https://github.com/baixueshaonian/picture/raw/cover/linux.jpg" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -239,6 +296,13 @@
         <ul class="article-footer-menu">
             
             
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/Linux/" class="color1">Linux</a>
+      
+  </li>
+
         </ul>
         
     </footer>
@@ -246,6 +310,12 @@
 </article>
 
 
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#八、远程拷贝文件-amp-同步文件"><span class="post-toc-text">八、远程拷贝文件&amp;同步文件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一、简介："><span class="post-toc-text">一、简介：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#二、简单实验："><span class="post-toc-text">二、简单实验：</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#三、远程同步文件"><span class="post-toc-text">三、远程同步文件</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
 
 <nav id="article-nav">
   
@@ -326,7 +396,7 @@
             <a class="category-link" href="/categories/Linux/">Linux</a><a class="category-link" href="/categories/OSPF/">OSPF</a><a class="category-link" href="/categories/python/">python</a><a class="category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">网络基础</a><a class="category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a>
         </div>
         <div id="sidebar-menu-box-tags">
-            <a href="/tags/Linux/" style="font-size: 12.5px;">Linux</a> <a href="/tags/OPSF/" style="font-size: 10px;">OPSF</a> <a href="/tags/OSPF/" style="font-size: 17.5px;">OSPF</a> <a href="/tags/python/" style="font-size: 15px;">python</a> <a href="/tags/web%E6%B8%97%E9%80%8F/" style="font-size: 10px;">web渗透</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 10px;">密码学</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">网络协议</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" style="font-size: 20px;">网络基础</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 12.5px;">网络安全</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E8%A7%84%E5%88%92%E5%B8%88/" style="font-size: 10px;">网络规划师</a>
+            <a href="/tags/Linux/" style="font-size: 14px;">Linux</a> <a href="/tags/OPSF/" style="font-size: 10px;">OPSF</a> <a href="/tags/OSPF/" style="font-size: 18px;">OSPF</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/web%E6%B8%97%E9%80%8F/" style="font-size: 10px;">web渗透</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 10px;">密码学</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">网络协议</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" style="font-size: 20px;">网络基础</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 12px;">网络安全</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E8%A7%84%E5%88%92%E5%B8%88/" style="font-size: 10px;">网络规划师</a>
         </div>
     </div>
     <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
@@ -359,7 +429,7 @@
     <div class="mobile-header-tag-container">
         <span class="title">Tags</span>
         <div id="mobile-header-container-tags">
-            <a href="/tags/Linux/" style="font-size: 12.5px;">Linux</a> <a href="/tags/OPSF/" style="font-size: 10px;">OPSF</a> <a href="/tags/OSPF/" style="font-size: 17.5px;">OSPF</a> <a href="/tags/python/" style="font-size: 15px;">python</a> <a href="/tags/web%E6%B8%97%E9%80%8F/" style="font-size: 10px;">web渗透</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 10px;">密码学</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">网络协议</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" style="font-size: 20px;">网络基础</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 12.5px;">网络安全</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E8%A7%84%E5%88%92%E5%B8%88/" style="font-size: 10px;">网络规划师</a>
+            <a href="/tags/Linux/" style="font-size: 14px;">Linux</a> <a href="/tags/OPSF/" style="font-size: 10px;">OPSF</a> <a href="/tags/OSPF/" style="font-size: 18px;">OSPF</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/web%E6%B8%97%E9%80%8F/" style="font-size: 10px;">web渗透</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 10px;">密码学</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">网络协议</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" style="font-size: 20px;">网络基础</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 12px;">网络安全</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E8%A7%84%E5%88%92%E5%B8%88/" style="font-size: 10px;">网络规划师</a>
         </div>
     </div>
 </div>
