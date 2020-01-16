@@ -105,6 +105,214 @@
       <div class="outer">
         <section id="main" class="body-wrap">
   
+    <article id="post-OSPF特殊区域" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/15/OSPF%E7%89%B9%E6%AE%8A%E5%8C%BA%E5%9F%9F/"  >OSPF特殊区域</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/网络基础/">网络基础</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2020/01/15/OSPF%E7%89%B9%E6%AE%8A%E5%8C%BA%E5%9F%9F/" >
+                
+                <img src="https://github.com/baixueshaonian/picture/blob/cover/network.jpg?raw=true" alt="OSPF特殊区域" title="OSPF特殊区域">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                特殊区域区域0不能设置为特殊区域
+Stub———————-过滤LSA4、LSA5，不允许外部路由进入，ABR会下发三类LSA的默认路由去往外部。
+Totally stub————过滤LSA3的明细、LSA4、LSA5，不允许外部路由和域间明细路由，ABR会下发LSA-3的默认路由去往外部。
+
+123ospf 1  area 0.0.0.2 	stub no-summary...
+            </p>
+        </div>
+      
+        
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2020-01-15</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/网络基础/" class="color5">网络基础</a>
+      
+    <a href="/tags/OPSF/" class="color5">OPSF</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2020/01/15/OSPF%E7%89%B9%E6%AE%8A%E5%8C%BA%E5%9F%9F/#more" class="article-more-link" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-OSPF更新路由" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/15/OSPF%E6%9B%B4%E6%96%B0%E8%B7%AF%E7%94%B1/"  >OSPF更新路由</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/网络基础/">网络基础</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2020/01/15/OSPF%E6%9B%B4%E6%96%B0%E8%B7%AF%E7%94%B1/" >
+                
+                <img src="https://github.com/baixueshaonian/picture/blob/cover/network.jpg?raw=true" alt="OSPF更新路由" title="OSPF更新路由">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                OSPF路由更新的方法：三要素：
+LSA类型
+LS-ID
+Advrouter通告路由器
+
+如何判断LSA新旧：如果LSA age = 3600s，最大老化时间，则立即更新并删除
+1、比较seq序列号，一共32bit，线性增加（从0x80000001开始增加），首位为1代表负数、0代表正数。
+2、如果序列号一致，比较Checksum校验和，校验和也大越优。
+3、如果校验和一...
+            </p>
+        </div>
+      
+        
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2020-01-15</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/网络基础/" class="color5">网络基础</a>
+      
+    <a href="/tags/OPSF/" class="color5">OPSF</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2020/01/15/OSPF%E6%9B%B4%E6%96%B0%E8%B7%AF%E7%94%B1/#more" class="article-more-link" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article id="post-OSPF场景分析（二）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/14/OSPF%E5%9C%BA%E6%99%AF%E5%88%86%E6%9E%90%EF%BC%88%E4%BA%8C%EF%BC%89/"  >OSPF场景分析（二）</a>
+    </h1>
+  
+
+          
+              <span class="header-cate">
+                <i class="fa fa-map-marker"></i>
+                  
+                  <a href="/categories/网络基础/">网络基础</a>
+                  
+                  <a href="/categories/OSPF/">OSPF</a>
+                  
+              </span>
+          
+      </header>
+    
+    <div class="article-entry " itemprop="articleBody">
+      
+        <div class="article-img">
+            <a href="/2020/01/14/OSPF%E5%9C%BA%E6%99%AF%E5%88%86%E6%9E%90%EF%BC%88%E4%BA%8C%EF%BC%89/" >
+                
+                <img src="https://github.com/baixueshaonian/picture/blob/cover/network.jpg?raw=true" alt="OSPF场景分析（二）" title="OSPF场景分析（二）">
+                
+            </a>
+        </div>
+        <div class="article-feed">
+            <p>
+                场景分析二：外部路由计算​    外部路由是由ASBR通过LSA5在OSPF路由区域内泛洪的，LSA5会在整个路由域泛洪。以Area0为例，请分析Area0内外部路由的选路计算过程。
+分析过程如下：
+OSPF域内的路由器在计算外部路由时，还需要用到LSA4或LSA3，此场景假设FA=0，如图所示。
+
+​    ABR1和ABR2会各产生LSA4，用于通告ASBR的位置，A...
+            </p>
+        </div>
+      
+        
+    </div>
+    <footer class="article-footer">
+        
+        <ul class="article-footer-menu">
+            
+                <li><i class="fa fa-calendar"></i>2020-01-14</li>
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/OSPF/" class="color5">OSPF</a>
+      
+  </li>
+
+        </ul>
+        
+            <a href="/2020/01/14/OSPF%E5%9C%BA%E6%99%AF%E5%88%86%E6%9E%90%EF%BC%88%E4%BA%8C%EF%BC%89/#more" class="article-more-link" >more&gt;&gt;</a>
+        
+    </footer>
+  </div>
+</article>
+
+
+  
     <article id="post-OSPF场景分析" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -257,7 +465,7 @@ sftp：远程上传下载...
               <span class="header-cate">
                 <i class="fa fa-map-marker"></i>
                   
-                  <a href="/categories/OSPF/">OSPF</a>
+                  <a href="/categories/网络基础/">网络基础</a>
                   
               </span>
           
@@ -268,7 +476,7 @@ sftp：远程上传下载...
         <div class="article-img">
             <a href="/2020/01/13/OSPF%E7%9A%84%E7%89%B9%E6%AE%8A%E5%8C%BA%E5%9F%9FNSSA%E5%8F%8ALSA7/" >
                 
-                <img src="http://yoursite.com/images/banner1.jpg" alt="OSPF的特殊区域NSSA及LSA7" title="OSPF的特殊区域NSSA及LSA7">
+                <img src="https://github.com/baixueshaonian/picture/blob/cover/network.jpg?raw=true" alt="OSPF的特殊区域NSSA及LSA7" title="OSPF的特殊区域NSSA及LSA7">
                 
             </a>
         </div>
@@ -291,6 +499,8 @@ NSSA区域...
             
   <li class="article-footer-tags">
     <i class="fa fa-tags"></i>
+      
+    <a href="/tags/网络基础/" class="color5">网络基础</a>
       
     <a href="/tags/OPSF/" class="color5">OPSF</a>
       
@@ -579,200 +789,6 @@ webshell、提权、后门
 
 
   
-    <article id="post-十五python数据持久化" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/08/%E5%8D%81%E4%BA%94python%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/"  >十五python数据持久化</a>
-    </h1>
-  
-
-          
-              <span class="header-cate">
-                <i class="fa fa-map-marker"></i>
-                  
-                  <a href="/categories/python/">python</a>
-                  
-              </span>
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/2020/01/08/%E5%8D%81%E4%BA%94python%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/" >
-                
-                <img src="https://github.com/baixueshaonian/picture/raw/cover/python.jpg" alt="十五python数据持久化" title="十五python数据持久化">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                十五、数据持久化一、Pickle技术介绍：pickle模块将内存中的Python对象转化成序列化的字节流，这是一种可以写入任何类似文件对象的字节串。Pickle模块也可以根据序列化的字节流重新构建原来内存中的对象：转换成原来那个对象。可以说pockle模块取代了专有的数据格式。他的序列化格式具有普遍性，对所有程序都足够高效。使用pickle，就不需要在持久化存储对象的时候...
-            </p>
-        </div>
-      
-        
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2020-01-08</li>
-            
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/python/" class="color2">python</a>
-      
-  </li>
-
-        </ul>
-        
-            <a href="/2020/01/08/%E5%8D%81%E4%BA%94python%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/#more" class="article-more-link" >more&gt;&gt;</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article id="post-OSPF区域结构设计" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/07/OSPF%E5%8C%BA%E5%9F%9F%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1/"  >OSPF区域结构设计</a>
-    </h1>
-  
-
-          
-              <span class="header-cate">
-                <i class="fa fa-map-marker"></i>
-                  
-                  <a href="/categories/网络基础/">网络基础</a>
-                  
-              </span>
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/2020/01/07/OSPF%E5%8C%BA%E5%9F%9F%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1/" >
-                
-                <img src="https://github.com/baixueshaonian/picture/blob/cover/network.jpg?raw=true" alt="OSPF区域结构设计" title="OSPF区域结构设计">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                区域结构设计：前言：OSPF通过LSA3来进行区域间路由通告一、简介：  随着网络规模的日益扩大，当一个大型网络中的路由器都运行OSPF路由协议时，路由器数量的过多会导致LSDB非常庞大，占用大量的存储空间，并使得SPF计算的复杂度和开销增加，导致路由器负担很重。尤其是在网络规模增大之后，拓扑结构发生变化的概率也增大，网络会经常处于“动荡”之中，变化的网络会导致有大量的O...
-            </p>
-        </div>
-      
-        
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2020-01-07</li>
-            
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/网络基础/" class="color5">网络基础</a>
-      
-    <a href="/tags/OSPF/" class="color5">OSPF</a>
-      
-  </li>
-
-        </ul>
-        
-            <a href="/2020/01/07/OSPF%E5%8C%BA%E5%9F%9F%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1/#more" class="article-more-link" >more&gt;&gt;</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article id="post-OSPFv3原理描述" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/07/OSPFv3%E5%8E%9F%E7%90%86%E6%8F%8F%E8%BF%B0/"  >OSPFv3原理描述</a>
-    </h1>
-  
-
-          
-              <span class="header-cate">
-                <i class="fa fa-map-marker"></i>
-                  
-                  <a href="/categories/网络基础/">网络基础</a>
-                  
-              </span>
-          
-      </header>
-    
-    <div class="article-entry " itemprop="articleBody">
-      
-        <div class="article-img">
-            <a href="/2020/01/07/OSPFv3%E5%8E%9F%E7%90%86%E6%8F%8F%E8%BF%B0/" >
-                
-                <img src="https://github.com/baixueshaonian/picture/blob/cover/network.jpg?raw=true" alt="OSPFv3原理描述" title="OSPFv3原理描述">
-                
-            </a>
-        </div>
-        <div class="article-feed">
-            <p>
-                OSPFv3简介：定义：OSPF是IETF组织开发的一个机遇链路状态的内部网关协议。目前针对IPv4协议使用的是OSPF version2，针对IPv6协议使用的是OSPF Version3
-目的：OSPFv3的主要目的是开发一种独立于任何具体网络层的路由协议。为实现这一目的，OSPFv3的内部路由器信息被重新进行了设计。
-与OSPFv2的区别：
-
-不在位于数据包和链路状...
-            </p>
-        </div>
-      
-        
-    </div>
-    <footer class="article-footer">
-        
-        <ul class="article-footer-menu">
-            
-                <li><i class="fa fa-calendar"></i>2020-01-07</li>
-            
-            
-  <li class="article-footer-tags">
-    <i class="fa fa-tags"></i>
-      
-    <a href="/tags/网络基础/" class="color5">网络基础</a>
-      
-    <a href="/tags/OSPF/" class="color5">OSPF</a>
-      
-  </li>
-
-        </ul>
-        
-            <a href="/2020/01/07/OSPFv3%E5%8E%9F%E7%90%86%E6%8F%8F%E8%BF%B0/#more" class="article-more-link" >more&gt;&gt;</a>
-        
-    </footer>
-  </div>
-</article>
-
-
-  
 
 
   <nav id="page-nav">
@@ -831,10 +847,10 @@ webshell、提权、后门
 <div class="sidebar-menu-box" id="sidebar-menu-box">
     <div class="sidebar-menu-box-container">
         <div id="sidebar-menu-box-categories">
-            <a class="category-link" href="/categories/Linux/">Linux</a><a class="category-link" href="/categories/OSPF/">OSPF</a><a class="category-link" href="/categories/python/">python</a><a class="category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">网络基础</a><a class="category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a>
+            <a class="category-link" href="/categories/Linux/">Linux</a><a class="category-link" href="/categories/python/">python</a><a class="category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">网络基础</a><a class="category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/OSPF/">OSPF</a><a class="category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a>
         </div>
         <div id="sidebar-menu-box-tags">
-            <a href="/tags/Linux/" style="font-size: 14px;">Linux</a> <a href="/tags/OPSF/" style="font-size: 10px;">OPSF</a> <a href="/tags/OSPF/" style="font-size: 18px;">OSPF</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/web%E6%B8%97%E9%80%8F/" style="font-size: 10px;">web渗透</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 10px;">密码学</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">网络协议</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" style="font-size: 20px;">网络基础</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 12px;">网络安全</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E8%A7%84%E5%88%92%E5%B8%88/" style="font-size: 10px;">网络规划师</a>
+            <a href="/tags/Linux/" style="font-size: 14px;">Linux</a> <a href="/tags/OPSF/" style="font-size: 12px;">OPSF</a> <a href="/tags/OSPF/" style="font-size: 18px;">OSPF</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/web%E6%B8%97%E9%80%8F/" style="font-size: 10px;">web渗透</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 10px;">密码学</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">网络协议</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" style="font-size: 20px;">网络基础</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 12px;">网络安全</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E8%A7%84%E5%88%92%E5%B8%88/" style="font-size: 10px;">网络规划师</a>
         </div>
     </div>
     <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
@@ -867,7 +883,7 @@ webshell、提权、后门
     <div class="mobile-header-tag-container">
         <span class="title">Tags</span>
         <div id="mobile-header-container-tags">
-            <a href="/tags/Linux/" style="font-size: 14px;">Linux</a> <a href="/tags/OPSF/" style="font-size: 10px;">OPSF</a> <a href="/tags/OSPF/" style="font-size: 18px;">OSPF</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/web%E6%B8%97%E9%80%8F/" style="font-size: 10px;">web渗透</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 10px;">密码学</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">网络协议</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" style="font-size: 20px;">网络基础</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 12px;">网络安全</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E8%A7%84%E5%88%92%E5%B8%88/" style="font-size: 10px;">网络规划师</a>
+            <a href="/tags/Linux/" style="font-size: 14px;">Linux</a> <a href="/tags/OPSF/" style="font-size: 12px;">OPSF</a> <a href="/tags/OSPF/" style="font-size: 18px;">OSPF</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/web%E6%B8%97%E9%80%8F/" style="font-size: 10px;">web渗透</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 10px;">密码学</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">网络协议</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" style="font-size: 20px;">网络基础</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 12px;">网络安全</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E8%A7%84%E5%88%92%E5%B8%88/" style="font-size: 10px;">网络规划师</a>
         </div>
     </div>
 </div>

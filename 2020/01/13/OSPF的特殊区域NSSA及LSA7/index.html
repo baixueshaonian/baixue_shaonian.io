@@ -17,8 +17,9 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://github.com/baixueshaonian/picture/raw/20200113/1.png">
 <meta property="article:published_time" content="2020-01-13T07:34:38.000Z">
-<meta property="article:modified_time" content="2020-01-14T08:34:39.193Z">
+<meta property="article:modified_time" content="2020-01-16T01:56:51.681Z">
 <meta property="article:author" content="白雪少年">
+<meta property="article:tag" content="网络基础">
 <meta property="article:tag" content="OPSF">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://github.com/baixueshaonian/picture/raw/20200113/1.png">
@@ -125,7 +126,7 @@
               <li>
                   <i class="fa fa-book"></i>
                   
-                      <a href="/categories/OSPF/">OSPF</a>
+                      <a href="/categories/网络基础/">网络基础</a>
                   
               </li>
           
@@ -153,7 +154,7 @@
 <p><img src="https://github.com/baixueshaonian/picture/raw/20200113/1.png" alt="1578901257561"></p>
 <p>OSPF NSSA区域是OSPF新增的一类特殊的区域类型。</p>
 <p>NSSA区域和Stub区域由许多相似的地方。两者的差别在于，NSSA区域能够将外部路由引入并传播到整个OSPF路由域中，同时又不会学习来自OSPF网络其他区域的外部路由。</p>
-<h4 id="2、NSSA-ABR-ASBR"><a href="#2、NSSA-ABR-ASBR" class="headerlink" title="2、NSSA ABR==ASBR"></a>2、NSSA ABR==ASBR</h4><p>NSSA区域连接骨干区域，其区域边界路由器是ABR，同时也是ASBR。华为的NSSA区域边界路由器默认项NSSA区域内泛洪LSA7默认路由。</p>
+<h4 id="2、NSSA-ABR-ASBR"><a href="#2、NSSA-ABR-ASBR" class="headerlink" title="2、NSSA ABR==ASBR"></a>2、NSSA ABR==ASBR</h4><p>NSSA区域连接骨干区域，其区域边界路由器是ABR，同时也是ASBR。华为的NSSA区域边界路由器默认向NSSA区域内泛洪LSA7默认路由。</p>
 <p>1、NSSA区域边界路由器ABR的特性：</p>
 <ul>
 <li>ABR在Area1和Area0间传递区域间路由。</li>
@@ -163,15 +164,54 @@
 </ul>
 <p>2、LSA7的作用：</p>
 <ul>
-<li>Type7 LSA是为了支持NSSA区域而新增的一种LSA类型，用于通告引入的外部路由信息。</li>
-<li>Type7 LSA由NSSA区域的自治域边界路由器（ASBR）产生，其扩散范围仅限于ASBR所在的NSSA区域。</li>
-<li>NSSA区域的区域边界路由器(ABR)收到Type7 LSA时，会有选择地将其转化为Type5 LSA，以便将外部路由信息通告到OSPF网络的其他区域。</li>
-<li>LSA5/LSA4不会流入NSSA区域，所以Area1的ABR会各自注入LSA7的默认路由到Area1，这样区域内路由器可以通过默认路由访问外部网络，ABR同时也是ASBR。</li>
+<li><p>Type7 LSA是为了支持NSSA区域而新增的一种LSA类型，用于通告引入的外部路由信息。</p>
+</li>
+<li><p>Type7 LSA由NSSA区域的自治域边界路由器（ASBR）产生，其扩散范围仅限于ASBR所在的NSSA区域。</p>
+</li>
+<li><p>NSSA区域的区域边界路由器(ABR)收到Type7 LSA时，<strong>会有选择地将其转化为Type5 LSA</strong>，以便将外部路由信息通告到OSPF网络的其他区域。</p>
+</li>
+<li><p><strong>LSA5/LSA4不会流入NSSA区域</strong>，所以Area1的ABR会各自注入LSA7的默认路由到Area1，这样区域内路由器可以通过默认路由访问外部网络，ABR同时也是ASBR。</p>
+</li>
+<li><p>LSA7的FA一定要为非0，用于在区域间选路。</p>
+</li>
 </ul>
+<hr>
+<p><strong>说明：</strong></p>
+<p><strong>FA的构成：</strong></p>
+<p>需要强调的一点是LSA7的FA地址和LSA5的FA内容上有如下区别:</p>
+<p>LSA5的FA是0和非0两种情况。</p>
+<p><strong>LSA7的FA值如下。</strong></p>
+<p>（1）在NSSA区域<strong>边界路由器上引入外部路由</strong>，<strong>产生LSA7，其FA地址为0</strong>。协议规定FA=0的LSA7的路由是不会被通告到骨干区域的。</p>
+<p>（2）FA不为0的情况。在NSSA中，ASBR引入的外部路由，除了<strong>上面特例外</strong>，都是非0，LSA5的四条规则同样适用LSA7.</p>
+<ul>
+<li>如果满足4条规则，FA！=0，地址是ASBR上外部路由的下一跳地址。</li>
+<li>如果不满足某条规则，FA！=0，地址是ASBR上某个接口IP地址，优选环回口地址，如果没有环回口，则使用物理接口地址。</li>
+</ul>
+<hr>
+<h2 id="二、LSA7翻译："><a href="#二、LSA7翻译：" class="headerlink" title="二、LSA7翻译："></a>二、LSA7翻译：</h2><p>​    在Area1中LSA7作用和LSA5一致，有相同的格式，包括外部路由及掩码、Forwarding-Address Tag、Cost-Type及Cost。</p>
+<ul>
+<li>LSA7仅在NSSA区域里泛洪；</li>
+<li>LSA7的FA为非0；如果为0，则不会被ABR翻译为LSA5.</li>
+<li>外部路由在NSSA区域里使用LSA7来传递，在其他区域由LSA5来传递，ABR负责做7/5翻译。</li>
+<li>LSA7中选项位P-bit用于告知翻译路由器该条Type-7 LSA是否需要翻译。</li>
+<li>缺省情况下，转换路由器是NSSA区域中Router ID最大的区域边界路由器。</li>
+<li>只有P-bit置位并且FA不为0的Type7LSA才能转化为LSA5 LSA。</li>
+<li>若在ABR上引入外部路由，产生的Type7 LSA不会置P-bit，所以不会再被通告到Area0、</li>
+</ul>
+<p><strong>华为NSSA区域中路由器可以使用如下命令：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nssa [default-route-advertise] flush-Waiting-timer interval-value | no-import-route | no-summary | set-n-bit | suppress-forwarding-address | translator-always</span><br></pre></td></tr></table></figure>
+
+<p>nssa translator-always 可以指定7/5转换器</p>
+<p>nssa suppress-forwarding-address命令可以指定在7/5转换器翻译时，修改默认的FA地址为0。</p>
+<p>nssa default-route-advertise 可以指定ABR或任何NSSA区域中路由器产生LSA7默认路由。</p>
+<hr>
+<p><strong>说明：</strong></p>
+<p>当NSSA区域中由多个ABR时，系统会根据规则自动选择一个ABR作为转换器，缺省情况下NSSA区域选择Router ID最大的设备。通过在ABR上配置translator-always参数，可以将任意一个ABR指定为转换器。也可以同时指定两个ABR为转换器，可以通过配置translator-always来指定两个转换器同时工作。也可以用于固定一台路由器为转换器，防止由于转换器变动而引起的LSA重新泛洪。</p>
+<hr>
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2020年01月14日 16:34</p>
+        <p>最后更新： 2020年01月16日 09:56</p>
         <p>原始链接： <a class="post-url" href="/2020/01/13/OSPF%E7%9A%84%E7%89%B9%E6%AE%8A%E5%8C%BA%E5%9F%9FNSSA%E5%8F%8ALSA7/" title="OSPF的特殊区域NSSA及LSA7">http://yoursite.com/2020/01/13/OSPF%E7%9A%84%E7%89%B9%E6%AE%8A%E5%8C%BA%E5%9F%9FNSSA%E5%8F%8ALSA7/</a></p>
         <footer>
             <a href="http://yoursite.com">
@@ -229,7 +269,7 @@
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/01/13/OSPF%E7%9A%84%E7%89%B9%E6%AE%8A%E5%8C%BA%E5%9F%9FNSSA%E5%8F%8ALSA7/&title=《OSPF的特殊区域NSSA及LSA7》 — 白雪少年'blog&pic=http://yoursite.comimages/logo.png" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/01/13/OSPF%E7%9A%84%E7%89%B9%E6%AE%8A%E5%8C%BA%E5%9F%9FNSSA%E5%8F%8ALSA7/&title=《OSPF的特殊区域NSSA及LSA7》 — 白雪少年'blog&pic=https://github.com/baixueshaonian/picture/blob/cover/network.jpg?raw=true" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -276,6 +316,8 @@
   <li class="article-footer-tags">
     <i class="fa fa-tags"></i>
       
+    <a href="/tags/网络基础/" class="color5">网络基础</a>
+      
     <a href="/tags/OPSF/" class="color5">OPSF</a>
       
   </li>
@@ -289,7 +331,7 @@
 
     <aside class="post-toc-pos post-toc-top" id="post-toc">
         <nav class="post-toc-wrap">
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#NSSA及LSA7"><span class="post-toc-text">NSSA及LSA7</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一、NSSA区域："><span class="post-toc-text">一、NSSA区域：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1、NSSA区域："><span class="post-toc-text">1、NSSA区域：</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2、NSSA-ABR-ASBR"><span class="post-toc-text">2、NSSA ABR&#x3D;&#x3D;ASBR</span></a></li></ol></li></ol></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#NSSA及LSA7"><span class="post-toc-text">NSSA及LSA7</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一、NSSA区域："><span class="post-toc-text">一、NSSA区域：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1、NSSA区域："><span class="post-toc-text">1、NSSA区域：</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2、NSSA-ABR-ASBR"><span class="post-toc-text">2、NSSA ABR&#x3D;&#x3D;ASBR</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二、LSA7翻译："><span class="post-toc-text">二、LSA7翻译：</span></a></li></ol></li></ol>
         </nav>
     </aside>
     
@@ -370,10 +412,10 @@
 <div class="sidebar-menu-box" id="sidebar-menu-box">
     <div class="sidebar-menu-box-container">
         <div id="sidebar-menu-box-categories">
-            <a class="category-link" href="/categories/Linux/">Linux</a><a class="category-link" href="/categories/OSPF/">OSPF</a><a class="category-link" href="/categories/python/">python</a><a class="category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">网络基础</a><a class="category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a>
+            <a class="category-link" href="/categories/Linux/">Linux</a><a class="category-link" href="/categories/python/">python</a><a class="category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">网络基础</a><a class="category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/OSPF/">OSPF</a><a class="category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a>
         </div>
         <div id="sidebar-menu-box-tags">
-            <a href="/tags/Linux/" style="font-size: 14px;">Linux</a> <a href="/tags/OPSF/" style="font-size: 10px;">OPSF</a> <a href="/tags/OSPF/" style="font-size: 18px;">OSPF</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/web%E6%B8%97%E9%80%8F/" style="font-size: 10px;">web渗透</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 10px;">密码学</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">网络协议</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" style="font-size: 20px;">网络基础</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 12px;">网络安全</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E8%A7%84%E5%88%92%E5%B8%88/" style="font-size: 10px;">网络规划师</a>
+            <a href="/tags/Linux/" style="font-size: 14px;">Linux</a> <a href="/tags/OPSF/" style="font-size: 12px;">OPSF</a> <a href="/tags/OSPF/" style="font-size: 18px;">OSPF</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/web%E6%B8%97%E9%80%8F/" style="font-size: 10px;">web渗透</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 10px;">密码学</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">网络协议</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" style="font-size: 20px;">网络基础</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 12px;">网络安全</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E8%A7%84%E5%88%92%E5%B8%88/" style="font-size: 10px;">网络规划师</a>
         </div>
     </div>
     <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
@@ -406,7 +448,7 @@
     <div class="mobile-header-tag-container">
         <span class="title">Tags</span>
         <div id="mobile-header-container-tags">
-            <a href="/tags/Linux/" style="font-size: 14px;">Linux</a> <a href="/tags/OPSF/" style="font-size: 10px;">OPSF</a> <a href="/tags/OSPF/" style="font-size: 18px;">OSPF</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/web%E6%B8%97%E9%80%8F/" style="font-size: 10px;">web渗透</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 10px;">密码学</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">网络协议</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" style="font-size: 20px;">网络基础</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 12px;">网络安全</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E8%A7%84%E5%88%92%E5%B8%88/" style="font-size: 10px;">网络规划师</a>
+            <a href="/tags/Linux/" style="font-size: 14px;">Linux</a> <a href="/tags/OPSF/" style="font-size: 12px;">OPSF</a> <a href="/tags/OSPF/" style="font-size: 18px;">OSPF</a> <a href="/tags/python/" style="font-size: 16px;">python</a> <a href="/tags/web%E6%B8%97%E9%80%8F/" style="font-size: 10px;">web渗透</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 10px;">密码学</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" style="font-size: 10px;">网络协议</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" style="font-size: 20px;">网络基础</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 12px;">网络安全</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E8%A7%84%E5%88%92%E5%B8%88/" style="font-size: 10px;">网络规划师</a>
         </div>
     </div>
 </div>
