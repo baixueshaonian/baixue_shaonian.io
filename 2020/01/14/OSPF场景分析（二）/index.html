@@ -15,14 +15,14 @@
 <meta property="og:site_name" content="白雪少年&#39;blog">
 <meta property="og:description" content="场景分析二：外部路由计算​    外部路由是由ASBR通过LSA5在OSPF路由区域内泛洪的，LSA5会在整个路由域泛洪。以Area0为例，请分析Area0内外部路由的选路计算过程。 分析过程如下： OSPF域内的路由器在计算外部路由时，还需要用到LSA4或LSA3，此场景假设FA&#x3D;0，如图所示。  ​    ABR1和ABR2会各产生LSA4，用于通告ASBR的位置，ABR1产生LSA4（cos">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="c:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1579001192222.png">
-<meta property="og:image" content="c:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1579006044262.png">
+<meta property="og:image" content="https://github.com/baixueshaonian/picture/raw/20200114/3.png">
+<meta property="og:image" content="https://github.com/baixueshaonian/picture/raw/20200114/4.png">
 <meta property="article:published_time" content="2020-01-14T11:22:10.000Z">
-<meta property="article:modified_time" content="2020-01-14T12:52:56.040Z">
+<meta property="article:modified_time" content="2020-01-16T02:21:20.311Z">
 <meta property="article:author" content="白雪少年">
 <meta property="article:tag" content="OSPF">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="c:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1579001192222.png">
+<meta name="twitter:image" content="https://github.com/baixueshaonian/picture/raw/20200114/3.png">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -152,11 +152,11 @@
             <h1 id="场景分析二：外部路由计算"><a href="#场景分析二：外部路由计算" class="headerlink" title="场景分析二：外部路由计算"></a>场景分析二：外部路由计算</h1><p>​    外部路由是由ASBR通过LSA5在OSPF路由区域内泛洪的，LSA5会在整个路由域泛洪。以Area0为例，请分析Area0内外部路由的选路计算过程。</p>
 <p><strong>分析过程如下：</strong></p>
 <p>OSPF域内的路由器在计算外部路由时，还需要用到LSA4或LSA3，此场景假设FA=0，如图所示。</p>
-<p><img src="C:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1579001192222.png" alt="1579001192222"></p>
+<p><img src="https://github.com/baixueshaonian/picture/raw/20200114/3.png" alt="1579001192222"></p>
 <p>​    ABR1和ABR2会各产生LSA4，用于通告ASBR的位置，ABR1产生LSA4（cost=10），ABR2产生LSA4（cost = 20）.</p>
 <p>​    LSA5在Area1和Area0之间直接泛洪，不修改。在Area0，R1在做路由计算时，先执行SPF计算，计算所得最小成本路径书拓扑以R1自己作为树根，<strong>ABR1和ABR2是树上的两个节点。</strong></p>
 <p>​    LSA5路由作为叶子节点直接挂在ABR1和ABR2上，成本如图。</p>
-<p>​    <img src="C:%5CUsers%5Crongde%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1579006044262.png" alt="1579006044262"></p>
+<p>​    <img src="https://github.com/baixueshaonian/picture/raw/20200114/4.png" alt="1579006044262"></p>
 <p>​    R1计算到外部路由100.1.1.0/24的路由，一条路是经ABR1，成本是20+10+1；另外一条路是经ABR2，成本是10+20+1。</p>
 <p>​    所以R1访问100.1.1.0/24，负载分担，成本是31（注：此处假设外部路由metric-type = 1，如果metric-type = 2，计算成本没有变化，只不过是路由表里只记录外部成本而已）。</p>
 <hr>
@@ -166,7 +166,7 @@
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2020年01月14日 20:52</p>
+        <p>最后更新： 2020年01月16日 10:21</p>
         <p>原始链接： <a class="post-url" href="/2020/01/14/OSPF%E5%9C%BA%E6%99%AF%E5%88%86%E6%9E%90%EF%BC%88%E4%BA%8C%EF%BC%89/" title="OSPF场景分析（二）">http://yoursite.com/2020/01/14/OSPF%E5%9C%BA%E6%99%AF%E5%88%86%E6%9E%90%EF%BC%88%E4%BA%8C%EF%BC%89/</a></p>
         <footer>
             <a href="http://yoursite.com">
