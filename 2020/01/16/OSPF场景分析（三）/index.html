@@ -3,29 +3,26 @@
 <head>
   <meta charset="utf-8">
   
-  <title>OSPF特殊区域 | 白雪少年&#39;blog</title>
+  <title>OSPF场景分析（三） | 白雪少年&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="白雪少年's Blog" />
   
-  <meta name="description" content="特殊区域区域0不能设置为特殊区域 Stub———————-过滤LSA4、LSA5，不允许外部路由进入，ABR会下发三类LSA的默认路由去往外部。 Totally stub————过滤LSA3的明细、LSA4、LSA5，不允许外部路由和域间明细路由，ABR会下发LSA-3的默认路由去往外部。  123ospf 1  area 0.0.0.2 	stub no-summary-------------">
+  <meta name="description" content="场景分析（三）场景描述：如图所示，区域1是NSSA区域，R2和R3都是ABR，如果R1上引入外路由100.1.1.0&#x2F;24，其产生的LSA7将在区域1中泛洪。 需求：  （1）如果R1上有环回接口Loopback0，其地址为10.1.1.1&#x2F;32，并引入到OSPF中。请问Area0中,R4怎么访问100.1.1.0&#x2F;24？ 如果R1上引入外部路由100.1.1.0&#x2F;24,其产生的LSA7中FA！&#x3D;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="OSPF特殊区域">
-<meta property="og:url" content="http://yoursite.com/2020/01/15/OSPF%E7%89%B9%E6%AE%8A%E5%8C%BA%E5%9F%9F/index.html">
+<meta property="og:title" content="OSPF场景分析（三）">
+<meta property="og:url" content="http://yoursite.com/2020/01/16/OSPF%E5%9C%BA%E6%99%AF%E5%88%86%E6%9E%90%EF%BC%88%E4%B8%89%EF%BC%89/index.html">
 <meta property="og:site_name" content="白雪少年&#39;blog">
-<meta property="og:description" content="特殊区域区域0不能设置为特殊区域 Stub———————-过滤LSA4、LSA5，不允许外部路由进入，ABR会下发三类LSA的默认路由去往外部。 Totally stub————过滤LSA3的明细、LSA4、LSA5，不允许外部路由和域间明细路由，ABR会下发LSA-3的默认路由去往外部。  123ospf 1  area 0.0.0.2 	stub no-summary-------------">
+<meta property="og:description" content="场景分析（三）场景描述：如图所示，区域1是NSSA区域，R2和R3都是ABR，如果R1上引入外路由100.1.1.0&#x2F;24，其产生的LSA7将在区域1中泛洪。 需求：  （1）如果R1上有环回接口Loopback0，其地址为10.1.1.1&#x2F;32，并引入到OSPF中。请问Area0中,R4怎么访问100.1.1.0&#x2F;24？ 如果R1上引入外部路由100.1.1.0&#x2F;24,其产生的LSA7中FA！&#x3D;">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://github.com/baixueshaonian/picture/raw/20200115/1.png">
-<meta property="og:image" content="https://github.com/baixueshaonian/picture/raw/20200115/2.png">
-<meta property="og:image" content="https://github.com/baixueshaonian/picture/raw/20200115/3.png">
-<meta property="og:image" content="https://github.com/baixueshaonian/picture/raw/20200115/4.png">
-<meta property="article:published_time" content="2020-01-15T12:57:13.000Z">
-<meta property="article:modified_time" content="2020-01-16T02:13:04.813Z">
+<meta property="og:image" content="https://github.com/baixueshaonian/picture/raw/20200117/1.png">
+<meta property="article:published_time" content="2020-01-16T02:29:56.000Z">
+<meta property="article:modified_time" content="2020-01-17T08:11:38.338Z">
 <meta property="article:author" content="白雪少年">
 <meta property="article:tag" content="网络基础">
-<meta property="article:tag" content="OPSF">
+<meta property="article:tag" content="OSPF">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://github.com/baixueshaonian/picture/raw/20200115/1.png">
+<meta name="twitter:image" content="https://github.com/baixueshaonian/picture/raw/20200117/1.png">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -114,14 +111,14 @@
     </div>
 </header>
       <div class="outer">
-        <section id="main" class="body-wrap"><article id="post-OSPF特殊区域" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main" class="body-wrap"><article id="post-OSPF场景分析（三）" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="post-title" itemprop="name">
-      OSPF特殊区域
+      OSPF场景分析（三）
     </h1>
     <div class="post-title-bar">
       <ul>
@@ -134,7 +131,7 @@
               </li>
           
         <li>
-          <i class="fa fa-calendar"></i>  2020-01-15
+          <i class="fa fa-calendar"></i>  2020-01-16
         </li>
         <li>
           <i class="fa fa-eye"></i>
@@ -150,25 +147,28 @@
     <div class="article-entry post-content" itemprop="articleBody">
       
             
-            <h1 id="特殊区域"><a href="#特殊区域" class="headerlink" title="特殊区域"></a><strong>特殊区域</strong></h1><p>区域0不能设置为特殊区域</p>
-<p>Stub———————-过滤LSA4、LSA5，不允许外部路由进入，ABR会下发三类LSA的默认路由去往外部。</p>
-<p>Totally stub————过滤LSA3的明细、LSA4、LSA5，不允许外部路由和域间明细路由，ABR会下发LSA-3的默认路由去往外部。</p>
-<p><img src="https://github.com/baixueshaonian/picture/raw/20200115/1.png" alt="1579093241860"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ospf 1 </span><br><span class="line"> area 0.0.0.2</span><br><span class="line"> 	stub no-summary---------------只需要在ABR上配置</span><br></pre></td></tr></table></figure>
+            <h1 id="场景分析（三）"><a href="#场景分析（三）" class="headerlink" title="场景分析（三）"></a>场景分析（三）</h1><h2 id="场景描述："><a href="#场景描述：" class="headerlink" title="场景描述："></a>场景描述：</h2><p>如图所示，区域1是NSSA区域，R2和R3都是ABR，如果R1上引入外路由100.1.1.0/24，其产生的LSA7将在区域1中泛洪。</p>
+<p><strong>需求：</strong></p>
+<p><img src="https://github.com/baixueshaonian/picture/raw/20200117/1.png" alt="1579248113071"></p>
+<p><strong>（1）如果R1上有环回接口Loopback0，其地址为10.1.1.1/32，并引入到OSPF中。请问Area0中,R4怎么访问100.1.1.0/24？</strong></p>
+<p>如果R1上引入外部路由100.1.1.0/24,其产生的<strong>LSA7中FA！=0</strong>，华为设备<strong>优选环回地址</strong>作为FA。图中，R4根据链路成本，计算到10.1.1.1/32路由的路径是负载分担，由于OSPF访问外部路由100.1.1.0/24根据FA地址来选择路径，所以R4到100.1.1.0/24的路由在R4上是负载分担的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">&lt;R1&gt;dis ospf lsdb  nssa self-originate  </span><br><span class="line"></span><br><span class="line">	 OSPF Process 1 with Router ID 1.1.1.1</span><br><span class="line">		         Area: 0.0.0.1</span><br><span class="line">		 Link State Database </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  Type      : NSSA</span><br><span class="line">  Ls id     : 100.1.1.0---------------------引入直连的网段。</span><br><span class="line">  Adv rtr   : 1.1.1.1  </span><br><span class="line">  Ls age    : 1787 </span><br><span class="line">  Len       : 36 </span><br><span class="line">  Options   :  NP  </span><br><span class="line">  seq#      : 80000001 </span><br><span class="line">  chksum    : 0x5fe6</span><br><span class="line">  Net mask  : 255.255.255.0 </span><br><span class="line">  TOS 0  Metric: 1 </span><br><span class="line">  E type    : 2</span><br><span class="line">  Forwarding Address : 10.1.12.1 ------------------FA地址不是环回口！！</span><br><span class="line">  Tag       : 1 </span><br><span class="line">  Priority  : Low</span><br><span class="line"></span><br><span class="line">  Type      : NSSA</span><br><span class="line">  Ls id     : 10.1.1.1-------------------------引入OSPF环回口路由</span><br><span class="line">  Adv rtr   : 1.1.1.1  </span><br><span class="line">  Ls age    : 1353 </span><br><span class="line">  Len       : 36 </span><br><span class="line">  Options   :  NP  </span><br><span class="line">  seq#      : 80000001 </span><br><span class="line">  chksum    : 0xebb3</span><br><span class="line">  Net mask  : 255.255.255.255 </span><br><span class="line">  TOS 0  Metric: 1 </span><br><span class="line">  E type    : 2</span><br><span class="line">  Forwarding Address : 10.1.12.1 --------------------FA地址不是Loopback！！</span><br><span class="line">  Tag       : 1 </span><br><span class="line">  Priority  : Low</span><br></pre></td></tr></table></figure>
 
-<p>NSSA————过滤LSA-4、LSA-5，不允许其他区域外部路由进入，本区域设备可以引入外部路由，只能七类LSA进入。</p>
-<p><img src="https://github.com/baixueshaonian/picture/raw/20200115/2.png" alt="1579094348725"></p>
-<p>七类LSA   NSSA LSA————–由NSSA区域ASBR引入外部路由，只会在NSSA区域内存在，由ABR执行七转五的过程继续向其他区域内泛洪。（如果存在多台ABR，Router-id大的ABR负责7转5）</p>
-<p><img src="https://github.com/baixueshaonian/picture/raw/20200115/3.png" alt="1579094684562"></p>
-<p><img src="https://github.com/baixueshaonian/picture/raw/20200115/4.png" alt="1579094843094"></p>
-<p>Totally NSSA————-过滤LSA-3、LSA-4、LSA-5，允许本区域引入外部路由，域间明细和域外路由</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ospf 1 </span><br><span class="line"></span><br><span class="line">area 0.0.0.2</span><br><span class="line"></span><br><span class="line">  nssa  no-summary</span><br></pre></td></tr></table></figure>
-
+<p>（2）如果使用nssa translator-always命令，同时置R2和R3为7/5转换器，二者都产生LSA5.请问，Area0中R4如何访问100.1.1.0/24的网络？</p>
+<p>使用nssa translator-always命令后，R2和R3同时执行7/5转换，二者都向Area0通告LSA5，两份生成的LSA5都没有修改LSA7的内容，仅仅AdvertisingRouter是R2和R3，被修改成R2和R3的RouterID。两份产生的LSA5中，FA地址是一样的内容，Area0中R4根据FA地址执行选路。</p>
+<p>​    所以R4选路结果依然是负载分担，但由于Area0中每条路由有两份LSA5，所以系统开销有所增加。</p>
+<p>（3）修改图中的环境，去掉环回接口后，重新引入外部路由，此时，R1会选择物理接口的IP地址    充当FA。<strong>如果FA=10.1.12.1，从图中可知，R4访问10.1.12.1选路经过R2。</strong>如果ASBR R1引入大量外部路由，FA地址都一样，访问任何外部网络都要经过R2，如果R2是性能较低的设备，则会有次优路径或瓶颈。</p>
+<p><strong>解决方法：</strong></p>
+<p>图中，在区域边界路由器R2/R3上，配置NSSA Translator-always后，在7/5转换时，强制R3在产生LSA5时，抑制其中的FA，则在Area0的LSDB中出现两份LSA5，一份经过R2产生，FA=12.1.1.1；一份经过R3产生，FA=0.0.0.0。根据FA的内容可知，若转发数据报文到100.1.1.0/24，报文若转发给10.1.12.1 ，开销是30；R3产生的LSA5，其FA=0，报文转发给R3，其路径开销是10.R4计算外部路由时，选择路由成本小的，所以路由表里到100.1.1.0/24路由的下一跳是R3，如果R3路径失效不可达，则备份路径是R2.</p>
+<hr>
+<p><strong>结论：</strong></p>
+<p>由于执行7/5翻译的LSA7的FA值不为0，翻译后的LSA5的FA值没有变化，在骨干区域或者其他普通区域，路由器依据LSA3路由来决定选路。如果FA在7/5翻译时，执行FA抑制，这样会导致产生的LSA5中FA=0，访问外部网络依据到NSSA ABR的距离远近决定。</p>
+<hr>
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2020年01月16日 10:13</p>
-        <p>原始链接： <a class="post-url" href="/2020/01/15/OSPF%E7%89%B9%E6%AE%8A%E5%8C%BA%E5%9F%9F/" title="OSPF特殊区域">http://yoursite.com/2020/01/15/OSPF%E7%89%B9%E6%AE%8A%E5%8C%BA%E5%9F%9F/</a></p>
+        <p>最后更新： 2020年01月17日 16:11</p>
+        <p>原始链接： <a class="post-url" href="/2020/01/16/OSPF%E5%9C%BA%E6%99%AF%E5%88%86%E6%9E%90%EF%BC%88%E4%B8%89%EF%BC%89/" title="OSPF场景分析（三）">http://yoursite.com/2020/01/16/OSPF%E5%9C%BA%E6%99%AF%E5%88%86%E6%9E%90%EF%BC%88%E4%B8%89%EF%BC%89/</a></p>
         <footer>
             <a href="http://yoursite.com">
                 <img src="/images/logo.png" alt="白雪少年">
@@ -225,7 +225,7 @@
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/01/15/OSPF%E7%89%B9%E6%AE%8A%E5%8C%BA%E5%9F%9F/&title=《OSPF特殊区域》 — 白雪少年'blog&pic=https://github.com/baixueshaonian/picture/blob/cover/network.jpg?raw=true" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/01/16/OSPF%E5%9C%BA%E6%99%AF%E5%88%86%E6%9E%90%EF%BC%88%E4%B8%89%EF%BC%89/&title=《OSPF场景分析（三）》 — 白雪少年'blog&pic=https://github.com/baixueshaonian/picture/blob/cover/network.jpg?raw=true" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -235,22 +235,22 @@
             </a>
           </li>
           <li>
-            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/01/15/OSPF%E7%89%B9%E6%AE%8A%E5%8C%BA%E5%9F%9F/&title=《OSPF特殊区域》 — 白雪少年'blog&source=" data-title="QQ">
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/01/16/OSPF%E5%9C%BA%E6%99%AF%E5%88%86%E6%9E%90%EF%BC%88%E4%B8%89%EF%BC%89/&title=《OSPF场景分析（三）》 — 白雪少年'blog&source=" data-title="QQ">
               <i class="fa fa-qq"></i>
             </a>
           </li>
           <li>
-            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2020/01/15/OSPF%E7%89%B9%E6%AE%8A%E5%8C%BA%E5%9F%9F/" data-title="Facebook">
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2020/01/16/OSPF%E5%9C%BA%E6%99%AF%E5%88%86%E6%9E%90%EF%BC%88%E4%B8%89%EF%BC%89/" data-title="Facebook">
               <i class="fa fa-facebook"></i>
             </a>
           </li>
           <li>
-            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《OSPF特殊区域》 — 白雪少年'blog&url=http://yoursite.com/2020/01/15/OSPF%E7%89%B9%E6%AE%8A%E5%8C%BA%E5%9F%9F/&via=http://yoursite.com" data-title="Twitter">
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《OSPF场景分析（三）》 — 白雪少年'blog&url=http://yoursite.com/2020/01/16/OSPF%E5%9C%BA%E6%99%AF%E5%88%86%E6%9E%90%EF%BC%88%E4%B8%89%EF%BC%89/&via=http://yoursite.com" data-title="Twitter">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
           <li>
-            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2020/01/15/OSPF%E7%89%B9%E6%AE%8A%E5%8C%BA%E5%9F%9F/" data-title="Google+">
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2020/01/16/OSPF%E5%9C%BA%E6%99%AF%E5%88%86%E6%9E%90%EF%BC%88%E4%B8%89%EF%BC%89/" data-title="Google+">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -260,7 +260,7 @@
 <div class="post-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;" id="wxShare-close">×</a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://yoursite.com/2020/01/15/OSPF%E7%89%B9%E6%AE%8A%E5%8C%BA%E5%9F%9F/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://yoursite.com/2020/01/16/OSPF%E5%9C%BA%E6%99%AF%E5%88%86%E6%9E%90%EF%BC%88%E4%B8%89%EF%BC%89/" alt="微信分享二维码">
 </div>
 
 <div class="mask"></div>
@@ -274,7 +274,7 @@
       
     <a href="/tags/网络基础/" class="color5">网络基础</a>
       
-    <a href="/tags/OPSF/" class="color5">OPSF</a>
+    <a href="/tags/OSPF/" class="color5">OSPF</a>
       
   </li>
 
@@ -287,26 +287,26 @@
 
     <aside class="post-toc-pos post-toc-top" id="post-toc">
         <nav class="post-toc-wrap">
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#特殊区域"><span class="post-toc-text">特殊区域</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#场景分析（三）"><span class="post-toc-text">场景分析（三）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#场景描述："><span class="post-toc-text">场景描述：</span></a></li></ol></li></ol>
         </nav>
     </aside>
     
 
 <nav id="article-nav">
   
-    <a href="/2020/01/16/OSPF%E5%9C%BA%E6%99%AF%E5%88%86%E6%9E%90%EF%BC%88%E4%B8%89%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/01/17/OSPF%E5%9C%BA%E6%99%AF%E5%88%86%E6%9E%90%EF%BC%88%E5%9B%9B%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
 
       <span class="article-nav-title">
         <i class="fa fa-hand-o-left" aria-hidden="true"></i>
         
-          OSPF场景分析（三）
+          OSPF场景分析（四）
         
       </span>
     </a>
   
   
-    <a href="/2020/01/15/OSPF%E6%9B%B4%E6%96%B0%E8%B7%AF%E7%94%B1/" id="article-nav-older" class="article-nav-link-wrap">
-      <span class="article-nav-title">OSPF更新路由</span>
+    <a href="/2020/01/15/OSPF%E7%89%B9%E6%AE%8A%E5%8C%BA%E5%9F%9F/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">OSPF特殊区域</span>
       <i class="fa fa-hand-o-right" aria-hidden="true"></i>
     </a>
   
